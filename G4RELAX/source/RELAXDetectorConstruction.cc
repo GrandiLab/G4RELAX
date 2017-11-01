@@ -437,7 +437,7 @@ void RELAXDetectorConstruction::ConstructLaboratory()
                                       dPTFE02Radius7,
                                       dPTFE02Radius8,
                                       dPTFE02Radius9,
-                                      dPTFE02Radius10,
+                                     dPTFE02Radius10,
                                       dPTFE02Radius11,
                                       dPTFE02Radius12,
                                       dPTFE02Radius13,
@@ -523,6 +523,7 @@ std::map<G4String, G4Material*>* RELAXDetectorConstruction::GetMaterialTable()
     for(std::vector<G4Material*>::iterator iterable = pMaterialVector->begin(); iterable != pMaterialVector->end(); iterable++)
     {
         G4cout << "Key: " << (*iterable)->GetName() << G4endl;
+        G4cout << "Value: " << (*iterable) << G4endl;
         // mMaterialTable->insert(std::pair<G4String, G4Material*>((*iterable)->GetName(), (*iterable)));
     }
     
