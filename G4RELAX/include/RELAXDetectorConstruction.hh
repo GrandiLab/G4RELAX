@@ -39,7 +39,7 @@ private:
     // List of Functions
     void DefineMaterials();
     void ConstructLaboratory();
-    map<G4String, G4Material*>* GetMaterialTable();
+    std::map<G4String, G4Material*>* GetMaterialTable();
 
     // List of Volumes
     G4LogicalVolume* pMotherLV;
