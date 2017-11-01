@@ -512,22 +512,22 @@ void RELAXDetectorConstruction::ConstructLaboratory()
     pPTFE02LV = new G4LogicalVolume(pPTFE02, (*pMaterialTable)["PTFE"], "PTFE02");
     pPTFE02PV = new G4PVPlacement(0, dPTFE02Placement, pPTFE02LV, "PTFE02", pMotherLV, false, 0);
     
-    // delete pMaterialTable;
+    delete pMaterialTable;
 }
 
 std::map<G4String, G4Material*>* RELAXDetectorConstruction::GetMaterialTable()
 {
-    std::map<G4String, G4Material*>* mMaterialTable;
+    std::map<G4String, G4Material*>* mMaterialTable = new std::map<G4String, G4Material*>* mMaterialTable;
     G4MaterialTable* pMaterialVector = G4Material::GetMaterialTable();
     
     for(std::vector<G4Material*>::iterator iterable = pMaterialVector->begin(); iterable != pMaterialVector->end(); ++iterable)
     {
         G4cout << "Key: " << (*iterable)->GetName() << G4endl;
         G4cout << "Value: " << (*iterable) << G4endl;
-        mMaterialTable->insert(std::pair<G4String, G4Material*>((*iterable)->GetName(), (*(*iterable))));
+        mMaterialTable->insert(std::pair<G4String, G4Material*>((*iterable)->GetName(), (*iterable)));
     }
     
-    // G4cout << mMaterialTable << G4endl;
+    G4cout << mMaterialTable << G4endl;
 
     return mMaterialTable;
 }
