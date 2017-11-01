@@ -377,7 +377,7 @@ void RELAXDetectorConstruction::ConstructLaboratory()
     ////////////////////////////
     // Get the Material Table //
     ////////////////////////////
-    map<G4String, G4Material*>* pMaterialTable = GetMaterialTable();
+    std::map<G4String, G4Material*>* pMaterialTable = GetMaterialTable();
     
     //////////////////////////
     // Construct Laboratory //
