@@ -522,7 +522,7 @@ std::map<G4String, G4Material*>* RELAXDetectorConstruction::GetMaterialTable()
     
     for(std::vector<G4Material*>::iterator iterable = pMaterialVector->begin(); iterable != pMaterialVector->end(); iterable++)
     {
-        mMaterialTable->insert(std::pair<G4String, G4Material*>(iterable->GetName(), iterable));
+        mMaterialTable->insert(std::pair<G4String, G4Material*>((*iterable)->GetName(), (*iterable)));
     }
     
     G4cout << mMaterialTable << G4endl;
