@@ -517,7 +517,7 @@ void RELAXDetectorConstruction::ConstructLaboratory()
 
 std::map<G4String, G4Material*>* RELAXDetectorConstruction::GetMaterialTable()
 {
-    std::map<G4String, G4Material*>* mMaterialTable = new std::map<G4String, G4Material*>*();
+    std::map<G4String, G4Material*>* mMaterialTable = new std::map<G4String, G4Material*>*;
     G4MaterialTable* pMaterialVector = G4Material::GetMaterialTable();
     
     for(std::vector<G4Material*>::iterator iterable = pMaterialVector->begin(); iterable != pMaterialVector->end(); ++iterable)
