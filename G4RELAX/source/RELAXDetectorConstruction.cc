@@ -524,7 +524,7 @@ std::map<G4String, G4Material*>* RELAXDetectorConstruction::GetMaterialTable()
     {
         G4cout << "Key: " << (*iterable)->GetName() << G4endl;
         G4cout << "Value: " << (*iterable) << G4endl;
-        mMaterialTable->insert(std::pair<G4String, G4Material*>((*iterable)->GetName(), (*iterable)));
+        mMaterialTable->insert(std::pair<G4String, G4Material*>((*iterable)->GetName(), (*(*iterable))));
     }
     
     // G4cout << mMaterialTable << G4endl;
