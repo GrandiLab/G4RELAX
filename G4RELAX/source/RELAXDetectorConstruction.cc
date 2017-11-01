@@ -405,27 +405,27 @@ void RELAXDetectorConstruction::ConstructLaboratory()
     // Set Laboratory Variables
     G4double  dPTFE02Radius1 = 32.0 * mm;
     G4double  dPTFE02Radius2 = 35.0 * mm;
-    G4double  dPTFE02Radius3 = dPTFE02Radius2
+    G4double  dPTFE02Radius3 = dPTFE02Radius2;
     G4double  dPTFE02Radius4 = 43.0 * mm;
-    G4double  dPTFE02Radius5 = dPTFE02Radius4
+    G4double  dPTFE02Radius5 = dPTFE02Radius4;
     G4double  dPTFE02Radius6 = 52.5 * mm;
-    G4double  dPTFE02Radius7 = dPTFE02Radius6
+    G4double  dPTFE02Radius7 = dPTFE02Radius6;
     G4double  dPTFE02Radius8 = 54.0 * mm;
-    G4double  dPTFE02Radius9 = dPTFE02Radius8
+    G4double  dPTFE02Radius9 = dPTFE02Radius8;
     G4double dPTFE02Radius10 = 36.0 * mm;
-    G4double dPTFE02Radius11 = dPTFE02Radius10
-    G4double dPTFE02Radius12 = dPTFE02Radius2
-    G4double dPTFE02Radius13 = dPTFE02Radius2
-    G4double dPTFE02Radius14 = dPTFE02Radius10
-    G4double dPTFE02Radius15 = dPTFE02Radius10
-    G4double dPTFE02Radius16 = dPTFE02Radius8
-    G4double dPTFE02Radius17 = dPTFE02Radius8
-    G4double dPTFE02Radius18 = dPTFE02Radius6
-    G4double dPTFE02Radius19 = dPTFE02Radius6
-    G4double dPTFE02Radius20 = dPTFE02Radius4
-    G4double dPTFE02Radius21 = dPTFE02Radius4
-    G4double dPTFE02Radius22 = dPTFE02Radius2
-    G4double dPTFE02Radius23 = dPTFE02Radius2
+    G4double dPTFE02Radius11 = dPTFE02Radius10;
+    G4double dPTFE02Radius12 = dPTFE02Radius2;
+    G4double dPTFE02Radius13 = dPTFE02Radius2;
+    G4double dPTFE02Radius14 = dPTFE02Radius10;
+    G4double dPTFE02Radius15 = dPTFE02Radius10;
+    G4double dPTFE02Radius16 = dPTFE02Radius8;
+    G4double dPTFE02Radius17 = dPTFE02Radius8;
+    G4double dPTFE02Radius18 = dPTFE02Radius6;
+    G4double dPTFE02Radius19 = dPTFE02Radius6;
+    G4double dPTFE02Radius20 = dPTFE02Radius4;
+    G4double dPTFE02Radius21 = dPTFE02Radius4;
+    G4double dPTFE02Radius22 = dPTFE02Radius2;
+    G4double dPTFE02Radius23 = dPTFE02Radius2;
     G4double dPTFE02Radius24 = dPTFE02Radius1;
 
     G4double dPTFE02RadiusArray[] = { dPTFE02Radius1,
@@ -509,8 +509,8 @@ void RELAXDetectorConstruction::ConstructLaboratory()
     G4ThreeVector dPTFE02Placement(dPTFE02PlacementX, DPTFE02PlacementY, dPTFE02PlacementZ);
 
     G4GenericPolycone* pPTFE02 = new G4GenericPolycone("PTFE02", 0, 2 * M_PI, 24, dPTFE02RadiusArray, dPTFE02HeightArray);
-    G4LogicalVolume* pPTFE02LV = new G4LogicalVolume(pPTFE02, pMaterialTable["PTFE"], "PTFE02");
-    G4VPhysicalVolume* pPTFE02PV = new G4PVPlacement(0, dPTFE02Placement, pPTFE02LV, "PTFE02", pMotherLV, false, 0);
+    pPTFE02LV = new G4LogicalVolume(pPTFE02, pMaterialTable["PTFE"], "PTFE02");
+    pPTFE02PV = new G4PVPlacement(0, dPTFE02Placement, pPTFE02LV, "PTFE02", pMotherLV, false, 0);
     
     delete pMaterialTable;
 }
