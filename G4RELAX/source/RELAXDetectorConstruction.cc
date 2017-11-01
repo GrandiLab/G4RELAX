@@ -403,16 +403,16 @@ void RELAXDetectorConstruction::ConstructLaboratory()
     //////////////////////
     
     // Set Laboratory Variables
-    G4double  dPTFE02Radius1 = 32.0 * mm;
-    G4double  dPTFE02Radius2 = 35.0 * mm;
+    G4double  dPTFE02Radius1 = 32.000 * mm;
+    G4double  dPTFE02Radius2 = 35.000 * mm;
     G4double  dPTFE02Radius3 = dPTFE02Radius2;
-    G4double  dPTFE02Radius4 = 43.0 * mm;
+    G4double  dPTFE02Radius4 = 43.000 * mm;
     G4double  dPTFE02Radius5 = dPTFE02Radius4;
-    G4double  dPTFE02Radius6 = 52.5 * mm;
+    G4double  dPTFE02Radius6 = 52.500 * mm;
     G4double  dPTFE02Radius7 = dPTFE02Radius6;
-    G4double  dPTFE02Radius8 = 54.0 * mm;
+    G4double  dPTFE02Radius8 = 54.000 * mm;
     G4double  dPTFE02Radius9 = dPTFE02Radius8;
-    G4double dPTFE02Radius10 = 36.0 * mm;
+    G4double dPTFE02Radius10 = 36.000 * mm;
     G4double dPTFE02Radius11 = dPTFE02Radius10;
     G4double dPTFE02Radius12 = dPTFE02Radius2;
     G4double dPTFE02Radius13 = dPTFE02Radius2;
@@ -453,17 +453,17 @@ void RELAXDetectorConstruction::ConstructLaboratory()
                                       dPTFE02Radius23,
                                       dPTFE02Radius24};
     
-    G4double  dPTFE02Height1 = 20.525 * mm;
+    G4double  dPTFE02Height1 =  20.525 * mm;
     G4double  dPTFE02Height2 = dPTFE02Height1;
-    G4double  dPTFE02Height3 = 19.125 * mm;
+    G4double  dPTFE02Height3 =  19.125 * mm;
     G4double  dPTFE02Height4 = dPTFE02Height3;
-    G4double  dPTFE02Height5 = 20.625 * mm;
+    G4double  dPTFE02Height5 =  20.625 * mm;
     G4double  dPTFE02Height6 = dPTFE02Height5;
-    G4double  dPTFE02Height7 = 18.875 * mm;
+    G4double  dPTFE02Height7 =  18.875 * mm;
     G4double  dPTFE02Height8 = dPTFE02Height7;
-    G4double  dPTFE02Height9 = 15.125 * mm;
+    G4double  dPTFE02Height9 =  15.125 * mm;
     G4double dPTFE02Height10 = dPTFE02Height9;
-    G4double dPTFE02Height11 = 16.125 * mm;
+    G4double dPTFE02Height11 =  16.125 * mm;
     G4double dPTFE02Height12 = dPTFE02Height11;
     G4double dPTFE02Height13 = -14.875 * mm;
     G4double dPTFE02Height14 = dPTFE02Height13;
@@ -520,11 +520,11 @@ std::map<G4String, G4Material*>* RELAXDetectorConstruction::GetMaterialTable()
     std::map<G4String, G4Material*>* mMaterialTable;
     G4MaterialTable* pMaterialVector = G4Material::GetMaterialTable();
     
-    for(std::vector<G4Material*>::iterator iterable = pMaterialVector->begin(); iterable != pMaterialVector->end(); iterable++)
+    for(std::vector<G4Material*>::iterator iterable = pMaterialVector->begin(); iterable != pMaterialVector->end(); ++iterable)
     {
         G4cout << "Key: " << (*iterable)->GetName() << G4endl;
         G4cout << "Value: " << (*iterable) << G4endl;
-        // mMaterialTable->insert(std::pair<G4String, G4Material*>((*iterable)->GetName(), (*iterable)));
+        mMaterialTable->insert(std::pair<G4String, G4Material*>((*iterable)->GetName(), (*iterable)));
     }
     
     // G4cout << mMaterialTable << G4endl;
