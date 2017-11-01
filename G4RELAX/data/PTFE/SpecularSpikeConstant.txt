@@ -1,0 +1,4 @@
+Wavelength [nm]  Specular Spike Constant
+   176.00000              0.010
+   177.50000              0.010
+   179.50000              0.010

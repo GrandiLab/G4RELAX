@@ -1,0 +1,4 @@
+Wavelength [nm]  Index of Refraction
+   176.00000           1.58000
+   177.50000           1.61000
+   179.50000           1.63000

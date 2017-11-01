@@ -1,0 +1,4 @@
+Wavelength [nm]  Absorption Length [m]
+   100.00000            1.0000
+   200.00000            1.0000
+   300.00000            1.0000
