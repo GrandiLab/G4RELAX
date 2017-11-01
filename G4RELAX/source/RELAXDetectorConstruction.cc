@@ -390,7 +390,7 @@ void RELAXDetectorConstruction::ConstructLaboratory()
 
     // Create Laboratory
     G4Box* pLaboratoryBox = new G4Box("LaboratoryBox", 0.5 * dLaboratoryLength, 0.5 * dLaboratoryWidth, 0.5 * dLaboratoryHeight);
-    pLaboratoryLV = new G4LogicalVolume(pLaboratoryBox, pMaterialTable["Air"], "LaboratoryLV");
+    pLaboratoryLV = new G4LogicalVolume(pLaboratoryBox, (*pMaterialTable)["Air"], "LaboratoryLV");
     pLaboratoryPV = new G4PVPlacement(0, G4ThreeVector(), pLaboratoryLV, "Laboratory", 0, false, 0);
 
     pLaboratoryLV->SetVisAttributes(G4VisAttributes::Invisible);
@@ -509,7 +509,7 @@ void RELAXDetectorConstruction::ConstructLaboratory()
     G4ThreeVector dPTFE02Placement(dPTFE02PlacementX, dPTFE02PlacementY, dPTFE02PlacementZ);
 
     G4GenericPolycone* pPTFE02 = new G4GenericPolycone("PTFE02", 0, 2 * M_PI, 24, dPTFE02RadiusArray, dPTFE02HeightArray);
-    pPTFE02LV = new G4LogicalVolume(pPTFE02, pMaterialTable["PTFE"], "PTFE02");
+    pPTFE02LV = new G4LogicalVolume(pPTFE02, (*pMaterialTable)["PTFE"], "PTFE02");
     pPTFE02PV = new G4PVPlacement(0, dPTFE02Placement, pPTFE02LV, "PTFE02", pMotherLV, false, 0);
     
     delete pMaterialTable;
@@ -520,7 +520,7 @@ std::map<G4String, G4Material*>* RELAXDetectorConstruction::GetMaterialTable()
     std::map<G4String, G4Material*>* mMaterialTable;
     G4MaterialTable* pMaterialVector = G4Material::GetMaterialTable();
     
-    for(vector<G4Material*>::iterator iterable = pMaterialVector->begin(); iterable != pMaterialVector->end(); iterable++)
+    for(std::vector<G4Material*>::iterator iterable = pMaterialVector->begin(); iterable != pMaterialVector->end(); iterable++)
     {
         mMaterialTable->insert(std::pair<G4String, G4Material*>(iterable->GetName(), iterable));
     }
