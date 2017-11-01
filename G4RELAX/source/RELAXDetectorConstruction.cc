@@ -512,7 +512,7 @@ void RELAXDetectorConstruction::ConstructLaboratory()
     pPTFE02LV = new G4LogicalVolume(pPTFE02, (*pMaterialTable)["PTFE"], "PTFE02");
     pPTFE02PV = new G4PVPlacement(0, dPTFE02Placement, pPTFE02LV, "PTFE02", pMotherLV, false, 0);
     
-    delete pMaterialTable;
+    // delete pMaterialTable;
 }
 
 std::map<G4String, G4Material*>* RELAXDetectorConstruction::GetMaterialTable()
