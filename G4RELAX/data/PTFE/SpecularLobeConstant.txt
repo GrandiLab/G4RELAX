@@ -1,0 +1,4 @@
+Wavelength [nm]  Specular Lobe Constant
+   176.00000             0.0100
+   177.50000             0.0100
+   179.50000             0.0100

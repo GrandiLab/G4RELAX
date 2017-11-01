@@ -1,0 +1,4 @@
+Wavelength [nm]  Rayleigh Scattering Length [m]
+   100.00000                100.0000
+   200.00000                100.0000
+   300.00000                100.0000
