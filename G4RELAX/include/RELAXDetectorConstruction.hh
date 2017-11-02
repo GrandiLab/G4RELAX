@@ -47,6 +47,10 @@ private:
     G4LogicalVolume* pLaboratoryLV;
     G4VPhysicalVolume* pLaboratoryPV;
     
+    G4LogicalVolume* pPTFE00LV;
+    G4VPhysicalVolume* pPTFE00PV;
+    G4LogicalVolume* pPTFE01LV;
+    G4VPhysicalVolume* pPTFE01PV;
     G4LogicalVolume* pPTFE02LV;
     G4VPhysicalVolume* pPTFE02PV;
 };
