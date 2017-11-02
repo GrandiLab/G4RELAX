@@ -496,7 +496,7 @@ void RELAXDetectorConstruction::ConstructLaboratory()
 
     G4double dPTFE01PlacementX = 0.00 * mm;
     G4double dPTFE01PlacementY = 0.00 * mm;
-    G4double dPTFE01PlacementZ = dPTFE01Height5 + dPTFE00Height1 + 5 * mm;
+    G4double dPTFE01PlacementZ = dPTFE01Height5 + dPTFE00Height1 * mm;
     G4ThreeVector dPTFE01Placement(dPTFE01PlacementX, dPTFE01PlacementY, dPTFE01PlacementZ);
 
     G4GenericPolycone* pPTFE01 = new G4GenericPolycone("PTFE01", 0, 2 * M_PI, 12, dPTFE01RadiusArray, dPTFE01HeightArray);
@@ -596,7 +596,7 @@ void RELAXDetectorConstruction::ConstructLaboratory()
 
     G4double dPTFE02PlacementX = 0.000 * mm;
     G4double dPTFE02PlacementY = 0.000 * mm;
-    G4double dPTFE02PlacementZ = dPTFE01PlacementZ + dPTFE02Height5 + dPTFE01Height5 + 10 * mm;
+    G4double dPTFE02PlacementZ = dPTFE01PlacementZ + dPTFE02Height5 + dPTFE01Height5 * mm;
     G4ThreeVector dPTFE02Placement(dPTFE02PlacementX, dPTFE02PlacementY, dPTFE02PlacementZ);
 
     G4GenericPolycone* pPTFE02 = new G4GenericPolycone("PTFE02", 0, 2 * M_PI, 20, dPTFE02RadiusArray, dPTFE02HeightArray);
@@ -604,12 +604,12 @@ void RELAXDetectorConstruction::ConstructLaboratory()
     pPTFE02PV = new G4PVPlacement(0, dPTFE02Placement, pPTFE02LV, "PTFE02", pMotherLV, false, 0);
 
     G4VisAttributes * pPTFE00VisAtt = new G4VisAttributes(G4Colour(0.,1.,1.));
-    pPTFE00VisAtt->SetForceSolid(true);
+   pPTFE00VisAtt->SetForceSolid(true);
     pPTFE00LV->SetVisAttributes(pPTFE00VisAtt);
 
     G4VisAttributes * pPTFE01VisAtt = new G4VisAttributes(G4Colour(0.,1.,1.));
-//    pPTFE01VisAtt->SetForceSolid(true);
-    pPTFE01LV->SetVisAttributes(pPTFE00VisAtt);
+    pPTFE01VisAtt->SetForceSolid(true);
+    pPTFE01LV->SetVisAttributes(pPTFE01VisAtt);
 
 
     G4VisAttributes * pPTFE02VisAtt = new G4VisAttributes(G4Colour(0.,1.,1.));
