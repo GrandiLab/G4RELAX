@@ -616,5 +616,4 @@ void RELAXDetectorConstruction::ConstructLaboratory()
     pPTFE02VisAtt->SetForceSolid(true);
     pPTFE02LV->SetVisAttributes(pPTFE00VisAtt);
 
-    delete pMaterialTable;
 }
