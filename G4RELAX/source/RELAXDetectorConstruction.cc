@@ -499,7 +499,7 @@ void RELAXDetectorConstruction::ConstructLaboratory()
     // Set PTFE01 placement values
     G4double dPTFE01PlacementX = 0.00 * mm;
     G4double dPTFE01PlacementY = 0.00 * mm;
-    G4double dPTFE01PlacementZ = dPTFE01Height5 + dPTFE00Height1 * mm;
+    G4double dPTFE01PlacementZ = dPTFE01Height1 + dPTFE00Height1;
     G4ThreeVector dPTFE01Placement(dPTFE01PlacementX, dPTFE01PlacementY, dPTFE01PlacementZ);
 
     // Create PTFE01
@@ -572,8 +572,8 @@ void RELAXDetectorConstruction::ConstructLaboratory()
     G4double dPTFE02Height14 = dPTFE02Height13;
     G4double dPTFE02Height15 = -dPTFE02Height5;
     G4double dPTFE02Height16 = -dPTFE02Height5;
-    G4double dPTFE02Height17 = -dPTFE02Height2;
-    G4double dPTFE02Height18 = -dPTFE02Height2;
+    G4double dPTFE02Height17 = -dPTFE02Height3;
+    G4double dPTFE02Height18 = -dPTFE02Height3;
     G4double dPTFE02Height19 = -dPTFE02Height1;
     G4double dPTFE02Height20 = -dPTFE02Height1;
 
@@ -601,7 +601,7 @@ void RELAXDetectorConstruction::ConstructLaboratory()
     // Set PTFE02 Placement Values
     G4double dPTFE02PlacementX = 0.000 * mm;
     G4double dPTFE02PlacementY = 0.000 * mm;
-    G4double dPTFE02PlacementZ = dPTFE01PlacementZ + dPTFE02Height5 + dPTFE01Height5 * mm;
+    G4double dPTFE02PlacementZ = dPTFE01PlacementZ + dPTFE02Height1 + dPTFE01Height1;
     G4ThreeVector dPTFE02Placement(dPTFE02PlacementX, dPTFE02PlacementY, dPTFE02PlacementZ);
 
     // Create PTFE02
