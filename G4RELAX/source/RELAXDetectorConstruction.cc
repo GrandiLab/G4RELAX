@@ -397,7 +397,7 @@ void RELAXDetectorConstruction::ConstructLaboratory()
     // Construct PTFE00 //
     //////////////////////
 
-    // Set Laboratory Variables
+    // Set PTFE00 Variables
     G4double  dPTFE00Radius1 = 29.00 * mm;
     G4double  dPTFE00Radius2 = 54.00 * mm;
     G4double  dPTFE00Radius3 = dPTFE00Radius2;
@@ -426,11 +426,13 @@ void RELAXDetectorConstruction::ConstructLaboratory()
                                       dPTFE00Height5,
                                       dPTFE00Height6};
 
+    // Set PTFE00 placement values
     G4double dPTFE00PlacementX = 0.000 * mm;
     G4double dPTFE00PlacementY = 0.000 * mm;
     G4double dPTFE00PlacementZ = 0.000 * mm;
     G4ThreeVector dPTFE00Placement(dPTFE00PlacementX, dPTFE00PlacementY, dPTFE00PlacementZ);
 
+    // Create PTFE00
     G4GenericPolycone* pPTFE00 = new G4GenericPolycone("PTFE00", 0, 2 * M_PI, 6, dPTFE00RadiusArray, dPTFE00HeightArray);
     pPTFE00LV = new G4LogicalVolume(pPTFE00, G4Material::GetMaterial("PTFE"), "PTFE00");
     pPTFE00PV = new G4PVPlacement(0, dPTFE00Placement, pPTFE00LV, "PTFE00", pMotherLV, false, 0);
@@ -440,7 +442,7 @@ void RELAXDetectorConstruction::ConstructLaboratory()
     // Construct PTFE01 //
     //////////////////////
 
-    // Set Laboratory Variables
+    // Set PTFE01 Variables
     G4double   dPTFE01Radius1 = 32.00 * mm;
     G4double   dPTFE01Radius2 = 35.00 * mm;
     G4double   dPTFE01Radius3 = dPTFE01Radius2;
@@ -494,11 +496,13 @@ void RELAXDetectorConstruction::ConstructLaboratory()
                                       dPTFE01Height11,
                                       dPTFE01Height12};
 
+    // Set PTFE01 placement values
     G4double dPTFE01PlacementX = 0.00 * mm;
     G4double dPTFE01PlacementY = 0.00 * mm;
     G4double dPTFE01PlacementZ = dPTFE01Height5 + dPTFE00Height1 * mm;
     G4ThreeVector dPTFE01Placement(dPTFE01PlacementX, dPTFE01PlacementY, dPTFE01PlacementZ);
 
+    // Create PTFE01
     G4GenericPolycone* pPTFE01 = new G4GenericPolycone("PTFE01", 0, 2 * M_PI, 12, dPTFE01RadiusArray, dPTFE01HeightArray);
     pPTFE01LV = new G4LogicalVolume(pPTFE01, G4Material::GetMaterial("PTFE"), "PTFE01");
     pPTFE01PV = new G4PVPlacement(0, dPTFE01Placement, pPTFE01LV, "PTFE01", pMotherLV, false, 0);
@@ -509,7 +513,7 @@ void RELAXDetectorConstruction::ConstructLaboratory()
     // Construct PTFE02 //
     //////////////////////
 
-    // Set Laboratory Variables
+    // Set PTFE02 Variables
     G4double  dPTFE02Radius1 = 32.000 * mm;
     G4double  dPTFE02Radius2 = 35.000 * mm;
     G4double  dPTFE02Radius3 = dPTFE02Radius2;
@@ -594,17 +598,20 @@ void RELAXDetectorConstruction::ConstructLaboratory()
                                      dPTFE02Height19,
                                      dPTFE02Height20};
 
+    // Set PTFE02 Placement Values
     G4double dPTFE02PlacementX = 0.000 * mm;
     G4double dPTFE02PlacementY = 0.000 * mm;
     G4double dPTFE02PlacementZ = dPTFE01PlacementZ + dPTFE02Height5 + dPTFE01Height5 * mm;
     G4ThreeVector dPTFE02Placement(dPTFE02PlacementX, dPTFE02PlacementY, dPTFE02PlacementZ);
 
+    // Create PTFE02
     G4GenericPolycone* pPTFE02 = new G4GenericPolycone("PTFE02", 0, 2 * M_PI, 20, dPTFE02RadiusArray, dPTFE02HeightArray);
     pPTFE02LV = new G4LogicalVolume(pPTFE02, G4Material::GetMaterial("PTFE"), "PTFE02");
     pPTFE02PV = new G4PVPlacement(0, dPTFE02Placement, pPTFE02LV, "PTFE02", pMotherLV, false, 0);
 
+    // Make the pieces cyan and solid
     G4VisAttributes * pPTFE00VisAtt = new G4VisAttributes(G4Colour(0.,1.,1.));
-   pPTFE00VisAtt->SetForceSolid(true);
+    pPTFE00VisAtt->SetForceSolid(true);
     pPTFE00LV->SetVisAttributes(pPTFE00VisAtt);
 
     G4VisAttributes * pPTFE01VisAtt = new G4VisAttributes(G4Colour(0.,1.,1.));
