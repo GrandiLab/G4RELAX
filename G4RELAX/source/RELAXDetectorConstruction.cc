@@ -448,8 +448,8 @@ void RELAXDetectorConstruction::ConstructLaboratory()
     G4double   dPTFE01Radius3 = dPTFE01Radius2;
     G4double   dPTFE01Radius4 = 43.00 * mm;
     G4double   dPTFE01Radius5 = dPTFE01Radius4;
-    G4double   dPTFE01Radius6 = 54.00 * mm;
-    G4double   dPTFE01Radius7 = dPTFE01Radius6;
+    G4double   dPTFE01Radius6 = dPTFE00Radius2;
+    G4double   dPTFE01Radius7 = dPTFE00Radius2;
     G4double   dPTFE01Radius8 = dPTFE01Radius4;
     G4double   dPTFE01Radius9 = dPTFE01Radius4;
     G4double  dPTFE01Radius10 = dPTFE01Radius2;
@@ -514,25 +514,25 @@ void RELAXDetectorConstruction::ConstructLaboratory()
     //////////////////////
 
     // Set PTFE02 Variables
-    G4double  dPTFE02Radius1 = 32.000 * mm;
-    G4double  dPTFE02Radius2 = 35.000 * mm;
-    G4double  dPTFE02Radius3 = dPTFE02Radius2;
-    G4double  dPTFE02Radius4 = 43.000 * mm;
-    G4double  dPTFE02Radius5 = dPTFE02Radius4;
-    G4double  dPTFE02Radius6 = 54.000 * mm;
-    G4double  dPTFE02Radius7 = dPTFE02Radius6;
-    G4double dPTFE02Radius8 = 36.000 * mm;
-    G4double dPTFE02Radius9 = dPTFE02Radius8;
-    G4double dPTFE02Radius10 = dPTFE02Radius2;
-    G4double dPTFE02Radius11 = dPTFE02Radius2;
+    G4double  dPTFE02Radius1 = dPTFE01Radius1;
+    G4double  dPTFE02Radius2 = dPTFE01Radius2;
+    G4double  dPTFE02Radius3 = dPTFE01Radius2;
+    G4double  dPTFE02Radius4 = dPTFE01Radius4;
+    G4double  dPTFE02Radius5 = dPTFE01Radius4;
+    G4double  dPTFE02Radius6 = dPTFE00Radius2;
+    G4double  dPTFE02Radius7 = dPTFE00Radius2;
+    G4double  dPTFE02Radius8 = 36.000 * mm;
+    G4double  dPTFE02Radius9 = dPTFE02Radius8;
+    G4double dPTFE02Radius10 = dPTFE01Radius2;
+    G4double dPTFE02Radius11 = dPTFE01Radius2;
     G4double dPTFE02Radius12 = dPTFE02Radius8;
     G4double dPTFE02Radius13 = dPTFE02Radius8;
-    G4double dPTFE02Radius14 = dPTFE02Radius6;
-    G4double dPTFE02Radius15 = dPTFE02Radius6;
-    G4double dPTFE02Radius16 = dPTFE02Radius4;
-    G4double dPTFE02Radius17 = dPTFE02Radius4;
-    G4double dPTFE02Radius18 = dPTFE02Radius2;
-    G4double dPTFE02Radius19 = dPTFE02Radius2;
+    G4double dPTFE02Radius14 = dPTFE00Radius2;
+    G4double dPTFE02Radius15 = dPTFE00Radius2;
+    G4double dPTFE02Radius16 = dPTFE01Radius4;
+    G4double dPTFE02Radius17 = dPTFE01Radius4;
+    G4double dPTFE02Radius18 = dPTFE01Radius2;
+    G4double dPTFE02Radius19 = dPTFE01Radius2;
     G4double dPTFE02Radius20 = dPTFE02Radius1;
 
     G4double dPTFE02RadiusArray[] = { dPTFE02Radius1,
@@ -556,17 +556,17 @@ void RELAXDetectorConstruction::ConstructLaboratory()
                                       dPTFE02Radius19,
                                       dPTFE02Radius20};
 
-    G4double  dPTFE02Height1 =  19.85 * mm;
+    G4double  dPTFE02Height1 = 19.85 * mm;
     G4double  dPTFE02Height2 = dPTFE02Height1;
-    G4double  dPTFE02Height3 =  18.45 * mm;
+    G4double  dPTFE02Height3 = 18.45 * mm;
     G4double  dPTFE02Height4 = dPTFE02Height3;
-    G4double  dPTFE02Height5 =  19.95 * mm;
+    G4double  dPTFE02Height5 = 19.95 * mm;
     G4double  dPTFE02Height6 = dPTFE02Height5;
-    G4double  dPTFE02Height7 =  14.45 * mm;
+    G4double  dPTFE02Height7 = 14.45 * mm;
     G4double  dPTFE02Height8 = dPTFE02Height7;
-    G4double  dPTFE02Height9 =  15.45 * mm;
+    G4double  dPTFE02Height9 = 15.45 * mm;
     G4double dPTFE02Height10 = dPTFE02Height9;
-    G4double dPTFE02Height11 =  -15.55 * mm;
+    G4double dPTFE02Height11 = -15.55 * mm;
     G4double dPTFE02Height12 = dPTFE02Height11;
     G4double dPTFE02Height13 = -14.55 * mm;
     G4double dPTFE02Height14 = dPTFE02Height13;
@@ -609,6 +609,75 @@ void RELAXDetectorConstruction::ConstructLaboratory()
     pPTFE02LV = new G4LogicalVolume(pPTFE02, G4Material::GetMaterial("PTFE"), "PTFE02");
     pPTFE02PV = new G4PVPlacement(0, dPTFE02Placement, pPTFE02LV, "PTFE02", pMotherLV, false, 0);
 
+    //////////////////////
+    // Construct PTFE03 //
+    //////////////////////
+
+    // Set PTFE03 Variables
+    G4double  dPTFE03Radius1 = dPTFE01Radius1;
+    G4double  dPTFE03Radius2 = dPTFE01Radius2;
+    G4double  dPTFE03Radius3 = dPTFE01Radius2;
+    G4double  dPTFE03Radius4 = dPTFE01Radius4;
+    G4double  dPTFE03Radius5 = dPTFE01Radius4;
+    G4double  dPTFE03Radius6 = dPTFE00Radius2;
+    G4double  dPTFE03Radius7 = dPTFE00Radius2;
+    G4double  dPTFE03Radius8 = dPTFE01Radius4;
+    G4double  dPTFE03Radius9 = dPTFE01Radius4;
+    G4double dPTFE03Radius10 = dPTFE01Radius2;
+    G4double dPTFE03Radius11 = dPTFE01Radius2;
+    G4double dPTFE03Radius12 = dPTFE01Radius1;
+
+    G4double dPTFE03RadiusArray[] = { dPTFE03Radius1,
+                                      dPTFE03Radius2,
+                                      dPTFE03Radius3,
+                                      dPTFE03Radius4,
+                                      dPTFE03Radius5,
+                                      dPTFE03Radius6,
+                                      dPTFE03Radius7,
+                                      dPTFE03Radius8,
+                                      dPTFE03Radius9,
+                                      dPTFE03Radius10,
+                                      dPTFE03Radius11,
+                                      dPTFE03Radius12};
+
+    G4double  dPTFE03Height1 = 2.4 * mm;
+    G4double  dPTFE03Height2 = dPTFE03Height1;
+    G4double  dPTFE03Height3 = 1.0 * mm;
+    G4double  dPTFE03Height4 = dPTFE03Height3;
+    G4double  dPTFE03Height5 = 3 * mm;
+    G4double  dPTFE03Height6 = dPTFE02Height5;
+    G4double  dPTFE03Height7 = -dPTFE03Height5;
+    G4double  dPTFE03Height8 = -dPTFE03Height5;
+    G4double  dPTFE03Height9 = -dPTFE03Height3;
+    G4double dPTFE03Height10 = -dPTFE03Height3;
+    G4double dPTFE03Height11 = -dPTFE03Height1;
+    G4double dPTFE03Height12 = -dPTFE03Height1;
+
+    G4double dPTFE03HeightArray[] = { dPTFE03Height1,
+                                      dPTFE03Height2,
+                                      dPTFE03Height3,
+                                      dPTFE03Height4,
+                                      dPTFE03Height5,
+                                      dPTFE03Height6,
+                                      dPTFE03Height7,
+                                      dPTFE03Height8,
+                                      dPTFE03Height9,
+                                      dPTFE03Height10,
+                                      dPTFE03Height11,
+                                      dPTFE03Height12};
+
+    // Set PTFE03 Placement Values
+    G4double dPTFE03PlacementX = 0.000 * mm;
+    G4double dPTFE03PlacementY = 0.000 * mm;
+    G4double dPTFE03PlacementZ = dPTFE02PlacementZ + dPTFE03Height5 + dPTFE02Height5;
+    G4ThreeVector dPTFE03Placement(dPTFE03PlacementX, dPTFE03PlacementY, dPTFE03PlacementZ);
+
+    // Create PTFE03
+    G4GenericPolycone* pPTFE03 = new G4GenericPolycone("PTFE03", 0, 2 * M_PI, 12, dPTFE03RadiusArray, dPTFE03HeightArray);
+    pPTFE03LV = new G4LogicalVolume(pPTFE03, G4Material::GetMaterial("PTFE"), "PTFE03");
+    pPTFE03PV = new G4PVPlacement(0, dPTFE03Placement, pPTFE03LV, "PTFE03", pMotherLV, false, 0);
+
+
     // Make the pieces cyan and solid
     G4VisAttributes * pPTFE00VisAtt = new G4VisAttributes(G4Colour(0.,1.,1.));
     pPTFE00VisAtt->SetForceSolid(true);
@@ -618,9 +687,12 @@ void RELAXDetectorConstruction::ConstructLaboratory()
     pPTFE01VisAtt->SetForceSolid(true);
     pPTFE01LV->SetVisAttributes(pPTFE01VisAtt);
 
-
     G4VisAttributes * pPTFE02VisAtt = new G4VisAttributes(G4Colour(0.,1.,1.));
     pPTFE02VisAtt->SetForceSolid(true);
     pPTFE02LV->SetVisAttributes(pPTFE00VisAtt);
+
+    G4VisAttributes * pPTFE03VisAtt = new G4VisAttributes(G4Colour(0.,1.,1.));
+    pPTFE03VisAtt->SetForceSolid(true);
+    pPTFE03LV->SetVisAttributes(pPTFE03VisAtt);
 
 }
