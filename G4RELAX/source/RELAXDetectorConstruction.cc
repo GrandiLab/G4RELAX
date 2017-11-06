@@ -644,7 +644,7 @@ void RELAXDetectorConstruction::ConstructLaboratory()
     G4double  dPTFE03Height2 = dPTFE03Height1;
     G4double  dPTFE03Height3 = 1.0 * mm;
     G4double  dPTFE03Height4 = dPTFE03Height3;
-    G4double  dPTFE03Height5 = 3 * mm;
+    G4double  dPTFE03Height5 = 2.5 * mm;
     G4double  dPTFE03Height6 = dPTFE02Height5;
     G4double  dPTFE03Height7 = -dPTFE03Height5;
     G4double  dPTFE03Height8 = -dPTFE03Height5;
