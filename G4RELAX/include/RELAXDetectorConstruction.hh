@@ -55,6 +55,14 @@ private:
     G4VPhysicalVolume* pPTFE02PV;
     G4LogicalVolume* pPTFE03LV;
     G4VPhysicalVolume* pPTFE03PV;
+    G4LogicalVolume* pPTFE04LV;
+    G4VPhysicalVolume* pPTFE04PV;
+    G4LogicalVolume* pPTFE05LV;
+    G4VPhysicalVolume* pPTFE05PV;
+    G4LogicalVolume* pPTFE06LV;
+    G4VPhysicalVolume* pPTFE06PV;
+
+
 };
 
 #endif
