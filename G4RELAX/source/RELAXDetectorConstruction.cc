@@ -817,7 +817,61 @@ void RELAXDetectorConstruction::ConstructLaboratory()
     pPTFE06LV = new G4LogicalVolume(pPTFE06, G4Material::GetMaterial("PTFE"), "PTFE06");
     pPTFE06PV = new G4PVPlacement(0, dPTFE06Placement, pPTFE06LV, "PTFE06", pMotherLV, false, 0);
 
-    // Make the pieces cyan and solid
+    ////////////////////////
+    // Construct PMT Ring //
+    ////////////////////////
+
+    // Set PMTRing Variables
+    G4double dPMTRingRadius1 = 37.69 * mm;
+    G4double dPMTRingRadius2 = 41.5 * mm;
+    G4double dPMTRingHeight  = 2.48 * mm;
+
+    // Set PMTRing Placement Values
+    G4double dPMTRingPlacementX = 0.00 * mm;
+    G4double dPMTRingPlacementY = 0.00 * mm;
+    G4double dPMTRingPlacementZ = dPTFE01PlacementZ + dPTFE01Height11 + (dPTFE01Height9 - dPTFE01Height11) / 2 * mm;
+
+    G4ThreeVector dPMTRingPlacement(dPMTRingPlacementX, dPMTRingPlacementY, dPMTRingPlacementZ);
+
+    // Create PMTRing
+    G4Tubs* pPMTRing = new G4Tubs("PMTRing", dPMTRingRadius1, dPMTRingRadius2, 0.5 * dPMTRingHeight, 0, 2 * M_PI);
+    pPMTRingLV = new G4LogicalVolume(pPMTRing, G4Material::GetMaterial("Stainless Steel"), "PMTRing");
+    pPMTRingPV = new G4PVPlacement(0, dPMTRingPlacement, pPMTRingLV, "PMTRing", pMotherLV, false, 0);
+
+    //////////////////////////
+    // Construct Grid Rings //
+    //////////////////////////
+
+    // Set Ring Variables
+    G4double dGridRadius1 = 35.915 * mm;
+    G4double dGridRadius2 = 40.915 * mm;
+    G4double dGridHeight  = 2.48 * mm;
+
+    // Create Grid solid and LV
+    G4Tubs* pGrid = new G4Tubs("Grid", dGridRadius1, dGridRadius2, 0.5 * dGridHeight, 0, 2 * M_PI);
+    pGridLV = new G4LogicalVolume(pGrid, G4Material::GetMaterial("Stainless Steel"), "Grid");
+
+    // Set Placement Variables
+    G4double dGridPlacementX = 0.00 * mm;
+    G4double dGridPlacementY = 0.00 * mm;
+
+    G4double dCathodePlacementZ = dPTFE01PlacementZ + dPTFE01Height3 + 0.5 * dGridHeight;
+    G4double dGatePlacementZ = dPTFE02PlacementZ + dPTFE02Height3 + 0.5 * dGridHeight;
+    G4double dAnodePlacementZ = dPTFE03PlacementZ + dPTFE03Height3 + 0.5 * dGridHeight;
+    G4double dScreeningMeshPlacementZ = dPTFE04PlacementZ + dPTFE04Height3 + 0.5 * dGridHeight;
+
+    G4ThreeVector  dCathodePlacement(dGridPlacementX, dGridPlacementY, dCathodePlacementZ);
+    G4ThreeVector  dGatePlacement(dGridPlacementX, dGridPlacementY, dGatePlacementZ);
+    G4ThreeVector  dAnodePlacement(dGridPlacementX, dGridPlacementY, dAnodePlacementZ);
+    G4ThreeVector  dScreeningMeshPlacement(dGridPlacementX, dGridPlacementY, dScreeningMeshPlacementZ);
+
+    // Create PVs
+    pCathodePV = new G4PVPlacement(0, dCathodePlacement, pGridLV, "Cathode", pMotherLV, false, 0);
+    pGatePV = new G4PVPlacement(0, dGatePlacement, pGridLV, "Gate", pMotherLV, false, 0);
+    pAnodePV = new G4PVPlacement(0, dAnodePlacement, pGridLV, "Anode", pMotherLV, false, 0);
+    pScreeningMeshPV = new G4PVPlacement(0, dScreeningMeshPlacement, pGridLV, "Screening Mesh", pMotherLV, false, 0);
+
+    // Give the pieces color and shape
     G4VisAttributes * pPTFE00VisAtt = new G4VisAttributes(G4Colour::White());
     pPTFE00VisAtt->SetForceSolid(true);
     pPTFE00LV->SetVisAttributes(pPTFE00VisAtt);
@@ -846,5 +900,12 @@ void RELAXDetectorConstruction::ConstructLaboratory()
     pPTFE06VisAtt->SetForceSolid(true);
     pPTFE06LV->SetVisAttributes(pPTFE06VisAtt);
 
+    G4VisAttributes * pPMTRingVisAtt = new G4VisAttributes(G4Colour::Gray());
+    pPMTRingVisAtt->SetForceSolid(true);
+    pPMTRingLV->SetVisAttributes(pPMTRingVisAtt);
+
+    G4VisAttributes * pGridVisAtt = new G4VisAttributes(G4Colour::Gray());
+    pGridVisAtt->SetForceSolid(true);
+    pGridLV->SetVisAttributes(pGridVisAtt);
 
 }

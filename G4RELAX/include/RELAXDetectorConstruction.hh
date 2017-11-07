@@ -61,6 +61,13 @@ private:
     G4VPhysicalVolume* pPTFE05PV;
     G4LogicalVolume* pPTFE06LV;
     G4VPhysicalVolume* pPTFE06PV;
+    G4LogicalVolume* pPMTRingLV;
+    G4VPhysicalVolume* pPMTRingPV;
+    G4LogicalVolume* pGridLV;
+    G4VPhysicalVolume* pCathodePV;
+    G4VPhysicalVolume* pGatePV;
+    G4VPhysicalVolume* pAnodePV;
+    G4VPhysicalVolume* pScreeningMeshPV;
 
 
 };
