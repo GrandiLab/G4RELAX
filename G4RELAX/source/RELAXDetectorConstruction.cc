@@ -810,7 +810,7 @@ void RELAXDetectorConstruction::ConstructLaboratory()
    // Set Subtraction Solid Variables
     G4double dPTFE06PMTSignalFTBoxLength  = 17 * mm;
     G4double dPTFE06PMTSignalFTBoxWidth   = 19.6 * mm;
-    G4double dPTFE06PMTSignalFTBoxHeight = 2 * dPTFE06StockHeight;
+    G4double dPTFE06PMTSignalFTBoxHeight = 4 * dPTFE06StockHeight;
 
     G4double dPTFE06PMTSignalFTTubInnerRadius = 3.175 * mm;
     G4double dPTFE06PMTSignalFTTubOuterRadius = dPTFE06PMTSignalFTTubInnerRadius + 5 * mm;
@@ -822,14 +822,14 @@ void RELAXDetectorConstruction::ConstructLaboratory()
     G4double dPTFE06PMTSignalFTY2 = -dPTFE06PMTSignalFTY1;
     G4double  dPTFE06PMTSignalFTZ = 0.00 * mm;
 
-    G4double dPTFE06X1 = -15.0 * mm;
-    G4double dPTFE06X2 = -dPTFE06X1;
-    G4double dPTFE06Y1 = 15.0 * mm;
-    G4double dPTFE06Y2 = -dPTFE06Y1;
-    G4double dPTFE06Z = 0.00 * mm;
+    G4double dPTFE06SubX1 = -15.0 * mm;
+    G4double dPTFE06SubX2 = -dPTFE06SubX1;
+    G4double dPTFE06SubY1 = 15.0 * mm;
+    G4double dPTFE06SubY2 = -dPTFE06SubY1;
+    G4double dPTFE06SubZ = 0.00 * mm;
 
-    G4RotationMatrix dPTFE06Rot;
-    dPTFE06Rot.rotateZ(0.00);
+    G4RotationMatrix dPTFE06SubRot;
+    dPTFE06SubRot.rotateZ(0.00);
 
     G4ThreeVector dPTFE06PMTSignalFTXYZ1(dPTFE06PMTSignalFTX1,dPTFE06PMTSignalFTY1,dPTFE06PMTSignalFTZ);
     G4RotationMatrix dPTFE06PMTSignalFTRot1;
@@ -851,17 +851,17 @@ void RELAXDetectorConstruction::ConstructLaboratory()
     dPTFE06PMTSignalFTRot4.rotateZ(M_PI);
     G4Transform3D dPTFE06PMTSignalFTTransform4(dPTFE06PMTSignalFTRot4, dPTFE06PMTSignalFTXYZ4);
 
-    G4ThreeVector dPTFE06XYZ1(dPTFE06X1,dPTFE06Y1,dPTFE06Z);
-    G4Transform3D dPTFE06Transform1(dPTFE06Rot, dPTFE06XYZ1);
+    G4ThreeVector dPTFE06SubXYZ1(dPTFE06SubX1,dPTFE06SubY1,dPTFE06SubZ);
+    G4Transform3D dPTFE06SubTransform1(dPTFE06SubRot, dPTFE06SubXYZ1);
 
-    G4ThreeVector dPTFE06XYZ2(dPTFE06X2,dPTFE06Y1,dPTFE06Z);
-    G4Transform3D dPTFE06Transform2(dPTFE06Rot, dPTFE06XYZ2);
+    G4ThreeVector dPTFE06SubXYZ2(dPTFE06SubX2,dPTFE06SubY1,dPTFE06SubZ);
+    G4Transform3D dPTFE06SubTransform2(dPTFE06SubRot, dPTFE06SubXYZ2);
 
-    G4ThreeVector dPTFE06XYZ3(dPTFE06X2,dPTFE06Y2,dPTFE06Z);
-    G4Transform3D dPTFE06Transform3(dPTFE06Rot, dPTFE06XYZ3);
+    G4ThreeVector dPTFE06SubXYZ3(dPTFE06SubX2,dPTFE06SubY2,dPTFE06SubZ);
+    G4Transform3D dPTFE06SubTransform3(dPTFE06SubRot, dPTFE06SubXYZ3);
 
-    G4ThreeVector dPTFE06XYZ4(dPTFE06X1,dPTFE06Y2,dPTFE06Z);
-    G4Transform3D dPTFE06Transform4(dPTFE06Rot, dPTFE06XYZ4);
+    G4ThreeVector dPTFE06SubXYZ4(dPTFE06SubX1,dPTFE06SubY2,dPTFE06SubZ);
+    G4Transform3D dPTFE06SubTransform4(dPTFE06SubRot, dPTFE06SubXYZ4);
 
     // Set PTFE06 Placement Values
     G4double dPTFE06PlacementX = 0.00 * mm;
@@ -880,10 +880,10 @@ void RELAXDetectorConstruction::ConstructLaboratory()
 
     G4Tubs* pPTFE06Stock = new G4Tubs("PTFE06Stock", dPTFE06StockInnerRadius, dPTFE06StockOuterRadius, 0.5 * dPTFE06StockHeight, 0, 2 * M_PI);
 
-    G4SubtractionSolid* pPTFE06Sub1 = new G4SubtractionSolid("pPTFE06Sub1", pPTFE06Stock, pPTFE06PMTSignalFT, dPTFE06Transform1);
-    G4SubtractionSolid* pPTFE06Sub2 = new G4SubtractionSolid("pPTFE06Sub2", pPTFE06Sub1, pPTFE06PMTSignalFT, dPTFE06Transform2);
-    G4SubtractionSolid* pPTFE06Sub3 = new G4SubtractionSolid("pPTFE06Sub3", pPTFE06Sub2, pPTFE06PMTSignalFT, dPTFE06Transform3);
-    G4SubtractionSolid*     pPTFE06 = new G4SubtractionSolid("pPTFE06", pPTFE06Sub3, pPTFE06PMTSignalFT, dPTFE06Transform4);
+    G4SubtractionSolid* pPTFE06Sub1 = new G4SubtractionSolid("pPTFE06Sub1", pPTFE06Stock, pPTFE06PMTSignalFT, dPTFE06SubTransform1);
+    G4SubtractionSolid* pPTFE06Sub2 = new G4SubtractionSolid("pPTFE06Sub2", pPTFE06Sub1, pPTFE06PMTSignalFT, dPTFE06SubTransform2);
+    G4SubtractionSolid* pPTFE06Sub3 = new G4SubtractionSolid("pPTFE06Sub3", pPTFE06Sub2, pPTFE06PMTSignalFT, dPTFE06SubTransform3);
+    G4SubtractionSolid*     pPTFE06 = new G4SubtractionSolid("pPTFE06", pPTFE06Sub3, pPTFE06PMTSignalFT, dPTFE06SubTransform4);
 
     // Create PTFE06
     pPTFE06LV = new G4LogicalVolume(pPTFE06, G4Material::GetMaterial("PTFE"), "PTFE06");
