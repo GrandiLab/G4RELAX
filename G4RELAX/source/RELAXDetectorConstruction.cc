@@ -1,9 +1,9 @@
-//////////////////////////////////
-// Nickolas Upole               //
-// University of Chicago        //
-// Winter 2016                  //
-// RELAXDetectorConstruction.cc //
-//////////////////////////////////
+/////////////////////////////////////
+// Nickolas Upole & Bruno Petrucci //
+// University of Chicago           //
+// Fall 2017                       //
+// RELAXDetectorConstruction.cc    //
+/////////////////////////////////////
 
 #include "RELAXDetectorConstruction.hh"
 
@@ -378,9 +378,9 @@ void RELAXDetectorConstruction::ConstructLaboratory()
     //////////////////////////
 
     // Set Laboratory Variables
-    G4double dLaboratoryLength =  50.000 * cm;
-    G4double  dLaboratoryWidth =  50.000 * cm;
-    G4double dLaboratoryHeight = 200.000 * cm;
+    G4double dLaboratoryLength = 400.000 * cm;
+    G4double  dLaboratoryWidth = 400.000 * cm;
+    G4double dLaboratoryHeight = 400.000 * cm;
 
     // Create Laboratory
     G4Box* pLaboratoryBox = new G4Box("LaboratoryBox", 0.5 * dLaboratoryLength, 0.5 * dLaboratoryWidth, 0.5 * dLaboratoryHeight);
@@ -431,13 +431,13 @@ void RELAXDetectorConstruction::ConstructLaboratory()
     G4double dPTFE00PlacementY = 0.000 * mm;
     G4double dPTFE00PlacementZ = 0.000 * mm;
     G4ThreeVector dPTFE00Placement(dPTFE00PlacementX, dPTFE00PlacementY, dPTFE00PlacementZ);
-
+/*
     // Create PTFE00
     G4GenericPolycone* pPTFE00 = new G4GenericPolycone("PTFE00", 0, 2 * M_PI, 6, dPTFE00RadiusArray, dPTFE00HeightArray);
     pPTFE00LV = new G4LogicalVolume(pPTFE00, G4Material::GetMaterial("PTFE"), "PTFE00");
     pPTFE00PV = new G4PVPlacement(0, dPTFE00Placement, pPTFE00LV, "PTFE00", pMotherLV, false, 0);
 
-
+*/
     //////////////////////
     // Construct PTFE01 //
     //////////////////////
@@ -501,13 +501,13 @@ void RELAXDetectorConstruction::ConstructLaboratory()
     G4double dPTFE01PlacementY = 0.00 * mm;
     G4double dPTFE01PlacementZ = dPTFE01Height5 + dPTFE00Height1;
     G4ThreeVector dPTFE01Placement(dPTFE01PlacementX, dPTFE01PlacementY, dPTFE01PlacementZ);
-
+/*
     // Create PTFE01
     G4GenericPolycone* pPTFE01 = new G4GenericPolycone("PTFE01", 0, 2 * M_PI, 12, dPTFE01RadiusArray, dPTFE01HeightArray);
     pPTFE01LV = new G4LogicalVolume(pPTFE01, G4Material::GetMaterial("PTFE"), "PTFE01");
     pPTFE01PV = new G4PVPlacement(0, dPTFE01Placement, pPTFE01LV, "PTFE01", pMotherLV, false, 0);
 
-
+*/
 
     //////////////////////
     // Construct PTFE02 //
@@ -603,12 +603,12 @@ void RELAXDetectorConstruction::ConstructLaboratory()
     G4double dPTFE02PlacementY = 0.000 * mm;
     G4double dPTFE02PlacementZ = dPTFE01PlacementZ + dPTFE02Height5 + dPTFE01Height5;
     G4ThreeVector dPTFE02Placement(dPTFE02PlacementX, dPTFE02PlacementY, dPTFE02PlacementZ);
-
+/*
     // Create PTFE02
     G4GenericPolycone* pPTFE02 = new G4GenericPolycone("PTFE02", 0, 2 * M_PI, 20, dPTFE02RadiusArray, dPTFE02HeightArray);
     pPTFE02LV = new G4LogicalVolume(pPTFE02, G4Material::GetMaterial("PTFE"), "PTFE02");
     pPTFE02PV = new G4PVPlacement(0, dPTFE02Placement, pPTFE02LV, "PTFE02", pMotherLV, false, 0);
-
+*/
     //////////////////////
     // Construct PTFE03 //
     //////////////////////
@@ -671,12 +671,12 @@ void RELAXDetectorConstruction::ConstructLaboratory()
     G4double dPTFE03PlacementY = 0.000 * mm;
     G4double dPTFE03PlacementZ = dPTFE02PlacementZ + dPTFE03Height5 + dPTFE02Height5;
     G4ThreeVector dPTFE03Placement(dPTFE03PlacementX, dPTFE03PlacementY, dPTFE03PlacementZ);
-
+/*
     // Create PTFE03
     G4GenericPolycone* pPTFE03 = new G4GenericPolycone("PTFE03", 0, 2 * M_PI, 12, dPTFE03RadiusArray, dPTFE03HeightArray);
     pPTFE03LV = new G4LogicalVolume(pPTFE03, G4Material::GetMaterial("PTFE"), "PTFE03");
     pPTFE03PV = new G4PVPlacement(0, dPTFE03Placement, pPTFE03LV, "PTFE03", pMotherLV, false, 0);
-
+*/
     //////////////////////
     // Construct PTFE04 //
     //////////////////////
@@ -739,12 +739,12 @@ void RELAXDetectorConstruction::ConstructLaboratory()
     G4double dPTFE04PlacementY = 0.000 * mm;
     G4double dPTFE04PlacementZ = dPTFE03PlacementZ + dPTFE03Height5 + dPTFE04Height5;
     G4ThreeVector dPTFE04Placement(dPTFE04PlacementX, dPTFE04PlacementY, dPTFE04PlacementZ);
-
+/*
     // Create PTFE04
     G4GenericPolycone* pPTFE04 = new G4GenericPolycone("PTFE04", 0, 2 * M_PI, 12, dPTFE04RadiusArray, dPTFE04HeightArray);
     pPTFE04LV = new G4LogicalVolume(pPTFE04, G4Material::GetMaterial("PTFE"), "PTFE04");
     pPTFE04PV = new G4PVPlacement(0, dPTFE04Placement, pPTFE04LV, "PTFE04", pMotherLV, false, 0);
-
+*/
     //////////////////////
     // Construct PTFE05 //
     //////////////////////
@@ -792,28 +792,100 @@ void RELAXDetectorConstruction::ConstructLaboratory()
     G4double dPTFE05PlacementZ = dPTFE04PlacementZ + dPTFE04Height5 + dPTFE05Height1;
     G4ThreeVector dPTFE05Placement(dPTFE05PlacementX, dPTFE05PlacementY, dPTFE05PlacementZ);
 
+/*
     // Create PTFE05
     G4GenericPolycone* pPTFE05 = new G4GenericPolycone("PTFE05", 0, 2 * M_PI, 8, dPTFE05RadiusArray, dPTFE05HeightArray);
     pPTFE05LV = new G4LogicalVolume(pPTFE05, G4Material::GetMaterial("PTFE"), "PTFE05");
     pPTFE05PV = new G4PVPlacement(0, dPTFE05Placement, pPTFE05LV, "PTFE05", pMotherLV, false, 0);
-
+*/
     //////////////////////
     // Construct PTFE06 //
     //////////////////////
 
-    // Set PTFE06 Variables
-    G4double dPTFE06Radius1 = 0.0 * mm;
-    G4double dPTFE06Radius2 = 37.0 * mm;
-    G4double dPTFE06Height = 5.0 * mm;
+    // Set PTFE06 Stock Variables
+    G4double dPTFE06StockInnerRadius = 0.0 * mm;
+    G4double dPTFE06StockOuterRadius = 37.0 * mm;
+    G4double dPTFE06StockHeight = 5.0 * mm;
+
+   // Set Subtraction Solid Variables
+    G4double dPTFE06PMTSignalFTBoxLength  = 17 * mm;
+    G4double dPTFE06PMTSignalFTBoxWidth   = 19.6 * mm;
+    G4double dPTFE06PMTSignalFTBoxHeight = 2 * dPTFE06StockHeight;
+
+    G4double dPTFE06PMTSignalFTTubInnerRadius = 3.175 * mm;
+    G4double dPTFE06PMTSignalFTTubOuterRadius = dPTFE06PMTSignalFTTubInnerRadius + 5 * mm;
+    G4double dPTFE06PMTSignalFTTubHeight      = 2 * dPTFE06PMTSignalFTBoxHeight;
+
+    G4double dPTFE06PMTSignalFTX1 = dPTFE06PMTSignalFTTubInnerRadius - 0.5 * dPTFE06PMTSignalFTBoxLength;
+    G4double dPTFE06PMTSignalFTX2 = -dPTFE06PMTSignalFTX1;
+    G4double dPTFE06PMTSignalFTY1 = 0.5 * dPTFE06PMTSignalFTBoxWidth - dPTFE06PMTSignalFTTubInnerRadius;
+    G4double dPTFE06PMTSignalFTY2 = -dPTFE06PMTSignalFTY1;
+    G4double  dPTFE06PMTSignalFTZ = 0.00 * mm;
+
+    G4double dPTFE06X1 = -15.0 * mm;
+    G4double dPTFE06X2 = -dPTFE06X1;
+    G4double dPTFE06Y1 = 15.0 * mm;
+    G4double dPTFE06Y2 = -dPTFE06Y1;
+    G4double dPTFE06Z = 0.00 * mm;
+
+    G4RotationMatrix dPTFE06Rot;
+    dPTFE06Rot.rotateZ(0.00);
+
+    G4ThreeVector dPTFE06PMTSignalFTXYZ1(dPTFE06PMTSignalFTX1,dPTFE06PMTSignalFTY1,dPTFE06PMTSignalFTZ);
+    G4RotationMatrix dPTFE06PMTSignalFTRot1;
+    dPTFE06PMTSignalFTRot1.rotateZ(0.5 * M_PI);
+    G4Transform3D dPTFE06PMTSignalFTTransform1(dPTFE06PMTSignalFTRot1, dPTFE06PMTSignalFTXYZ1);
+
+    G4ThreeVector dPTFE06PMTSignalFTXYZ2(dPTFE06PMTSignalFTX2,dPTFE06PMTSignalFTY1,dPTFE06PMTSignalFTZ);
+    G4RotationMatrix dPTFE06PMTSignalFTRot2;
+    dPTFE06PMTSignalFTRot2.rotateZ(0.00);
+    G4Transform3D dPTFE06PMTSignalFTTransform2(dPTFE06PMTSignalFTRot2, dPTFE06PMTSignalFTXYZ2);
+
+    G4ThreeVector dPTFE06PMTSignalFTXYZ3(dPTFE06PMTSignalFTX2,dPTFE06PMTSignalFTY2,dPTFE06PMTSignalFTZ);
+    G4RotationMatrix dPTFE06PMTSignalFTRot3;
+    dPTFE06PMTSignalFTRot3.rotateZ(1.5 * M_PI);
+    G4Transform3D dPTFE06PMTSignalFTTransform3(dPTFE06PMTSignalFTRot3, dPTFE06PMTSignalFTXYZ3);
+
+    G4ThreeVector dPTFE06PMTSignalFTXYZ4(dPTFE06PMTSignalFTX1,dPTFE06PMTSignalFTY2,dPTFE06PMTSignalFTZ);
+    G4RotationMatrix dPTFE06PMTSignalFTRot4;
+    dPTFE06PMTSignalFTRot4.rotateZ(M_PI);
+    G4Transform3D dPTFE06PMTSignalFTTransform4(dPTFE06PMTSignalFTRot4, dPTFE06PMTSignalFTXYZ4);
+
+    G4ThreeVector dPTFE06XYZ1(dPTFE06X1,dPTFE06Y1,dPTFE06Z);
+    G4Transform3D dPTFE06Transform1(dPTFE06Rot, dPTFE06XYZ1);
+
+    G4ThreeVector dPTFE06XYZ2(dPTFE06X2,dPTFE06Y1,dPTFE06Z);
+    G4Transform3D dPTFE06Transform2(dPTFE06Rot, dPTFE06XYZ2);
+
+    G4ThreeVector dPTFE06XYZ3(dPTFE06X2,dPTFE06Y2,dPTFE06Z);
+    G4Transform3D dPTFE06Transform3(dPTFE06Rot, dPTFE06XYZ3);
+
+    G4ThreeVector dPTFE06XYZ4(dPTFE06X1,dPTFE06Y2,dPTFE06Z);
+    G4Transform3D dPTFE06Transform4(dPTFE06Rot, dPTFE06XYZ4);
 
     // Set PTFE06 Placement Values
     G4double dPTFE06PlacementX = 0.00 * mm;
     G4double dPTFE06PlacementY = 0.00 * mm;
-    G4double dPTFE06PlacementZ = dPTFE05PlacementZ + 100 * mm;
+    G4double dPTFE06PlacementZ = dPTFE05PlacementZ + 40 * mm;
     G4ThreeVector dPTFE06Placement(dPTFE06PlacementX, dPTFE06PlacementY, dPTFE06PlacementZ);
+  
+    // Create Subtraction Solids
+    G4Box*  pPTFE06PMTSignalFTBox = new G4Box("PTFE06PMTSignalFTBox", 0.5 * dPTFE06PMTSignalFTBoxLength, 0.5 * dPTFE06PMTSignalFTBoxWidth, 0.5 * dPTFE06PMTSignalFTBoxHeight);
+    G4Tubs* pPTFE06PMTSignalFTTub = new G4Tubs("PTFE06PMTSignalFTTub", dPTFE06PMTSignalFTTubInnerRadius, dPTFE06PMTSignalFTTubOuterRadius, 0.5 * dPTFE06PMTSignalFTTubHeight, 0, 0.5 * M_PI);
+    
+    G4SubtractionSolid* pPTFE06PMTSignalFTSub1 = new G4SubtractionSolid("pTFE06PMTSignalFTSub1", pPTFE06PMTSignalFTBox, pPTFE06PMTSignalFTTub, dPTFE06PMTSignalFTTransform1);
+    G4SubtractionSolid* pPTFE06PMTSignalFTSub2 = new G4SubtractionSolid("pTFE06PMTSignalFTSub2", pPTFE06PMTSignalFTSub1, pPTFE06PMTSignalFTTub, dPTFE06PMTSignalFTTransform2);
+    G4SubtractionSolid* pPTFE06PMTSignalFTSub3 = new G4SubtractionSolid("pTFE06PMTSignalFTSub3", pPTFE06PMTSignalFTSub2, pPTFE06PMTSignalFTTub, dPTFE06PMTSignalFTTransform3);
+    G4SubtractionSolid*     pPTFE06PMTSignalFT = new G4SubtractionSolid("pTFE06PMTSignalFTSub4", pPTFE06PMTSignalFTSub3, pPTFE06PMTSignalFTTub, dPTFE06PMTSignalFTTransform4);
+
+    G4Tubs* pPTFE06Stock = new G4Tubs("PTFE06Stock", dPTFE06StockInnerRadius, dPTFE06StockOuterRadius, 0.5 * dPTFE06StockHeight, 0, 2 * M_PI);
+
+    G4SubtractionSolid* pPTFE06Sub1 = new G4SubtractionSolid("pPTFE06Sub1", pPTFE06Stock, pPTFE06PMTSignalFT, dPTFE06Transform1);
+    G4SubtractionSolid* pPTFE06Sub2 = new G4SubtractionSolid("pPTFE06Sub2", pPTFE06Sub1, pPTFE06PMTSignalFT, dPTFE06Transform2);
+    G4SubtractionSolid* pPTFE06Sub3 = new G4SubtractionSolid("pPTFE06Sub3", pPTFE06Sub2, pPTFE06PMTSignalFT, dPTFE06Transform3);
+    G4SubtractionSolid*     pPTFE06 = new G4SubtractionSolid("pPTFE06", pPTFE06Sub3, pPTFE06PMTSignalFT, dPTFE06Transform4);
 
     // Create PTFE06
-    G4Tubs* pPTFE06 = new G4Tubs("PTFE06", dPTFE06Radius1, dPTFE06Radius2, dPTFE06Height, 0, 2 * M_PI);
     pPTFE06LV = new G4LogicalVolume(pPTFE06, G4Material::GetMaterial("PTFE"), "PTFE06");
     pPTFE06PV = new G4PVPlacement(0, dPTFE06Placement, pPTFE06LV, "PTFE06", pMotherLV, false, 0);
 
@@ -829,15 +901,15 @@ void RELAXDetectorConstruction::ConstructLaboratory()
     // Set PMTRing Placement Values
     G4double dPMTRingPlacementX = 0.00 * mm;
     G4double dPMTRingPlacementY = 0.00 * mm;
-    G4double dPMTRingPlacementZ = dPTFE01PlacementZ + dPTFE01Height11 + (dPTFE01Height9 - dPTFE01Height11) / 2 * mm;
+    G4double dPMTRingPlacementZ = dPTFE01PlacementZ + dPTFE01Height9 - 0.5 * dPMTRingHeight;
 
     G4ThreeVector dPMTRingPlacement(dPMTRingPlacementX, dPMTRingPlacementY, dPMTRingPlacementZ);
-
+/*
     // Create PMTRing
     G4Tubs* pPMTRing = new G4Tubs("PMTRing", dPMTRingRadius1, dPMTRingRadius2, 0.5 * dPMTRingHeight, 0, 2 * M_PI);
     pPMTRingLV = new G4LogicalVolume(pPMTRing, G4Material::GetMaterial("Stainless Steel"), "PMTRing");
     pPMTRingPV = new G4PVPlacement(0, dPMTRingPlacement, pPMTRingLV, "PMTRing", pMotherLV, false, 0);
-
+*/
     //////////////////////////
     // Construct Grid Rings //
     //////////////////////////
@@ -846,11 +918,11 @@ void RELAXDetectorConstruction::ConstructLaboratory()
     G4double dGridRadius1 = 35.915 * mm;
     G4double dGridRadius2 = 40.915 * mm;
     G4double dGridHeight  = 2.48 * mm;
-
+/*
     // Create Grid solid and LV
     G4Tubs* pGrid = new G4Tubs("Grid", dGridRadius1, dGridRadius2, 0.5 * dGridHeight, 0, 2 * M_PI);
     pGridLV = new G4LogicalVolume(pGrid, G4Material::GetMaterial("Stainless Steel"), "Grid");
-
+*/
     // Set Placement Variables
     G4double dGridPlacementX = 0.00 * mm;
     G4double dGridPlacementY = 0.00 * mm;
@@ -864,15 +936,15 @@ void RELAXDetectorConstruction::ConstructLaboratory()
     G4ThreeVector  dGatePlacement(dGridPlacementX, dGridPlacementY, dGatePlacementZ);
     G4ThreeVector  dAnodePlacement(dGridPlacementX, dGridPlacementY, dAnodePlacementZ);
     G4ThreeVector  dScreeningMeshPlacement(dGridPlacementX, dGridPlacementY, dScreeningMeshPlacementZ);
-
+/*
     // Create PVs
     pCathodePV = new G4PVPlacement(0, dCathodePlacement, pGridLV, "Cathode", pMotherLV, false, 0);
     pGatePV = new G4PVPlacement(0, dGatePlacement, pGridLV, "Gate", pMotherLV, false, 0);
     pAnodePV = new G4PVPlacement(0, dAnodePlacement, pGridLV, "Anode", pMotherLV, false, 0);
     pScreeningMeshPV = new G4PVPlacement(0, dScreeningMeshPlacement, pGridLV, "Screening Mesh", pMotherLV, false, 0);
-
+*/
     // Give the pieces color and shape
-    G4VisAttributes * pPTFE00VisAtt = new G4VisAttributes(G4Colour::White());
+    /*G4VisAttributes * pPTFE00VisAtt = new G4VisAttributes(G4Colour::White());
     pPTFE00VisAtt->SetForceSolid(true);
     pPTFE00LV->SetVisAttributes(pPTFE00VisAtt);
 
@@ -894,18 +966,18 @@ void RELAXDetectorConstruction::ConstructLaboratory()
 
     G4VisAttributes * pPTFE05VisAtt = new G4VisAttributes(G4Colour::White());
     pPTFE05VisAtt->SetForceSolid(true);
-    pPTFE05LV->SetVisAttributes(pPTFE05VisAtt);
+    pPTFE05LV->SetVisAttributes(pPTFE05VisAtt);*/
 
     G4VisAttributes * pPTFE06VisAtt = new G4VisAttributes(G4Colour::White());
     pPTFE06VisAtt->SetForceSolid(true);
     pPTFE06LV->SetVisAttributes(pPTFE06VisAtt);
 
-    G4VisAttributes * pPMTRingVisAtt = new G4VisAttributes(G4Colour::Gray());
+    /*G4VisAttributes * pPMTRingVisAtt = new G4VisAttributes(G4Colour::Gray());
     pPMTRingVisAtt->SetForceSolid(true);
     pPMTRingLV->SetVisAttributes(pPMTRingVisAtt);
 
     G4VisAttributes * pGridVisAtt = new G4VisAttributes(G4Colour::Gray());
     pGridVisAtt->SetForceSolid(true);
-    pGridLV->SetVisAttributes(pGridVisAtt);
+    pGridLV->SetVisAttributes(pGridVisAtt);*/
 
 }
