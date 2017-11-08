@@ -872,7 +872,7 @@ void RELAXDetectorConstruction::ConstructLaboratory()
     G4SubtractionSolid*     pPTFE05 = new G4SubtractionSolid("pPTFE05", pPTFE05Sub3, pPTFE05PMTSignalFT, dPTFE05SubTransform4);
 
     // Create PTFE05
-    pPTFE05LV = new G4LogicalVolume(pPTFE05, G4Material::GetMaterial("PTFE"), "PTFE05");
+    pPTFE05LV = new G4LogicalVolume(pPTFE05LV, G4Material::GetMaterial("PTFE"), "PTFE05");
     pPTFE05PV = new G4PVPlacement(0, dPTFE05StockPlacement, pPTFE05LV, "PTFE05", pMotherLV, false, 0);
 
     //////////////////////
