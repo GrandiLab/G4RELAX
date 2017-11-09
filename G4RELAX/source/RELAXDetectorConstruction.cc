@@ -862,7 +862,7 @@ void RELAXDetectorConstruction::ConstructLaboratory()
     G4SubtractionSolid* pPTFE05PMTSignalFTSub1 = new G4SubtractionSolid("pTFE05PMTSignalFTSub1", pPTFE05PMTSignalFTBox, pPTFE05PMTSignalFTTub, dPTFE05PMTSignalFTTransform1);
     G4SubtractionSolid* pPTFE05PMTSignalFTSub2 = new G4SubtractionSolid("pTFE05PMTSignalFTSub2", pPTFE05PMTSignalFTSub1, pPTFE05PMTSignalFTTub, dPTFE05PMTSignalFTTransform2);
     G4SubtractionSolid* pPTFE05PMTSignalFTSub3 = new G4SubtractionSolid("pTFE05PMTSignalFTSub3", pPTFE05PMTSignalFTSub2, pPTFE05PMTSignalFTTub, dPTFE05PMTSignalFTTransform3);
-    G4SubtractionSolid*     pPTFE05PMTSignalFT = new G4SubtractionSolid("pTFE05PMTSignalFTSub4", pPTFE05PMTSignalFTSub3, pPTFE05PMTSignalFTTub, dPTFE05PMTSignalFTTransform4);
+    G4SubtractionSolid*     pPTFE05PMTSignalFT = new G4SubtractionSolid("pTFE05PMTSignalFT", pPTFE05PMTSignalFTSub3, pPTFE05PMTSignalFTTub, dPTFE05PMTSignalFTTransform4);
 
     G4GenericPolycone* pPTFE05Stock = new G4GenericPolycone("PTFE05", 0, 2 * M_PI, 10, dPTFE05StockRadiusArray, dPTFE05StockHeightArray);
 
@@ -872,7 +872,7 @@ void RELAXDetectorConstruction::ConstructLaboratory()
     G4SubtractionSolid*     pPTFE05 = new G4SubtractionSolid("pPTFE05", pPTFE05Sub3, pPTFE05PMTSignalFT, dPTFE05SubTransform4);
 
     // Create PTFE05
-    pPTFE05LV = new G4LogicalVolume(pPTFE05LV, G4Material::GetMaterial("PTFE"), "PTFE05");
+    pPTFE05LV = new G4LogicalVolume(pPTFE05, G4Material::GetMaterial("PTFE"), "PTFE05");
     pPTFE05PV = new G4PVPlacement(0, dPTFE05StockPlacement, pPTFE05LV, "PTFE05", pMotherLV, false, 0);
 
     //////////////////////
@@ -953,7 +953,7 @@ void RELAXDetectorConstruction::ConstructLaboratory()
     G4SubtractionSolid* pPTFE06PMTSignalFTSub1 = new G4SubtractionSolid("pTFE06PMTSignalFTSub1", pPTFE06PMTSignalFTBox, pPTFE06PMTSignalFTTub, dPTFE06PMTSignalFTTransform1);
     G4SubtractionSolid* pPTFE06PMTSignalFTSub2 = new G4SubtractionSolid("pTFE06PMTSignalFTSub2", pPTFE06PMTSignalFTSub1, pPTFE06PMTSignalFTTub, dPTFE06PMTSignalFTTransform2);
     G4SubtractionSolid* pPTFE06PMTSignalFTSub3 = new G4SubtractionSolid("pTFE06PMTSignalFTSub3", pPTFE06PMTSignalFTSub2, pPTFE06PMTSignalFTTub, dPTFE06PMTSignalFTTransform3);
-    G4SubtractionSolid*     pPTFE06PMTSignalFT = new G4SubtractionSolid("pTFE06PMTSignalFTSub4", pPTFE06PMTSignalFTSub3, pPTFE06PMTSignalFTTub, dPTFE06PMTSignalFTTransform4);
+    G4SubtractionSolid*     pPTFE06PMTSignalFT = new G4SubtractionSolid("pTFE06PMTSignalFT", pPTFE06PMTSignalFTSub3, pPTFE06PMTSignalFTTub, dPTFE06PMTSignalFTTransform4);
 
     G4Tubs* pPTFE06Stock = new G4Tubs("PTFE06Stock", dPTFE06StockInnerRadius, dPTFE06StockOuterRadius, 0.5 * dPTFE06StockHeight, 0, 2 * M_PI);
 
