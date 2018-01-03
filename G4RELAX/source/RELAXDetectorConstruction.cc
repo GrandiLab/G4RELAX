@@ -429,6 +429,28 @@ void RELAXDetectorConstruction::ConstructLaboratory()
                                       dPTFE00StockHeight6};
 
     // Set Subtraction solid variables
+    G4double dPTFE00StockTubCutInnerRadius = 46.0 * mm;
+    G4double dPTFE00StockTubCutOuterRadius = dPTFE00StockTubCutInnerRadius + 20.0 * mm;
+    G4double dPTFE00StockTubCutHeight = dPTFE00StockHeight1;
+    G4double dPTFE00StockTubCutStartAngle = 12.45 * deg;
+
+    G4double dPTFE00StockTubCutPlacementX = 0.00 * mm;
+    G4double dPTFE00StockTubCutPlacementY = 0.00 * mm;
+    G4double dPTFE00StockTubCutPlacementZ = 0.00 * mm;
+
+    G4ThreeVector dPTFE00StockTubCutXYZ(dPTFE00StockTubCutPlacementX,dPTFE00StockTubCutPlacementY,dPTFE00StockTubCutPlacementZ);
+
+    G4RotationMatrix dPTFE00StockTubCutRot1;
+    dPTFE00StockTubCutRot1.rotateZ(0.00);
+    G4Transform3D dPTFE00StockTubCutTransform1(dPTFE00StockTubCutRot1,dPTFE00StockTubCutXYZ);
+
+    G4RotationMatrix dPTFE00StockTubCutRot2;
+    dPTFE00StockTubCutRot2.rotateZ(120 * deg);
+    G4Transform3D dPTFE00StockTubCutTransform2(dPTFE00StockTubCutRot2,dPTFE00StockTubCutXYZ);
+
+    G4RotationMatrix dPTFE00StockTubCutRot3;
+    dPTFE00StockTubCutRot3.rotateZ(240 * deg);
+    G4Transform3D dPTFE00StockTubCutTransform3(dPTFE00StockTubCutRot3,dPTFE00StockTubCutXYZ);
 
     // Set PTFE00Stock placement values
     G4double dPTFE00StockPlacementX = 0.000 * mm;
@@ -437,11 +459,17 @@ void RELAXDetectorConstruction::ConstructLaboratory()
     G4ThreeVector dPTFE00StockPlacement(dPTFE00StockPlacementX, dPTFE00StockPlacementY, dPTFE00StockPlacementZ);
 
     // Create subtraction solids
+    G4Tubs* pPTFE00STockTubCutS = new G4Tubs("pPTFE00StockTubCutS", dPTFE00StockTubCutInnerRadius, dPTFE00StockTubCutOuterRadius, dPTFE00StockTubCutHeight, 0.5 * dPTFE00StockTubCutStartAngle, -dPTFE00StockTubCutStartAngle + 120 * deg);
+
 	G4GenericPolycone* pPTFE00Stock = new G4GenericPolycone("PTFE00Stock", 0, 2 * M_PI, 6, dPTFE00StockRadiusArray, dPTFE00StockHeightArray);
 
+	G4SubtractionSolid* pPTFE00StockTubCutSub1 = new G4SubtractionSolid("pPTFE00StockTubCutSub1",pPTFE00Stock,pPTFE00STockTubCutS,dPTFE00StockTubCutTransform1);
+	G4SubtractionSolid* pPTFE00StockTubCutSub2 = new G4SubtractionSolid("pPTFE00StockTubCutSub2",pPTFE00StockTubCutSub1,pPTFE00STockTubCutS,dPTFE00StockTubCutTransform2);
+	G4SubtractionSolid* pPTFE00StockTubCut = new G4SubtractionSolid("pPTFE00StockTubCut",pPTFE00StockTubCutSub2,pPTFE00STockTubCutS,dPTFE00StockTubCutTransform3);
+
     // Create PTFE00
-    pPTFE00LV = new G4LogicalVolume(pPTFE00Stock, G4Material::GetMaterial("PTFE"), "PTFE00");
-//    pPTFE00PV = new G4PVPlacement(0, dPTFE00Placement, pPTFE00LV, "PTFE00", pMotherLV, false, 0);
+    pPTFE00LV = new G4LogicalVolume(pPTFE00StockTubCut, G4Material::GetMaterial("PTFE"), "PTFE00");
+//    pPTFE00PV = new G4PVPlacement(0, dPTFE00StockPlacement, pPTFE00LV, "PTFE00", pMotherLV, false, 0);
 
 
     //////////////////////
@@ -515,6 +543,11 @@ void RELAXDetectorConstruction::ConstructLaboratory()
     G4double dPTFE01StockCylinder1OuterRadius = 4.00 * mm;
     G4double dPTFE01StockCylinder1Height = 3.00 * mm;
 
+    G4double dPTFE01StockTubCutInnerRadius = 46.0 * mm;
+    G4double dPTFE01StockTubCutOuterRadius = dPTFE01StockTubCutInnerRadius + 20.0 * mm;
+    G4double dPTFE01StockTubCutHeight = 2 * dPTFE01StockHeight5;
+    G4double dPTFE01StockTubCutStartAngle = 32.255 * deg;
+
     G4double dPTFE01StockBox1R = dPTFE01StockRadius2;
     G4double dPTFE01StockBox1X = dPTFE01StockBox1R * (cos(10.5 * deg) * mm);
     G4double dPTFE01StockBox1Y = dPTFE01StockBox1R * (sin(10.5 * deg) * mm);
@@ -529,8 +562,14 @@ void RELAXDetectorConstruction::ConstructLaboratory()
     G4double dPTFE01StockCylinder1Y = dPTFE01StockCylinder1R * (sin(10.5 * deg) * mm);
     G4double dPTFE01StockCylinder1Z = dPTFE01StockHeight1;
 
+    G4double dPTFE01StockTubCutX = 0.00 * mm;
+    G4double dPTFE01StockTubCutY = 0.00 * mm;
+    G4double dPTFE01StockTubCutZ = 0.00 * mm;
+
     G4RotationMatrix dPTFE01StockCylinder1Rot;
     dPTFE01StockCylinder1Rot.rotateZ(0.00);
+
+    G4ThreeVector dPTFE01StockTubCutXYZ(dPTFE01StockTubCutX,dPTFE01StockTubCutY,dPTFE01StockTubCutZ);
 
     G4ThreeVector dPTFE01StockXenonVentTubXYZ1(dPTFE01StockXenonVentTubX,dPTFE01StockXenonVentTubY,dPTFE01StockXenonVentTubZ);
     G4RotationMatrix dPTFE01StockXenonVentTubRot1;
@@ -555,6 +594,18 @@ void RELAXDetectorConstruction::ConstructLaboratory()
     G4ThreeVector dPTFE01StockCylinder1XYZ(dPTFE01StockCylinder1X,dPTFE01StockCylinder1Y,dPTFE01StockCylinder1Z);
     G4Transform3D dPTFE01StockCylinder1Transform(dPTFE01StockCylinder1Rot,dPTFE01StockCylinder1XYZ);
 
+    G4RotationMatrix dPTFE01StockTubCutRot1;
+    dPTFE01StockTubCutRot1.rotateZ(0.00);
+    G4Transform3D dPTFE01StockTubCutTransform1(dPTFE01StockTubCutRot1,dPTFE01StockTubCutXYZ);
+
+    G4RotationMatrix dPTFE01StockTubCutRot2;
+    dPTFE01StockTubCutRot2.rotateZ(120 * deg);
+    G4Transform3D dPTFE01StockTubCutTransform2(dPTFE01StockTubCutRot2,dPTFE01StockTubCutXYZ);
+
+    G4RotationMatrix dPTFE01StockTubCutRot3;
+    dPTFE01StockTubCutRot3.rotateZ(240 * deg);
+    G4Transform3D dPTFE01StockTubCutTransform3(dPTFE01StockTubCutRot3,dPTFE01StockTubCutXYZ);
+
     // Set PTFE01 placement values
     G4double dPTFE01StockPlacementX = 0.00 * mm;
     G4double dPTFE01StockPlacementY = 0.00 * mm;
@@ -565,6 +616,7 @@ void RELAXDetectorConstruction::ConstructLaboratory()
     G4Box* pPTFE01StockBox1S = new G4Box("pPTFE01StockBox1S", 0.5 * dPTFE01StockBox1Length, 0.5 * dPTFE01StockBox1Width, 0.5 * dPTFE01StockBox1Height);
     G4Tubs* pPTFE01StockXenonVentTub = new G4Tubs("pPTFE01StockXenonVentTub", dPTFE01StockXenonVentTubInnerRadius, dPTFE01StockXenonVentTubOuterRadius, 0.5 * dPTFE01StockXenonVentTubHeight, 0, M_PI/3);
     G4Tubs* pPTFE01StockCylinder1Tub = new G4Tubs("pPTFE01StockCylinder1Tub", dPTFE01StockCylinder1InnerRadius, dPTFE01StockCylinder1OuterRadius, 0.5 * dPTFE01StockCylinder1Height, 0, 2 * M_PI);
+    G4Tubs* pPTFE01StockTubCutS = new G4Tubs("pPTFE01StockTubCutS", dPTFE01StockTubCutInnerRadius, dPTFE01StockTubCutOuterRadius, dPTFE01StockTubCutHeight, 0.5 * dPTFE01StockTubCutStartAngle, -dPTFE01StockTubCutStartAngle + 120 * deg);
 
     G4GenericPolycone* pPTFE01Stock = new G4GenericPolycone("PTFE01Stock", 0, 2 * M_PI, 12, dPTFE01StockRadiusArray, dPTFE01StockHeightArray);
 
@@ -576,8 +628,12 @@ void RELAXDetectorConstruction::ConstructLaboratory()
 
     G4SubtractionSolid* pPTFE01StockCylinder1 = new G4SubtractionSolid("pPTFE01StockCylinder1", pPTFE01StockXenonVent, pPTFE01StockCylinder1Tub, dPTFE01StockCylinder1Transform);
 
+    G4SubtractionSolid* pPTFE01StockTubCutSub1 = new G4SubtractionSolid("pPTFE01StockTubCutSub1", pPTFE01StockCylinder1, pPTFE01StockTubCutS, dPTFE01StockTubCutTransform1);
+    G4SubtractionSolid* pPTFE01StockTubCutSub2 = new G4SubtractionSolid("pPTFE01StockTubCutSub2", pPTFE01StockTubCutSub1, pPTFE01StockTubCutS, dPTFE01StockTubCutTransform2);
+    G4SubtractionSolid* pPTFE01StockTubCut = new G4SubtractionSolid("pPTFE01StockTubCut", pPTFE01StockTubCutSub2, pPTFE01StockTubCutS, dPTFE01StockTubCutTransform3);
+
     // Create PTFE01
-    pPTFE01LV = new G4LogicalVolume(pPTFE01StockCylinder1, G4Material::GetMaterial("PTFE"), "PTFE01");
+    pPTFE01LV = new G4LogicalVolume(pPTFE01StockTubCut, G4Material::GetMaterial("PTFE"), "PTFE01");
 //    pPTFE01PV = new G4PVPlacement(0, dPTFE01StockPlacement, pPTFE01LV, "PTFE01", pMotherLV, false, 0);
 
     //////////////////////
@@ -698,6 +754,11 @@ void RELAXDetectorConstruction::ConstructLaboratory()
     G4double dPTFE02StockCylinder5OuterRadius = 4.0 * mm;
     G4double dPTFE02StockCylinder5Height = 12.0 * mm;
 
+    G4double dPTFE02StockTubCutInnerRadius = 46.0 * mm;
+    G4double dPTFE02StockTubCutOuterRadius = dPTFE02StockTubCutInnerRadius + 20.0 * mm;
+    G4double dPTFE02StockTubCutHeight = 2 * dPTFE02StockHeight5;
+    G4double dPTFE02StockTubCutStartAngle = 32.255 * deg;
+
     G4double dPTFE02StockBox1R = 39.00 * mm + 0.5 * dPTFE02StockBox1Length;
     G4double dPTFE02StockBox1X1 = dPTFE02StockBox1R * (cos(39 * deg) * mm);
     G4double dPTFE02StockBox1X2 = dPTFE02StockBox1R * (cos(21 * deg) * mm);
@@ -773,6 +834,12 @@ void RELAXDetectorConstruction::ConstructLaboratory()
     G4double dPTFE02StockCylinder4Z1 = dPTFE02StockHeight5;
     G4double dPTFE02StockCylinder4Z2 = dPTFE02StockHeight13;
     G4double dPTFE02StockBox1Z = dPTFE02StockHeight3;
+
+    G4double dPTFE02StockTubCutX = 0.00 * mm;
+    G4double dPTFE02StockTubCutY = 0.00 * mm;
+    G4double dPTFE02StockTubCutZ = 0.00 * mm;
+
+	G4ThreeVector dPTFE02StockTubCutXYZ(dPTFE02StockTubCutX, dPTFE02StockTubCutY, dPTFE02StockTubCutZ);
 
     G4RotationMatrix dPTFE02StockCylinderRot;
     dPTFE02StockCylinderRot.rotateZ(0.00);
@@ -872,6 +939,18 @@ void RELAXDetectorConstruction::ConstructLaboratory()
    	G4ThreeVector dPTFE02StockCylinder4XYZ2(dPTFE02StockCylinder4X2, dPTFE02StockCylinder4Y2, dPTFE02StockCylinder4Z2);
    	G4Transform3D dPTFE02StockCylinder4Transform2(dPTFE02StockCylinderRot, dPTFE02StockCylinder4XYZ2);
 
+   	G4RotationMatrix dPTFE02StockTubCutRot1;
+   	dPTFE02StockTubCutRot1.rotateZ(0.00);
+   	G4Transform3D dPTFE02StockTubCutTransform1(dPTFE02StockTubCutRot1, dPTFE02StockTubCutXYZ);
+
+   	G4RotationMatrix dPTFE02StockTubCutRot2;
+   	dPTFE02StockTubCutRot2.rotateZ(120 * deg);
+   	G4Transform3D dPTFE02StockTubCutTransform2(dPTFE02StockTubCutRot2, dPTFE02StockTubCutXYZ);
+
+   	G4RotationMatrix dPTFE02StockTubCutRot3;
+   	dPTFE02StockTubCutRot3.rotateZ(240 * deg);
+   	G4Transform3D dPTFE02StockTubCutTransform3(dPTFE02StockTubCutRot3, dPTFE02StockTubCutXYZ);
+
     // Set PTFE02 Placement Values
     G4double dPTFE02StockPlacementX = 0.000 * mm;
     G4double dPTFE02StockPlacementY = 0.000 * mm;
@@ -884,6 +963,7 @@ void RELAXDetectorConstruction::ConstructLaboratory()
     G4Tubs* pPTFE02StockCylinder3S = new G4Tubs("pPTFE02StockCylinder3S", dPTFE02StockCylinder3InnerRadius, dPTFE02StockCylinder3OuterRadius, 0.5 * dPTFE02StockCylinder3Height, 0, 2 * M_PI);
     G4Box* pPTFE02StockBox1S = new G4Box("pPTFE02StockBox1S",0.5 * dPTFE02StockBox1Length,0.5 * dPTFE02StockBox1Width,0.5 * dPTFE02StockBox1Height);
     G4Box* pPTFE02StockBox2S = new G4Box("pPTFE02StockBox2S", 0.5 * dPTFE02StockBox2Length, 0.5 * dPTFE02StockBox2Width, 0.5 * dPTFE02StockBox2Height);
+    G4Tubs* pPTFE02StockTubCutS = new G4Tubs("pPTFE02StockTubCutS", dPTFE02StockTubCutInnerRadius, dPTFE02StockTubCutOuterRadius, dPTFE02StockTubCutHeight, 0.5 * dPTFE02StockTubCutStartAngle, -dPTFE02StockTubCutStartAngle + 120 * deg);
 
     G4Tubs* pPTFE02StockCylinder4S = new G4Tubs("pPTFE02StockCylinder4S", dPTFE02StockCylinder4InnerRadius, dPTFE02StockCylinder4OuterRadius, 0.5 * dPTFE02StockCylinder4Height, 0, 2 * M_PI);
 
@@ -923,9 +1003,13 @@ void RELAXDetectorConstruction::ConstructLaboratory()
     G4SubtractionSolid* pPTFE02StockCylinder4Sub1 = new G4SubtractionSolid("pPTFE02StockCylinder4Sub1",pPTFE02StockBox2,pPTFE02StockCylinder4S,dPTFE02StockCylinder4Transform1);
     G4SubtractionSolid* 	pPTFE02StockCylinder4 = new G4SubtractionSolid("pPTFE02StockCylinder4",pPTFE02StockCylinder4Sub1,pPTFE02StockCylinder4S,dPTFE02StockCylinder4Transform2);
 
+    G4SubtractionSolid* pPTFE02StockTubCutSub1 = new G4SubtractionSolid("pPTFE02StockTubCutSub1", pPTFE02StockCylinder4, pPTFE02StockTubCutS, dPTFE02StockTubCutTransform1);
+    G4SubtractionSolid* pPTFE02StockTubCutSub2 = new G4SubtractionSolid("pPTFE02StockTubCutSub2", pPTFE02StockTubCutSub1, pPTFE02StockTubCutS, dPTFE02StockTubCutTransform2);
+    G4SubtractionSolid* pPTFE02StockTubCut = new G4SubtractionSolid("pPTFE02StockTubCut", pPTFE02StockTubCutSub2, pPTFE02StockTubCutS, dPTFE02StockTubCutTransform3);
+
     // Create PTFE02
-    pPTFE02LV = new G4LogicalVolume(pPTFE02StockCylinder4, G4Material::GetMaterial("PTFE"), "PTFE02");
-    pPTFE02PV = new G4PVPlacement(0, dPTFE02StockPlacement, pPTFE02LV, "PTFE02", pMotherLV, false, 0);
+    pPTFE02LV = new G4LogicalVolume(pPTFE02StockTubCut, G4Material::GetMaterial("PTFE"), "PTFE02");
+//    pPTFE02PV = new G4PVPlacement(0, dPTFE02StockPlacement, pPTFE02LV, "PTFE02", pMotherLV, false, 0);
 
     //////////////////////
     // Construct PTFE03 //
@@ -989,16 +1073,39 @@ void RELAXDetectorConstruction::ConstructLaboratory()
     G4double dPTFE03StockCylinder1OuterRadius = 4.0 * mm;
     G4double dPTFE03StockCylinder1Height = 12.0 * mm; // Has to go through
 
+    G4double dPTFE03StockTubCutInnerRadius = 46.0 * mm;
+    G4double dPTFE03stockTubCutOuterRadius = dPTFE03StockTubCutInnerRadius + 20.0 * mm;
+    G4double dPTFE03StockTubCutHeight = 2 * dPTFE03StockHeight5;
+    G4double dPTFE03StockTubCutStartAngle = 32.255 * deg;
+
     G4double dPTFE03StockCylinder1R = 47.75 * mm;
     G4double dPTFE03StockCylinder1X = dPTFE03StockCylinder1R * (cos(10.5 * deg) * mm);
     G4double dPTFE03StockCylinder1Y = dPTFE03StockCylinder1R * (sin(10.5 * deg) * mm);
     G4double dPTFE03StockCylinder1Z = dPTFE03StockHeight5;
 
+    G4double dPTFE03StockTubCutX = 0.00 * mm;
+    G4double dPTFE03StockTubCutY = 0.00 * mm;
+    G4double dPTFE03StockTubCutZ = 0.00 * mm;
+
     G4RotationMatrix dPTFE03StockCylinderRot;
     dPTFE03StockCylinderRot.rotateZ(0.00);
 
+    G4ThreeVector dPTFE03StockTubCutXYZ(dPTFE03StockTubCutX, dPTFE03StockTubCutY, dPTFE03StockTubCutZ);
+
     G4ThreeVector dPTFE03StockCylinder1XYZ(dPTFE03StockCylinder1X, dPTFE03StockCylinder1Y, dPTFE03StockCylinder1Z);
     G4Transform3D dPTFE03StockCylinder1Transform(dPTFE03StockCylinderRot, dPTFE03StockCylinder1XYZ);
+
+    G4RotationMatrix dPTFE03StockTubCutRot1;
+    dPTFE03StockTubCutRot1.rotateZ(0.00 * mm);
+    G4Transform3D dPTFE03StockTubCutTransform1(dPTFE03StockTubCutRot1, dPTFE03StockTubCutXYZ);
+
+    G4RotationMatrix dPTFE03StockTubCutRot2;
+    dPTFE03StockTubCutRot2.rotateZ(120 * deg);
+    G4Transform3D dPTFE03StockTubCutTransform2(dPTFE03StockTubCutRot2, dPTFE03StockTubCutXYZ);
+
+    G4RotationMatrix dPTFE03StockTubCutRot3;
+    dPTFE03StockTubCutRot3.rotateZ(240 * deg);
+    G4Transform3D dPTFE03StockTubCutTransform3(dPTFE03StockTubCutRot3, dPTFE03StockTubCutXYZ);
 
     // Set PTFE03 Placement Values
     G4double dPTFE03StockPlacementX = 0.000 * mm;
@@ -1008,13 +1115,18 @@ void RELAXDetectorConstruction::ConstructLaboratory()
 
     // Create Subtraction Solids
     G4Tubs* pPTFE03StockCylinder1S = new G4Tubs("pPTFE03StockCylinder1S", dPTFE03StockCylinder1InnerRadius, dPTFE03StockCylinder1OuterRadius, 0.5 * dPTFE03StockCylinder1Height, 0, 2 * M_PI);
+    G4Tubs* pPTFE03StockTubCutS = new G4Tubs("pPTFE03StockTubCutS", dPTFE03StockTubCutInnerRadius, dPTFE03stockTubCutOuterRadius, dPTFE03StockTubCutHeight, 0.5 * dPTFE03StockTubCutStartAngle, -dPTFE03StockTubCutStartAngle + 120 * deg);
 
     G4GenericPolycone* pPTFE03Stock = new G4GenericPolycone("pPTFE03Stock", 0, 2 * M_PI, 12, dPTFE03StockRadiusArray, dPTFE03StockHeightArray);
     
     G4SubtractionSolid* pPTFE03StockCylinder1 = new G4SubtractionSolid("pPTFE03StockCylinder1", pPTFE03Stock, pPTFE03StockCylinder1S, dPTFE03StockCylinder1Transform);
 
+    G4SubtractionSolid* pPTFE03StockTubCutSub1 = new G4SubtractionSolid("pPTFE03StockTubCutSub1", pPTFE03StockCylinder1, pPTFE03StockTubCutS, dPTFE03StockTubCutTransform1);
+    G4SubtractionSolid* pPTFE03StockTubCutSub2 = new G4SubtractionSolid("pPTFE03StockTubCutSub2", pPTFE03StockTubCutSub1, pPTFE03StockTubCutS, dPTFE03StockTubCutTransform2);
+    G4SubtractionSolid* pPTFE03StockTubCut = new G4SubtractionSolid("pPTFE03StockTubCut", pPTFE03StockTubCutSub2, pPTFE03StockTubCutS, dPTFE03StockTubCutTransform3);
+
     // Create PTFE03
-    pPTFE03LV = new G4LogicalVolume(pPTFE03StockCylinder1, G4Material::GetMaterial("PTFE"), "PTFE03");
+    pPTFE03LV = new G4LogicalVolume(pPTFE03StockTubCut, G4Material::GetMaterial("PTFE"), "PTFE03");
 //    pPTFE03PV = new G4PVPlacement(0, dPTFE03StockPlacement, pPTFE03LV, "PTFE03", pMotherLV, false, 0);
 
     //////////////////////
@@ -1083,6 +1195,11 @@ void RELAXDetectorConstruction::ConstructLaboratory()
     G4double dPTFE04StockCylinder2OuterRadius = 4.0 * mm;
     G4double dPTFE04StockCylinder2Height = 22.0 * mm; // Has to go through
 
+    G4double dPTFE04StockTubCutInnerRadius = 46.0 * mm;
+    G4double dPTFE04StockTubCutOuterRadius = dPTFE04StockTubCutInnerRadius + 20.0 * mm;
+    G4double dPTFE04StockTubCutHeight = 2 * dPTFE04StockHeight5;
+    G4double dPTFE04StockTubCutStartAngle = 32.255 * deg;
+
     G4double dPTFE04StockCylinder1R = 39.00 * mm;
     G4double dPTFE04StockCylinder1X1 = dPTFE04StockCylinder1R * (cos(51 * deg) * mm);
     G4double dPTFE04StockCylinder1X2 = dPTFE04StockCylinder1R * (cos(9 * deg) * mm);
@@ -1103,8 +1220,14 @@ void RELAXDetectorConstruction::ConstructLaboratory()
     G4double dPTFE04StockCylinder2Y = dPTFE04StockCylinder2R * (sin(10.5 * deg) * mm);
     G4double dPTFE04StockCylinder2Z = dPTFE04StockHeight5;
 
+    G4double dPTFE04StockTubCutX = 0.00 * mm;
+    G4double dPTFE04StockTubCutY = 0.00 * mm;
+    G4double dPTFE04StockTubCutZ = 0.00 * mm;
+
     G4RotationMatrix dPTFE04StockCylinderRot;
     dPTFE04StockCylinderRot.rotateZ(0.00);
+
+    G4ThreeVector dPTFE04StockTubCutXYZ(dPTFE04StockTubCutX, dPTFE04StockTubCutY, dPTFE04StockTubCutZ);
 
     G4ThreeVector dPTFE04StockCylinder1XYZ1(dPTFE04StockCylinder1X1,dPTFE04StockCylinder1Y1,dPTFE04StockCylinder1Z);
     G4Transform3D dPTFE04StockCylinder1Transform1(dPTFE04StockCylinderRot, dPTFE04StockCylinder1XYZ1);
@@ -1127,6 +1250,18 @@ void RELAXDetectorConstruction::ConstructLaboratory()
     G4ThreeVector dPTFE04StockCylinder2XYZ(dPTFE04StockCylinder2X, dPTFE04StockCylinder2Y,dPTFE04StockCylinder2Z);
    	G4Transform3D dPTFE04StockCylinder2Transform(dPTFE04StockCylinderRot, dPTFE04StockCylinder2XYZ);
 
+   	G4RotationMatrix dPTFE04StockTubCutRot1;
+   	dPTFE04StockTubCutRot1.rotateZ(0.00);
+   	G4Transform3D dPTFE04StockTubCutTransform1(dPTFE04StockTubCutRot1, dPTFE04StockTubCutXYZ);
+
+   	G4RotationMatrix dPTFE04StockTubCutRot2;
+   	dPTFE04StockTubCutRot2.rotateZ(120 * deg);
+   	G4Transform3D dPTFE04StockTubCutTransform2(dPTFE04StockTubCutRot2, dPTFE04StockTubCutXYZ);
+
+   	G4RotationMatrix dPTFE04StockTubCutRot3;
+   	dPTFE04StockTubCutRot3.rotateZ(240 * deg);
+   	G4Transform3D dPTFE04StockTubCutTransform3(dPTFE04StockTubCutRot3, dPTFE04StockTubCutXYZ);
+
     // Set Stock Placement Values
     G4double dPTFE04StockPlacementX = 0.000 * mm;
     G4double dPTFE04StockPlacementY = 0.000 * mm;
@@ -1136,6 +1271,7 @@ void RELAXDetectorConstruction::ConstructLaboratory()
     // Create Subtraction Solids
 	G4Tubs* pPTFE04StockCylinder1S = new G4Tubs("pPTFE04StockCylinder1S", dPTFE04StockCylinder1InnerRadius, dPTFE04StockCylinder1OuterRadius, 0.5 * dPTFE04StockCylinder1Height, 0, 2 * M_PI);
 	G4Tubs* pPTFE04StockCylinder2S = new G4Tubs("pPTFE04StockCylinder2S", dPTFE04StockCylinder2InnerRadius, dPTFE04StockCylinder2OuterRadius, 0.5 * dPTFE04StockCylinder2Height, 0, 2 * M_PI);
+	G4Tubs* pPTFE04StockTubCutS = new G4Tubs("pPTFE04StockTubCutS", dPTFE04StockTubCutInnerRadius, dPTFE04StockTubCutOuterRadius, dPTFE04StockTubCutHeight, 0.5 * dPTFE04StockTubCutStartAngle, -dPTFE04StockTubCutStartAngle + 120 * deg);
     
     G4GenericPolycone* pPTFE04Stock  = new G4GenericPolycone("PTFE04Stock", 0, 2 * M_PI, 12, dPTFE04StockRadiusArray, dPTFE04StockHeightArray);
 
@@ -1148,8 +1284,12 @@ void RELAXDetectorConstruction::ConstructLaboratory()
 
     G4SubtractionSolid* pPTFE04StockCylinder2 = new G4SubtractionSolid("pPTFE04StockCylinder2",pPTFE04StockCylinder1,pPTFE04StockCylinder2S,dPTFE04StockCylinder2Transform);
 
+    G4SubtractionSolid* pPTFE04StockTubCutSub1 = new G4SubtractionSolid("pPTFE04StockTubCutSub1",pPTFE04StockCylinder2,pPTFE04StockTubCutS,dPTFE04StockTubCutTransform1);
+    G4SubtractionSolid* pPTFE04StockTubCutSub2 = new G4SubtractionSolid("pPTFE04StockTubCutSub2",pPTFE04StockTubCutSub1,pPTFE04StockTubCutS,dPTFE04StockTubCutTransform2);
+    G4SubtractionSolid* pPTFE04StockTubCut = new G4SubtractionSolid("pPTFE04StockTubCut",pPTFE04StockTubCutSub2,pPTFE04StockTubCutS,dPTFE04StockTubCutTransform3);
+
     // Create PTFE04
-    pPTFE04LV = new G4LogicalVolume(pPTFE04StockCylinder2 , G4Material::GetMaterial("PTFE"), "PTFE04");
+    pPTFE04LV = new G4LogicalVolume(pPTFE04StockTubCut , G4Material::GetMaterial("PTFE"), "PTFE04");
 //    pPTFE04PV = new G4PVPlacement(0, dPTFE04StockPlacement, pPTFE04LV, "PTFE04", pMotherLV, false, 0);
 
     //////////////////////
@@ -1204,26 +1344,23 @@ void RELAXDetectorConstruction::ConstructLaboratory()
  	// Set Subtraction Solid variables
     G4double dPTFE05StockCylinder1InnerRadius = 0.0 * mm; // Large one on bottom
     G4double dPTFE05StockCylinder1OuterRadius = 3.0 * mm;
-    G4double dPTFE05StockCylinder1Height = 4.0 * mm;\
+    G4double dPTFE05StockCylinder1Height = 4.0 * mm;
 
     G4double dPTFE05StockCylinder2InnerRadius = 0.0 * mm; // Larger one on top wing
     G4double dPTFE05StockCylinder2OuterRadius = 4.0 * mm;
     G4double dPTFE05StockCylinder2Height = 13.0 * mm; // Has to go through
-
+/*
     G4double   dPTFE05PMTSignalFTBoxSide = 28.0 * mm;
     G4double dPTFE05PMTSignalFTBoxHeight = 40.0 * mm;
 
     G4double dPTFE05PMTSignalFTTubInnerRadius = 3.175 * mm;
     G4double dPTFE05PMTSignalFTTubOuterRadius = dPTFE05PMTSignalFTTubInnerRadius + 5.0 * mm;
     G4double dPTFE05PMTSignalFTTubHeight      = 2 * dPTFE05PMTSignalFTBoxHeight;
-
-    G4double dPTFE05StockUpperCutTubInnerRadius = 43.00 * mm;
-    G4double dPTFE05StockUpperCutTubOuterRadius = dPTFE05StockUpperCutTubInnerRadius + 20.0 * mm;
-    G4double      dPTFE05StockUpperCutTubHeight = 2 * (dPTFE05StockHeight1 - dPTFE05StockHeight3);
-
-    G4double dPTFE05StockLowerCutTubInnerRadius = 46 * mm;
-    G4double dPTFE05StockLowerCutTubOuterRadius = dPTFE05StockLowerCutTubInnerRadius + 20.0 * mm;
-    G4double      dPTFE05StockLowerCutTubHeight = 2 * dPTFE05StockHeight1;
+*/
+    G4double dPTFE05StockTubCutInnerRadius = 46 * mm;
+    G4double dPTFE05StockTubCutOuterRadius = dPTFE05StockTubCutInnerRadius + 20 * mm;
+    G4double dPTFE05StockTubCutHeight = 2 * dPTFE05StockHeight1;
+    G4double dPTFE05StockTubCutStartAngle = 32.255 * deg;
 
     G4double dPTFE05StockCylinder1R = 39.00 * mm;
     G4double dPTFE05StockCylinder1X1 = dPTFE05StockCylinder1R * (cos(69 * deg) * mm);
@@ -1244,7 +1381,7 @@ void RELAXDetectorConstruction::ConstructLaboratory()
     G4double dPTFE05StockCylinder2X = dPTFE05StockCylinder2R * (cos(10.5 * deg) * mm);
     G4double dPTFE05StockCylinder2Y = dPTFE05StockCylinder2R * (sin(10.5 * deg) * mm);
     G4double dPTFE05StockCylinder2Z = dPTFE05StockHeight3;
-
+/*
     G4double dPTFE05PMTSignalFTX1 = dPTFE05PMTSignalFTTubInnerRadius - 0.5 * dPTFE05PMTSignalFTBoxSide;
     G4double dPTFE05PMTSignalFTX2 = -dPTFE05PMTSignalFTX1;
     G4double dPTFE05PMTSignalFTY1 = 0.5 * dPTFE05PMTSignalFTBoxSide - dPTFE05PMTSignalFTTubInnerRadius;
@@ -1256,20 +1393,18 @@ void RELAXDetectorConstruction::ConstructLaboratory()
     G4double dPTFE05StockPMTSubY1 = 15.0 * mm;
     G4double dPTFE05StockPMTSubY2 = -dPTFE05StockPMTSubY1;
     G4double dPTFE05StockPMTSubZ =  dPTFE05StockHeight1;
-
-    G4double dPTFE05StockUpperCutTubSubX = 0.00 * mm;
-    G4double dPTFE05StockUpperCutTubSubY = 0.00 * mm;
-    G4double dPTFE05StockUpperCutTubSubZ = dPTFE05StockHeight1;
-
-    G4double dPTFE05StockLowerCutTubSubX = 0.00 * mm;
-    G4double dPTFE05StockLowerCutTubSubY = 0.00 * mm;
-    G4double  dPTFE05StockLowerCutTubSubZ = dPTFE05StockHeight1;
+*/
+    G4double dPTFE05StockTubCutX = 0.00 * mm;
+    G4double dPTFE05StockTubCutY = 0.00 * mm;
+    G4double dPTFE05StockTubCutZ = dPTFE05StockHeight1;
 
     G4RotationMatrix dPTFE05StockPMTSubRot;
     dPTFE05StockPMTSubRot.rotateZ(0.00);
 
     G4RotationMatrix dPTFE05StockCylinderRot;
     dPTFE05StockCylinderRot.rotateZ(0.00);
+
+    G4ThreeVector dPTFE05StockTubCutXYZ(dPTFE05StockTubCutX, dPTFE05StockTubCutY, dPTFE05StockTubCutZ);
 
     G4ThreeVector dPTFE05StockCylinder1XYZ1(dPTFE05StockCylinder1X1,dPTFE05StockCylinder1Y1,dPTFE05StockCylinder1Z);
     G4Transform3D dPTFE05StockCylinder1Transform1(dPTFE05StockCylinderRot, dPTFE05StockCylinder1XYZ1);
@@ -1291,7 +1426,7 @@ void RELAXDetectorConstruction::ConstructLaboratory()
 
     G4ThreeVector dPTFE05StockCylinder2XYZ(dPTFE05StockCylinder2X, dPTFE05StockCylinder2Y,dPTFE05StockCylinder2Z);
    	G4Transform3D dPTFE05StockCylinder2Transform(dPTFE05StockCylinderRot, dPTFE05StockCylinder2XYZ);
-
+/*
     G4ThreeVector dPTFE05PMTSignalFTXYZ1(dPTFE05PMTSignalFTX1,dPTFE05PMTSignalFTY1,dPTFE05PMTSignalFTZ);
     G4RotationMatrix dPTFE05PMTSignalFTRot1;
     dPTFE05PMTSignalFTRot1.rotateZ(0.5 * M_PI);
@@ -1323,36 +1458,18 @@ void RELAXDetectorConstruction::ConstructLaboratory()
 
     G4ThreeVector dPTFE05StockPMTSubXYZ4(dPTFE05StockPMTSubX1,dPTFE05StockPMTSubY2,dPTFE05StockPMTSubZ);
     G4Transform3D dPTFE05StockPMTSubTransform4(dPTFE05StockPMTSubRot, dPTFE05StockPMTSubXYZ4);
+*/
+    G4RotationMatrix dPTFE05StockTubCutRot1;
+    dPTFE05StockTubCutRot1.rotateZ(0.00);
+    G4Transform3D dPTFE05StockTubCutTransform1(dPTFE05StockTubCutRot1, dPTFE05StockTubCutXYZ);
 
-    G4ThreeVector dPTFE05StockUpperCutTubXYZ1(dPTFE05StockUpperCutTubSubX,dPTFE05StockUpperCutTubSubY,dPTFE05StockUpperCutTubSubZ);
-    G4RotationMatrix dPTFE05StockUpperCutTubRot1;
-    dPTFE05StockUpperCutTubRot1.rotateZ(2 * M_PI/3);
-    G4Transform3D dPTFE05StockUpperCutTubTransform1(dPTFE05StockUpperCutTubRot1,dPTFE05StockUpperCutTubXYZ1);
+    G4RotationMatrix dPTFE05StockTubCutRot2;
+    dPTFE05StockTubCutRot2.rotateZ(120 * deg);
+    G4Transform3D dPTFE05StockTubCutTransform2(dPTFE05StockTubCutRot2, dPTFE05StockTubCutXYZ);
 
-    G4ThreeVector dPTFE05StockUpperCutTubXYZ2(dPTFE05StockUpperCutTubSubX,dPTFE05StockUpperCutTubSubY,dPTFE05StockUpperCutTubSubZ);
-    G4RotationMatrix dPTFE05StockUpperCutTubRot2;
-    dPTFE05StockUpperCutTubRot2.rotateZ(0.00);
-    G4Transform3D dPTFE05StockUpperCutTubTransform2(dPTFE05StockUpperCutTubRot2,dPTFE05StockUpperCutTubXYZ2);
-
-    G4ThreeVector dPTFE05StockUpperCutTubXYZ3(dPTFE05StockUpperCutTubSubX,dPTFE05StockUpperCutTubSubY,dPTFE05StockUpperCutTubSubZ);
-    G4RotationMatrix dPTFE05StockUpperCutTubRot3;
-    dPTFE05StockUpperCutTubRot2.rotateZ(4/3 * M_PI);
-    G4Transform3D dPTFE05StockUpperCutTubTransform3(dPTFE05StockUpperCutTubRot3,dPTFE05StockUpperCutTubXYZ3);
-
-    G4ThreeVector dPTFE05StockLowerCutTubXYZ1(dPTFE05StockLowerCutTubSubX,dPTFE05StockLowerCutTubSubY,dPTFE05StockLowerCutTubSubZ);
-    G4RotationMatrix dPTFE05StockLowerCutTubRot1;
-    dPTFE05StockLowerCutTubRot1.rotateZ(0.00);
-    G4Transform3D dPTFE05StockLowerCutTubTransform1(dPTFE05StockLowerCutTubRot1,dPTFE05StockLowerCutTubXYZ1);
-
-    G4ThreeVector dPTFE05StockLowerCutTubXYZ2(dPTFE05StockLowerCutTubSubX,dPTFE05StockLowerCutTubSubY,dPTFE05StockLowerCutTubSubZ);
-    G4RotationMatrix dPTFE05StockLowerCutTubRot2;
-    dPTFE05StockLowerCutTubRot2.rotateZ(-2/3 * M_PI);
-    G4Transform3D dPTFE05StockLowerCutTubTransform2(dPTFE05StockLowerCutTubRot2,dPTFE05StockLowerCutTubXYZ2);
-
-    G4ThreeVector dPTFE05StockLowerCutTubXYZ3(dPTFE05StockLowerCutTubSubX,dPTFE05StockLowerCutTubSubY,dPTFE05StockLowerCutTubSubZ);
-    G4RotationMatrix dPTFE05StockLowerCutTubRot3;
-    dPTFE05StockLowerCutTubRot2.rotateZ(2/3 * M_PI);
-    G4Transform3D dPTFE05StockLowerCutTubTransform3(dPTFE05StockLowerCutTubRot3,dPTFE05StockLowerCutTubXYZ3);
+    G4RotationMatrix dPTFE05StockTubCutRot3;
+    dPTFE05StockTubCutRot3.rotateZ(240 * deg);
+    G4Transform3D dPTFE05StockTubCutTransform3(dPTFE05StockTubCutRot3, dPTFE05StockTubCutXYZ);
 
     // Set PTFE05 Placement Values
     G4double dPTFE05StockPlacementX = 0.000 * mm;
@@ -1363,15 +1480,7 @@ void RELAXDetectorConstruction::ConstructLaboratory()
     // Create Subtraction Solids
     G4Tubs* pPTFE05StockCylinder1S = new G4Tubs("pPTFE05StockCylinder1S", dPTFE05StockCylinder1InnerRadius, dPTFE05StockCylinder1OuterRadius, 0.5 * dPTFE05StockCylinder1Height, 0, 2 * M_PI);
    	G4Tubs* pPTFE05StockCylinder2S = new G4Tubs("pPTFE05StockCylinder2S",dPTFE05StockCylinder2InnerRadius, dPTFE05StockCylinder2OuterRadius, 0.5 * dPTFE05StockCylinder2Height, 0, 2 * M_PI);
-    G4Box*  pPTFE05PMTSignalFTBox = new G4Box("PTFE05PMTSignalFTBox", 0.5 * dPTFE05PMTSignalFTBoxSide, 0.5 * dPTFE05PMTSignalFTBoxSide, 0.5 * dPTFE05PMTSignalFTBoxHeight);
-    G4Tubs* pPTFE05PMTSignalFTTub = new G4Tubs("PTFE05PMTSignalFTTub", dPTFE05PMTSignalFTTubInnerRadius, dPTFE05PMTSignalFTTubOuterRadius, 0.5 * dPTFE05PMTSignalFTTubHeight, 0, 0.5 * M_PI);
-    G4Tubs* pPTFE05StockUpperCutTub = new G4Tubs("PTFE05UpperCut", dPTFE05StockUpperCutTubInnerRadius, dPTFE05StockUpperCutTubOuterRadius, 0.5 * dPTFE05StockUpperCutTubHeight,-M_PI/6 + 0.1090831, 0.5 * M_PI - 0.1090831);
-    G4Tubs* pPTFE05StockLowerCutTub = new G4Tubs("PTFE05LowerCut", dPTFE05StockLowerCutTubInnerRadius, dPTFE05StockLowerCutTubOuterRadius, 0.5 * dPTFE05StockLowerCutTubHeight, M_PI/6 - 0.281870674, 5 * M_PI/6 - 0.281870674);
-
-    G4SubtractionSolid* pPTFE05PMTSignalFTSub1 = new G4SubtractionSolid("pTFE05PMTSignalFTSub1", pPTFE05PMTSignalFTBox, pPTFE05PMTSignalFTTub, dPTFE05PMTSignalFTTransform1);
-    G4SubtractionSolid* pPTFE05PMTSignalFTSub2 = new G4SubtractionSolid("pTFE05PMTSignalFTSub2", pPTFE05PMTSignalFTSub1, pPTFE05PMTSignalFTTub, dPTFE05PMTSignalFTTransform2);
-    G4SubtractionSolid* pPTFE05PMTSignalFTSub3 = new G4SubtractionSolid("pTFE05PMTSignalFTSub3", pPTFE05PMTSignalFTSub2, pPTFE05PMTSignalFTTub, dPTFE05PMTSignalFTTransform3);
-    G4SubtractionSolid*     pPTFE05PMTSignalFT = new G4SubtractionSolid("pTFE05PMTSignalFT", pPTFE05PMTSignalFTSub3, pPTFE05PMTSignalFTTub, dPTFE05PMTSignalFTTransform4);
+    G4Tubs* pPTFE05StockTubCutS = new G4Tubs("pPTFE05StockTubCutS", dPTFE05StockTubCutInnerRadius, dPTFE05StockTubCutOuterRadius, dPTFE05StockTubCutHeight, 0.5 * dPTFE05StockTubCutStartAngle, -dPTFE05StockTubCutStartAngle + 120 * deg);
 
     G4GenericPolycone* pPTFE05Stock = new G4GenericPolycone("PTFE05", 0, 2 * M_PI, 10, dPTFE05StockRadiusArray, dPTFE05StockHeightArray);
 
@@ -1384,22 +1493,11 @@ void RELAXDetectorConstruction::ConstructLaboratory()
 
     G4SubtractionSolid* pPTFE05StockCylinder2 = new G4SubtractionSolid("pPTFE05StockCylinder2",pPTFE05StockCylinder1,pPTFE05StockCylinder2S,dPTFE05StockCylinder2Transform);
 
-    G4SubtractionSolid* pPTFE05StockPMTSub1 = new G4SubtractionSolid("pPTFE05StockPMTSub1", pPTFE05Stock, pPTFE05PMTSignalFT, dPTFE05StockPMTSubTransform1);
-    G4SubtractionSolid* pPTFE05StockPMTSub2 = new G4SubtractionSolid("pPTFE05StockPMTSub2", pPTFE05StockPMTSub1, pPTFE05PMTSignalFT, dPTFE05StockPMTSubTransform2);
-    G4SubtractionSolid* pPTFE05StockPMTSub3 = new G4SubtractionSolid("pPTFE05StockPMTSub3", pPTFE05StockPMTSub2, pPTFE05PMTSignalFT, dPTFE05StockPMTSubTransform3);
-    G4SubtractionSolid*     pPTFE05StockPMT = new G4SubtractionSolid("pPTFE05StockPMT", pPTFE05StockPMTSub3, pPTFE05PMTSignalFT, dPTFE05StockPMTSubTransform4);
-
-    G4SubtractionSolid* pPTFE05StockUpperCutTubSub1 = new G4SubtractionSolid("pPTFE05StockUpperCutTubSub1", pPTFE05Stock, pPTFE05StockUpperCutTub, dPTFE05StockUpperCutTubTransform1);
-    G4SubtractionSolid* pPTFE05StockUpperCutTubSub2 = new G4SubtractionSolid("pPTFE05StockUpperCutTubSub2", pPTFE05StockUpperCutTubSub1, pPTFE05StockUpperCutTub, dPTFE05StockUpperCutTubTransform2);
-    G4SubtractionSolid*        pPTFE05StockUpperCut = new G4SubtractionSolid("pPTFE05StockUpperCut", pPTFE05StockUpperCutTubSub2, pPTFE05StockUpperCutTub, dPTFE05StockUpperCutTubTransform3);
-
-    G4SubtractionSolid* pPTFE05StockLowerCutTubSub1 = new G4SubtractionSolid("pPTFE05StockLowerCutTubSub1", pPTFE05StockUpperCut, pPTFE05StockLowerCutTub, dPTFE05StockLowerCutTubTransform1);
-    G4SubtractionSolid* pPTFE05StockLowerCutTubSub2 = new G4SubtractionSolid("pPTFE05StockLowerCutTubSub2", pPTFE05StockLowerCutTubSub1, pPTFE05StockLowerCutTub, dPTFE05StockLowerCutTubTransform2);
-    G4SubtractionSolid*        pPTFE05StockLowerCut = new G4SubtractionSolid("pPTFE05StockLowerCut", pPTFE05StockLowerCutTubSub2, pPTFE05StockLowerCutTub, dPTFE05StockLowerCutTubTransform3);
+    G4SubtractionSolid* pPTFE05StockTubCutSub1 = new G4SubtractionSolid("pPTFE05StockTubCutSub1", pPTFE05StockCylinder2, pPTFE05StockTubCutS, dPTFE05StockTubCutTransform3);
 
     // Create PTFE05
     pPTFE05LV = new G4LogicalVolume(pPTFE05StockCylinder2, G4Material::GetMaterial("PTFE"), "PTFE05");
-//    pPTFE05PV = new G4PVPlacement(0, dPTFE05StockPlacement, pPTFE05LV, "PTFE05", pMotherLV, false, 0);
+    pPTFE05PV = new G4PVPlacement(0, dPTFE05StockPlacement, pPTFE05LV, "PTFE05", pMotherLV, false, 0);
 
     //////////////////////
     // Construct PTFE06 //
@@ -1554,19 +1652,19 @@ void RELAXDetectorConstruction::ConstructLaboratory()
     G4VisAttributes * pPTFE01VisAtt = new G4VisAttributes(G4Colour::White());
     pPTFE01VisAtt->SetForceSolid(true);
     pPTFE01LV->SetVisAttributes(pPTFE01VisAtt);
-*/
+
     G4VisAttributes * pPTFE02VisAtt = new G4VisAttributes(G4Colour::White());
     pPTFE02VisAtt->SetForceSolid(true);
     pPTFE02LV->SetVisAttributes(pPTFE02VisAtt);
-/*
+
     G4VisAttributes * pPTFE03VisAtt = new G4VisAttributes(G4Colour::White());
     pPTFE03VisAtt->SetForceSolid(true);
     pPTFE03LV->SetVisAttributes(pPTFE03VisAtt);
-
+*/
     G4VisAttributes * pPTFE04VisAtt = new G4VisAttributes(G4Colour::White());
     pPTFE04VisAtt->SetForceSolid(true);
     pPTFE04LV->SetVisAttributes(pPTFE04VisAtt);
-
+/*
     G4VisAttributes * pPTFE05VisAtt = new G4VisAttributes(G4Colour::White());
     pPTFE05VisAtt->SetForceSolid(true);
     pPTFE05LV->SetVisAttributes(pPTFE05VisAtt);
