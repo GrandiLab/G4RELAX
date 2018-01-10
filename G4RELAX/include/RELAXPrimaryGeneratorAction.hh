@@ -1,7 +1,7 @@
 /////////////////////////////////////
 // Nickolas Upole                  //
 // University of Chicago           //
-// Winter 2016                     //
+// WInter 2018                     //
 // RELAXPrimaryGeneratorAction.hh" //
 /////////////////////////////////////
 
