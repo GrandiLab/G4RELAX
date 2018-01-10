@@ -1,12 +1,12 @@
 //////////////////////////////
 // Nickolas Upole           //
 // University of Chicago    //
-// Summer 2016              //
-// G4XCDPhysicsMessenger.hh //
+// Winter 2018              //
+// RELAXPhysicsMessenger.hh //
 //////////////////////////////
 
-#ifndef G4XCDPhysicsMessenger_h
-#define G4XCDPhysicsMessenger_h 1
+#ifndef RELAXPhysicsMessenger_h
+#define RELAXPhysicsMessenger_h 1
 
 #include "globals.hh"
 
@@ -15,20 +15,20 @@
 #include "G4UIcommand.hh"
 #include "G4UIcmdWithABool.hh"
 
-class G4XCDPhysicsList;
+class RELAXPhysicsList;
 
-class G4XCDPhysicsMessenger : public G4UImessenger
+class RELAXPhysicsMessenger : public G4UImessenger
 {
 public:
-    G4XCDPhysicsMessenger(G4XCDPhysicsList* pG4XCDPhysicsList);
-    ~G4XCDPhysicsMessenger();
+    RELAXPhysicsMessenger(RELAXPhysicsList* RELAXPhysicsList);
+    ~RELAXPhysicsMessenger();
     
     void SetNewValue(G4UIcommand* pG4UICommand, G4String sNewValue);
     
 private:
-    G4XCDPhysicsList* pG4XCDPhysics;
+    RELAXPhysicsList* pRELAXPhysics;
     
-    G4UIdirectory* pG4XCDPhysicsDir;
+    G4UIdirectory* pRELAXPhysicsDirectory;
     
     G4UIcmdWithABool* pSetScintillationCmd;
     G4UIcmdWithABool* pSetCerenkovCmd;
