@@ -1,178 +1,58 @@
-/////////////////////////////
-// Nickolas Upole          //
-// University of Chicago   //
-// Winter 2016             //
-// RELAXPhysicsList.cc     //
-/////////////////////////////
+//////////////////////////////
+// Nickolas Upole           //
+// University of Chicago    //
+// Summer 2016              //
+// G4XCDPhysicsMessenger.cc //
+//////////////////////////////
 
-#include "RELAXPhysicsList.hh"
-#include "G4EmLivermorePhysics.hh"
+#include "G4XCDPhysicsMessenger.hh"
+#include "G4XCDPhysicsList.hh"
 
-RELAXPhysicsList::RELAXPhysicsList() : G4VUserPhysicsList()
+G4XCDPhysicsMessenger::G4XCDPhysicsMessenger(G4XCDPhysicsList* pG4XCDPhysicsList) : pG4XCDPhysics(pG4XCDPhysicsList)
 {
-
+    ///////////////////////////////
+    // Set the Physics Directory //
+    ///////////////////////////////
+    pG4XCDPhysicsDir = new G4UIdirectory("/G4XCD/physics/");
+    pG4XCDPhysicsDir->SetGuidance("Control of the G4XCD Physics.");
+    
+    ///////////////////////////////
+    // Set the Detector Commands //
+    ///////////////////////////////
+    pSetScintillationCmd = new G4UIcmdWithABool("/G4XCD/physics/SetScintillation", this);
+    pSetScintillationCmd->SetGuidance("Switch scintillation on (true) or off (false).");
+    pSetScintillationCmd->SetDefaultValue(false);
+    pSetScintillationCmd->AvailableForStates(G4State_PreInit);
+    
+    pSetCerenkovCmd = new G4UIcmdWithABool("/G4XCD/physics/SetCerenkov", this);
+    pSetCerenkovCmd->SetGuidance("Switch Cerenkov on (true) or off (false).");
+    pSetCerenkovCmd->SetDefaultValue(false);
+    pSetCerenkovCmd->AvailableForStates(G4State_PreInit);
 }
 
-RELAXPhysicsList::~RELAXPhysicsList()
+G4XCDPhysicsMessenger::~G4XCDPhysicsMessenger()
 {
-
+    ///////////////////////////////////////
+    // Delete the Commands and Directory //
+    ///////////////////////////////////////
+    delete pSetScintillationCmd;
+    delete pSetCerenkovCmd;
+    
+    delete pG4XCDPhysicsDir;
 }
 
-void RELAXPhysicsList::ConstructParticle()
+void G4XCDPhysicsMessenger::SetNewValue(G4UIcommand* pG4UICommand, G4String sNewValue)
 {
-  ConstructBosons();
-  ConstructLeptons();
-  ConstructHadrons();
-  ConstructShortLived();
-}
-
-void RELAXPhysicsList::ConstructBosons()
-{
-  G4Geantino::GeantinoDefinition();
-  G4ChargedGeantino::ChargedGeantinoDefinition();
-  G4Gamma::GammaDefinition();
-  G4OpticalPhoton::OpticalPhotonDefinition();
-}
-
-void RELAXPhysicsList::ConstructLeptons()
-{
-  G4Electron::ElectronDefinition();
-  G4Positron::PositronDefinition();
-  G4MuonPlus::MuonPlusDefinition();
-  G4MuonMinus::MuonMinusDefinition();
-  G4NeutrinoE::NeutrinoEDefinition();
-  G4AntiNeutrinoE::AntiNeutrinoEDefinition();
-  G4NeutrinoMu::NeutrinoMuDefinition();
-  G4AntiNeutrinoMu::AntiNeutrinoMuDefinition();
-}
-
-void RELAXPhysicsList::ConstructHadrons()
-{
-  pMesonConstructor = new G4MesonConstructor();
-  pMesonConstructor->ConstructParticle();
-  pBaryonConstructor = new G4BaryonConstructor();
-  pBaryonConstructor->ConstructParticle();
-  pIonConstructor = new G4IonConstructor();
-  pIonConstructor->ConstructParticle();
-}
-
-void RELAXPhysicsList::ConstructShortLived()
-{
-
-}
-
-void RELAXPhysicsList::ConstructProcess()
-{
-  ConstructEMPhysics();
-  ConstructHadronPhysics();
-  ConstructOpticalPhotonPhysics();
-  ConstructDecayPhysics();
-  AddTransportation();
-}
-
-void RELAXPhysicsList::ConstructEMPhysics()
-{
-  G4VPhysicsConstructor* pEMPhysicsList;
-  pEMPhysicsList = new G4EmLivermorePhysics();
-  pEMPhysicsList->ConstructProcess();
-}
-
-void RELAXPhysicsList::ConstructHadronPhysics()
-{
-
-}
-
-void RELAXPhysicsList::ConstructOpticalPhotonPhysics()
-{
-  // Set up General Scintillation Process
-  pGeneralScintillation = new G4Scintillation("Scintillation");
-
-  // Reset the particle iterator
-  auto theParticleIterator = GetParticleIterator();
-  theParticleIterator->reset();
-
-  // Loop over all particles
-  while((*theParticleIterator)())
-  {
-    // Get Loop Variables
-    pParticle = theParticleIterator->value();
-    particleName = pParticle->GetParticleName();
-    pProcessManager = pParticle->GetProcessManager();
-
-    if(pGeneralScintillation->IsApplicable(*pParticle))
+    ///////////////////////////////////
+    // Update Value for Physics List //
+    ///////////////////////////////////
+    if(pG4UICommand == pSetScintillationCmd)
     {
-      if(particleName == "GenericIon")
-      {
-        pProcessManager->AddProcess(pNucleusScintillation = new G4Scintillation("Scintillation"));
-        pProcessManager->SetProcessOrderingToLast(pNucleusScintillation, idxAtRest);
-        pProcessManager->SetProcessOrderingToLast(pNucleusScintillation, idxPostStep);
-
-        pNucleusScintillation->SetTrackSecondariesFirst(true);
-        pNucleusScintillation->SetScintillationYieldFactor(0.2);
-        pNucleusScintillation->SetScintillationExcitationRatio(1.0);
-      }
-
-      else if(particleName == "alpha")
-      {
-        pProcessManager->AddProcess(pAlphaScintillation = new G4Scintillation("Scintillation"));
-        pProcessManager->SetProcessOrderingToLast(pAlphaScintillation, idxAtRest);
-        pProcessManager->SetProcessOrderingToLast(pAlphaScintillation, idxPostStep);
-
-        pAlphaScintillation->SetTrackSecondariesFirst(true);
-        pAlphaScintillation->SetScintillationYieldFactor(1.1);
-        pAlphaScintillation->SetScintillationExcitationRatio(1.0);
-      }
-
-      else
-      {
-        pProcessManager->AddProcess(pGeneralScintillation = new G4Scintillation("Scintillation"));
-        pProcessManager->SetProcessOrderingToLast(pGeneralScintillation, idxAtRest);
-        pProcessManager->SetProcessOrderingToLast(pGeneralScintillation, idxPostStep);
-
-        pGeneralScintillation->SetTrackSecondariesFirst(true);
-        pGeneralScintillation->SetScintillationYieldFactor(1.1);
-        pGeneralScintillation->SetScintillationExcitationRatio(1.0);
-      }
+        pG4XCDPhysics->SetScintillation(&sNewValue);
     }
-
-    else if(particleName == "opticalphoton")
+    
+    else if(pG4UICommand == pSetCerenkovCmd)
     {
-      pProcessManager->AddDiscreteProcess(pOpAbsorption = new G4OpAbsorption());
-      pProcessManager->AddDiscreteProcess(pOpRayleigh = new G4OpRayleigh());
-      pProcessManager->AddDiscreteProcess(pOpBoundaryProcess = new G4OpBoundaryProcess());
+        pG4XCDPhysics->SetCerenkov(&sNewValue);
     }
-  }
-}
-
-void RELAXPhysicsList::ConstructDecayPhysics()
-{
-  G4RadioactiveDecay* pRadioactiveDecay = new G4RadioactiveDecay();
-
-  G4IonTable* pIonTable = G4ParticleTable::GetParticleTable()->GetIonTable();
-
-  for(G4int i = 0; i < pIonTable->Entries(); i++)
-  {
-    particleName = pIonTable->GetParticle(i)->GetParticleName();
-    particleType = pIonTable->GetParticle(i)->GetParticleType();
-
-    if(particleName == "GenericIon")
-    {
-      pProcessManager = pIonTable->GetParticle(i)->GetProcessManager();
-      pProcessManager->AddProcess(pRadioactiveDecay);
-      pProcessManager->SetProcessOrdering(pRadioactiveDecay, idxPostStep);
-      pProcessManager->SetProcessOrdering(pRadioactiveDecay, idxAtRest);
-    }
-  }
-}
-
-void RELAXPhysicsList::AddTransportation()
-{
-  G4VUserPhysicsList::AddTransportation();
-}
-
-void RELAXPhysicsList::SetCuts()
-{
-  G4ProductionCutsTable::GetProductionCutsTable()->SetEnergyRange(0.1*keV, 1*GeV);
-
-  SetCutValue(0.01*um, "gamma");
 }
