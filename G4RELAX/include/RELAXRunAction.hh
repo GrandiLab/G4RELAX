@@ -1,25 +1,25 @@
 ///////////////////////////
 // Nickolas Upole        //
 // University of Chicago //
-// Summer 2016           //
-// G4XCDRunAction.hh     //
+// Winter 2018           //
+// RELAXRunAction.hh     //
 ///////////////////////////
 
-#ifndef G4XCDRunAction_h
-#define G4XCDRunAction_h 1
+#ifndef RELAXRunAction_h
+#define RELAXRunAction_h 1
 
 #include "globals.hh"
 
 #include "G4UserRunAction.hh"
 #include "G4Run.hh"
 
-#include "G4XCDAnalysisManager.hh"
+#include "RELAXAnalysisManager.hh"
 
-class G4XCDRunAction : public G4UserRunAction
+class RELAXRunAction : public G4UserRunAction
 {
 public:
-    G4XCDRunAction(G4XCDAnalysisManager* pG4XCDAM = 0);
-    ~G4XCDRunAction();
+    RELAXRunAction(RELAXAnalysisManager* pG4XCDAM = 0);
+    ~RELAXRunAction();
     
     // List of Functions
     virtual void BeginOfRunAction(const G4Run* pRun);
@@ -27,7 +27,7 @@ public:
     
 private:
     // List of Variables
-    G4XCDAnalysisManager* pG4XCDAnalysisManager;
+    RELAXAnalysisManager* pRELAXAnalysisManager;
 };
 
 #endif
