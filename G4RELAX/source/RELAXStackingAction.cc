@@ -1,18 +1,18 @@
 //////////////////////////////
 // Nickolas Upole           //
 // University of Chicago    //
-// Autumn 2016              //
-// G4XCDStackingAction.cc   //
+// Winter 2018              //
+// RELAXStackingAction.cc   //
 //////////////////////////////
 
-#include "G4XCDStackingAction.hh"
+#include "RELAXStackingAction.hh"
 
-G4XCDStackingAction::G4XCDStackingAction() : G4UserStackingAction()
+RELAXStackingAction::RELAXStackingAction() : G4UserStackingAction()
 {
 
 }
 
-G4XCDStackingAction::~G4XCDStackingAction()
+RELAXStackingAction::~RELAXStackingAction()
 {
     
 }

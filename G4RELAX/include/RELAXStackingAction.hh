@@ -1,23 +1,23 @@
 //////////////////////////////
 // Nickolas Upole           //
 // University of Chicago    //
-// Autumn 2016              //
-// G4XCDStackingAction.hh   //
+// Winter 2018              //
+// RELAXStackingAction.hh   //
 //////////////////////////////
 
-#ifndef G4XCDStackingAction_h
-#define G4XCDStackingAction_h 1
+#ifndef RELAXStackingAction_h
+#define RELAXStackingAction_h 1
 
 #include "globals.hh"
 
 #include "G4UserStackingAction.hh"
 #include "G4Track.hh"
 
-class G4XCDStackingAction : public G4UserStackingAction
+class RELAXStackingAction : public G4UserStackingAction
 {
 public:
-    G4XCDStackingAction();
-    ~G4XCDStackingAction();
+    RELAXStackingAction();
+    ~RELAXStackingAction();
 
     virtual G4ClassificationOfNewTrack ClassifyNewTrack(const G4Track* pTrack);
     
