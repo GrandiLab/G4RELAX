@@ -1,26 +1,26 @@
 //////////////////////////////
 // Nickolas Upole           //
 // University of Chicago    //
-// Summer 2016              //
-// G4XCDSteppingAction.cc   //
+// Winter 2018              //
+// RELAXSteppingAction.cc   //
 //////////////////////////////
 
-#include "G4XCDSteppingAction.hh"
+#include "RELAXSteppingAction.hh"
 
-G4XCDSteppingAction::G4XCDSteppingAction(G4XCDAnalysisManager* pG4XCDAM) : G4UserSteppingAction()
+RELAXSteppingAction::RELAXSteppingAction(RELAXAnalysisManager* pRELAXAM) : G4UserSteppingAction()
 {
-    pG4XCDAnalysisManager = pG4XCDAM;
+    pRELAXAnalysisManager = pRELAXAM;
 }
 
-G4XCDSteppingAction::~G4XCDSteppingAction()
+RELAXSteppingAction::~RELAXSteppingAction()
 {
     
 }
 
-void G4XCDSteppingAction::UserSteppingAction(const G4Step* pStep)
+void RELAXSteppingAction::UserSteppingAction(const G4Step* pStep)
 {
-    if(pG4XCDAnalysisManager)
+    if(pRELAXAnalysisManager)
     {
-        pG4XCDAnalysisManager->SteppingAction(pStep);
+        pRELAXAnalysisManager->SteppingAction(pStep);
     }
 }
