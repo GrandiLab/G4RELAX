@@ -6,17 +6,81 @@
 /////////////////////////////////////
 
 #include "RELAXDetectorConstruction.hh"
+#include "RELAXDetectorMessenger.hh"
 #include "G4ios.hh"
+#include "G4UnitsTable.hh"
 #include "math.h"
 
 RELAXDetectorConstruction::RELAXDetectorConstruction() : G4VUserDetectorConstruction()
 {
+    ///////////////////////////
+    // Constructor Procedure //
+    ///////////////////////////
+    pRELAXDetectorMessenger = new RELAXDetectorMessenger(this);
 
+    pDummyString = new G4String();
+    ifsDataFile = new ifstream();
+    
+    pEnergy = new vector<G4double>;
+    pData = new vector<G4double>;
+    
+    pPTFEIndexOfRefractionData = new G4String("./data/PTFE/IndexOfRefraction.txt");
+    pPTFEReflectivityData = new G4String("./data/PTFE/Reflectivity.txt");
+    pPTFESpecularLobeConstantData = new G4String("./data/PTFE/SpecularLobeConstant.txt");
+    pPTFESpecularSpikeConstantData = new G4String("./data/PTFE/SpecularSpikeConstant.txt");
+    pPTFEBackscatterConstantData = new G4String("./data/PTFE/BackscatterConstant.txt");
+    pPTFEEfficiencyData = new G4String("./data/PTFE/Efficiency.txt");
+    
+    pLXeScintillationSpectrumData = new G4String("./data/LXe/ScintillationSpectrum.txt");
+    pLXeIndexOfRefractionData = new G4String("./data/LXe/IndexOfRefraction.txt");
+    pLXeAbsorptionLengthData = new G4String("./data/LXe/AbsorptionLength.txt");
+    pLXeRayleighScatteringLengthData = new G4String("./data/LXe/RayleighScatteringLength.txt");
+    pLXeDensityData = new G4String("./data/LXe/Density.txt");
+    
+    dLXeFanoFactor = 0.033;
+    dLXeFastScintillationTimeConstant = 2.2*ns;
+    dLXeSlowScintillationTimeConstant = 27.0*ns;
+    
+    pGXeScintillationSpectrumData = new G4String("./data/GXe/ScintillationSpectrum.txt");
+    pGXeIndexOfRefractionData = new G4String("./data/GXe/IndexOfRefraction.txt");
+    pGXeAbsorptionLengthData = new G4String("./data/GXe/AbsorptionLength.txt");
+    pGXeRayleighScatteringLengthData = new G4String("./data/GXe/RayleighScatteringLength.txt");
+    pGXeDensityData = new G4String("./data/GXe/Density.txt");
+
+    dGXeFanoFactor = 0.033;
+    dGXeFastScintillationTimeConstant = 2.2*ns;
+    dGXeSlowScintillationTimeConstant = 27.0*ns;
+    
+    new G4UnitDefinition("psi", "psi", "Pressure", 6894.76*pascal);
+    
+    // dXePressure = 17.35*psi;
+    dXeTemperature = 168.00*kelvin;
+    
+    dLXeDensity = 2.9223*g/cm3;
+    dGXeDensity = 0.011655*g/cm3;
 }
 
 RELAXDetectorConstruction::~RELAXDetectorConstruction()
 {
-
+    delete pG4XCDDetectorMessenger;
+    
+    delete pDummyString;
+    delete ifsDataFile;
+    
+    delete pEnergy;
+    delete pData;
+    
+    delete pLXeScintillationSpectrumData;
+    delete pLXeIndexOfRefractionData;
+    delete pLXeAbsorptionLengthData;
+    delete pLXeRayleighScatteringLengthData;
+    delete pLXeDensityData;
+    
+    delete pGXeScintillationSpectrumData;
+    delete pGXeIndexOfRefractionData;
+    delete pGXeAbsorptionLengthData;
+    delete pGXeRayleighScatteringLengthData;
+    delete pGXeDensityData;
 }
 
 G4VPhysicalVolume* RELAXDetectorConstruction::Construct()
@@ -1768,3 +1832,789 @@ void RELAXDetectorConstruction::ConstructLaboratory()
     pGridLV->SetVisAttributes(pGridVisAtt);
 
 }
+
+void G4XCDDetectorConstruction::SetPTFEIndexOfRefraction(G4String* mPTFEIndexOfRefractionData)
+{
+    pPTFEIndexOfRefractionData = mPTFEIndexOfRefractionData;
+    
+    ifsDataFile->open(pPTFEIndexOfRefractionData->c_str(), ios::in);
+    
+    if((ifsDataFile->is_open()) && (pPTFEMaterial))
+    {
+        getline((*ifsDataFile), (*pDummyString));
+        
+        while(true)
+        {
+            (*ifsDataFile) >> dWavelength >> dData;
+            
+            if(ifsDataFile->eof())
+            {
+                break;
+            }
+            
+            dWavelength *= nm;
+            dEnergy = (h_Planck * c_light / dWavelength);
+            
+            pEnergy->push_back(dEnergy);
+            pData->push_back(dData);
+        }
+        
+        pMaterialPropertyTable = pPTFEMaterial->GetMaterialPropertiesTable();
+        
+        pMaterialPropertyTable->RemoveProperty("RINDEX");
+        
+        pMaterialPropertyTable->AddProperty("RINDEX", &((*pEnergy)[0]), &((*pData)[0]), pEnergy->size());
+    }
+    
+    else
+    {
+        G4cout << "Could not find the PTFE index of refraction data." << G4endl;
+        G4cout << "Using previously loaded data file." << G4endl;
+    }
+    
+    pEnergy->clear();
+    pData->clear();
+    
+    ifsDataFile->close();
+    ifsDataFile->clear();
+}
+
+void G4XCDDetectorConstruction::SetPTFEReflectivity(G4String* mPTFEReflectivityData)
+{
+    pPTFEReflectivityData = mPTFEReflectivityData;
+    
+    ifsDataFile->open(pPTFEReflectivityData->c_str(), ios::in);
+    
+    if((ifsDataFile->is_open()) && (pPTFEMaterial))
+    {
+        getline((*ifsDataFile), (*pDummyString));
+        
+        while(true)
+        {
+            (*ifsDataFile) >> dWavelength >> dData;
+            
+            if(ifsDataFile->eof())
+            {
+                break;
+            }
+            
+            dWavelength *= nm;
+            dEnergy = (h_Planck * c_light / dWavelength);
+            
+            pEnergy->push_back(dEnergy);
+            pData->push_back(dData);
+        }
+        
+        pMaterialPropertyTable = pPTFEMaterial->GetMaterialPropertiesTable();
+        
+        pMaterialPropertyTable->RemoveProperty("REFLECTIVITY");
+        
+        pMaterialPropertyTable->AddProperty("REFLECTIVITY", &((*pEnergy)[0]), &((*pData)[0]), pEnergy->size());
+    }
+    
+    else
+    {
+        G4cout << "Could not find the PTFE reflectivity data." << G4endl;
+        G4cout << "Using previously loaded data file." << G4endl;
+    }
+    
+    pEnergy->clear();
+    pData->clear();
+    
+    ifsDataFile->close();
+    ifsDataFile->clear();
+}
+
+void G4XCDDetectorConstruction::SetPTFESpecularLobeConstant(G4String* mPTFESpecularLobeConstantData)
+{
+    pPTFESpecularLobeConstantData = mPTFESpecularLobeConstantData;
+    
+    ifsDataFile->open(pPTFESpecularLobeConstantData->c_str(), ios::in);
+    
+    if((ifsDataFile->is_open()) && (pPTFEMaterial))
+    {
+        getline((*ifsDataFile), (*pDummyString));
+        
+        while(true)
+        {
+            (*ifsDataFile) >> dWavelength >> dData;
+            
+            if(ifsDataFile->eof())
+            {
+                break;
+            }
+            
+            dWavelength *= nm;
+            dEnergy = (h_Planck * c_light / dWavelength);
+            
+            pEnergy->push_back(dEnergy);
+            pData->push_back(dData);
+        }
+        
+        pMaterialPropertyTable = pPTFEMaterial->GetMaterialPropertiesTable();
+        
+        pMaterialPropertyTable->RemoveProperty("SPECULARLOBECONSTANT");
+        
+        pMaterialPropertyTable->AddProperty("SPECULARLOBECONSTANT", &((*pEnergy)[0]), &((*pData)[0]), pEnergy->size());
+    }
+    
+    else
+    {
+        G4cout << "Could not find the PTFE specular lobe constant data." << G4endl;
+        G4cout << "Using previously loaded data file." << G4endl;
+    }
+    
+    pEnergy->clear();
+    pData->clear();
+    
+    ifsDataFile->close();
+    ifsDataFile->clear();
+}
+
+void G4XCDDetectorConstruction::SetPTFESpecularSpikeConstant(G4String* mPTFESpecularSpikeConstantData)
+{
+    pPTFESpecularSpikeConstantData = mPTFESpecularSpikeConstantData;
+    
+    ifsDataFile->open(pPTFESpecularSpikeConstantData->c_str(), ios::in);
+    
+    if((ifsDataFile->is_open()) && (pPTFEMaterial))
+    {
+        getline((*ifsDataFile), (*pDummyString));
+        
+        while(true)
+        {
+            (*ifsDataFile) >> dWavelength >> dData;
+            
+            if(ifsDataFile->eof())
+            {
+                break;
+            }
+            
+            dWavelength *= nm;
+            dEnergy = (h_Planck * c_light / dWavelength);
+            
+            pEnergy->push_back(dEnergy);
+            pData->push_back(dData);
+        }
+        
+        pMaterialPropertyTable = pPTFEMaterial->GetMaterialPropertiesTable();
+        
+        pMaterialPropertyTable->RemoveProperty("SPECULARSPIKECONSTANT");
+        
+        pMaterialPropertyTable->AddProperty("SPECULARSPIKECONSTANT", &((*pEnergy)[0]), &((*pData)[0]), pEnergy->size());
+    }
+    
+    else
+    {
+        G4cout << "Could not find the PTFE specular spike constant data." << G4endl;
+        G4cout << "Using previously loaded data file." << G4endl;
+    }
+    
+    pEnergy->clear();
+    pData->clear();
+    
+    ifsDataFile->close();
+    ifsDataFile->clear();
+}
+
+void G4XCDDetectorConstruction::SetPTFEBackscatterConstant(G4String* mPTFEBackscatterConstantData)
+{
+    pPTFEBackscatterConstantData = mPTFEBackscatterConstantData;
+    
+    ifsDataFile->open(pPTFEBackscatterConstantData->c_str(), ios::in);
+    
+    if((ifsDataFile->is_open()) && (pPTFEMaterial))
+    {
+        getline((*ifsDataFile), (*pDummyString));
+        
+        while(true)
+        {
+            (*ifsDataFile) >> dWavelength >> dData;
+            
+            if(ifsDataFile->eof())
+            {
+                break;
+            }
+            
+            dWavelength *= nm;
+            dEnergy = (h_Planck * c_light / dWavelength);
+            
+            pEnergy->push_back(dEnergy);
+            pData->push_back(dData);
+        }
+        
+        pMaterialPropertyTable = pPTFEMaterial->GetMaterialPropertiesTable();
+        
+        pMaterialPropertyTable->RemoveProperty("BACKSCATTERCONSTANT");
+        
+        pMaterialPropertyTable->AddProperty("BACKSCATTERCONSTANT", &((*pEnergy)[0]), &((*pData)[0]), pEnergy->size());
+    }
+    
+    else
+    {
+        G4cout << "Could not find the PTFE backscatter data." << G4endl;
+        G4cout << "Using previously loaded data file." << G4endl;
+    }
+    
+    pEnergy->clear();
+    pData->clear();
+    
+    ifsDataFile->close();
+    ifsDataFile->clear();
+}
+
+void G4XCDDetectorConstruction::SetPTFEEfficiency(G4String* mPTFEEfficiencyData)
+{
+    pPTFEEfficiencyData = mPTFEEfficiencyData;
+    
+    ifsDataFile->open(pPTFEEfficiencyData->c_str(), ios::in);
+    
+    if((ifsDataFile->is_open()) && (pPTFEMaterial))
+    {
+        getline((*ifsDataFile), (*pDummyString));
+        
+        while(true)
+        {
+            (*ifsDataFile) >> dWavelength >> dData;
+            
+            if(ifsDataFile->eof())
+            {
+                break;
+            }
+            
+            dWavelength *= nm;
+            dEnergy = (h_Planck * c_light / dWavelength);
+            
+            pEnergy->push_back(dEnergy);
+            pData->push_back(dData);
+        }
+        
+        pMaterialPropertyTable = pPTFEMaterial->GetMaterialPropertiesTable();
+        
+        pMaterialPropertyTable->RemoveProperty("EFFICIENCY");
+        
+        pMaterialPropertyTable->AddProperty("EFFICIENCY", &((*pEnergy)[0]), &((*pData)[0]), pEnergy->size());
+    }
+    
+    else
+    {
+        G4cout << "Could not find the PTFE efficiency data." << G4endl;
+        G4cout << "Using previously loaded data file." << G4endl;
+    }
+    
+    pEnergy->clear();
+    pData->clear();
+    
+    ifsDataFile->close();
+    ifsDataFile->clear();
+}
+
+void G4XCDDetectorConstruction::SetLXeScintillationSpectrumData(G4String* mLXeScintillationSpectrumData)
+{
+    pLXeScintillationSpectrumData = mLXeScintillationSpectrumData;
+    
+    ifsDataFile->open(pLXeScintillationSpectrumData->c_str(), ios::in);
+    
+    if((ifsDataFile->is_open()) && (pLXeMaterial))
+    {
+        getline((*ifsDataFile), (*pDummyString));
+        
+        while(true)
+        {
+            (*ifsDataFile) >> dWavelength >> dData;
+            
+            if(ifsDataFile->eof())
+            {
+                break;
+            }
+            
+            dWavelength *= nm;
+            dEnergy = (h_Planck * c_light / dWavelength);
+            
+            pEnergy->push_back(dEnergy);
+            pData->push_back(dData);
+        }
+        
+        pMaterialPropertyTable = pLXeMaterial->GetMaterialPropertiesTable();
+        
+        pMaterialPropertyTable->RemoveProperty("FASTCOMPONENT");
+        pMaterialPropertyTable->RemoveProperty("SLOWCOMPONENT");
+        
+        pMaterialPropertyTable->AddProperty("FASTCOMPONENT", &((*pEnergy)[0]), &((*pData)[0]), pEnergy->size());
+        pMaterialPropertyTable->AddProperty("SLOWCOMPONENT", &((*pEnergy)[0]), &((*pData)[0]), pEnergy->size());
+    }
+    
+    else
+    {
+        G4cout << "Could not find the LXe scintillation spectrum data." << G4endl;
+        G4cout << "Using previously loaded data file." << G4endl;
+    }
+    
+    pEnergy->clear();
+    pData->clear();
+    
+    ifsDataFile->close();
+    ifsDataFile->clear();
+}
+
+void G4XCDDetectorConstruction::SetLXeIndexOfRefractionData(G4String* mLXeIndexOfRefractionData)
+{
+    pLXeIndexOfRefractionData = mLXeIndexOfRefractionData;
+    
+    ifsDataFile->open(pLXeIndexOfRefractionData->c_str(), ios::in);
+    
+    if((ifsDataFile->is_open()) && (pLXeMaterial))
+    {
+        getline((*ifsDataFile), (*pDummyString));
+        
+        while(true)
+        {
+            (*ifsDataFile) >> dWavelength >> dData;
+            
+            if(ifsDataFile->eof())
+            {
+                break;
+            }
+            
+            dWavelength *= nm;
+            dEnergy = (h_Planck * c_light / dWavelength);
+            
+            pEnergy->push_back(dEnergy);
+            pData->push_back(dData);
+        }
+        
+        pMaterialPropertyTable = pLXeMaterial->GetMaterialPropertiesTable();
+        
+        pMaterialPropertyTable->RemoveProperty("RINDEX");
+        
+        pMaterialPropertyTable->AddProperty("RINDEX", &((*pEnergy)[0]), &((*pData)[0]), pEnergy->size());
+    }
+    
+    else
+    {
+        G4cout << "Could not find the LXe index of refraction data." << G4endl;
+        G4cout << "Using previously loaded data file." << G4endl;
+    }
+    
+    pEnergy->clear();
+    pData->clear();
+    
+    ifsDataFile->close();
+    ifsDataFile->clear();
+}
+
+void G4XCDDetectorConstruction::SetLXeAbsorptionLengthData(G4String* mLXeAbsorptionLengthData)
+{
+    pLXeAbsorptionLengthData = mLXeAbsorptionLengthData;
+    
+    ifsDataFile->open(pLXeAbsorptionLengthData->c_str(), ios::in);
+    
+    if((ifsDataFile->is_open()) && (pLXeMaterial))
+    {
+        getline((*ifsDataFile), (*pDummyString));
+        
+        while(true)
+        {
+            (*ifsDataFile) >> dWavelength >> dData;
+            
+            if(ifsDataFile->eof())
+            {
+                break;
+            }
+            
+            dWavelength *= nm;
+            dEnergy = (h_Planck * c_light / dWavelength);
+            dData *= m;
+            
+            pEnergy->push_back(dEnergy);
+            pData->push_back(dData);
+        }
+        
+        pMaterialPropertyTable = pLXeMaterial->GetMaterialPropertiesTable();
+        
+        pMaterialPropertyTable->RemoveProperty("ABSLENGTH");
+        
+        pMaterialPropertyTable->AddProperty("ABSLENGTH", &((*pEnergy)[0]), &((*pData)[0]), pEnergy->size());
+    }
+    
+    else
+    {
+        G4cout << "Could not find the LXe absorption length data." << G4endl;
+        G4cout << "Using previously loaded data file." << G4endl;
+    }
+    
+    pEnergy->clear();
+    pData->clear();
+    
+    ifsDataFile->close();
+    ifsDataFile->clear();
+}
+
+void G4XCDDetectorConstruction::SetLXeRayleighScatteringLengthData(G4String* mLXeRayleighScatteringLengthData)
+{
+    pLXeRayleighScatteringLengthData = mLXeRayleighScatteringLengthData;
+
+    ifsDataFile->open(pLXeRayleighScatteringLengthData->c_str(), ios::in);
+    
+    if((ifsDataFile->is_open()) && (pLXeMaterial))
+    {
+        getline((*ifsDataFile), (*pDummyString));
+        
+        while(true)
+        {
+            (*ifsDataFile) >> dWavelength >> dData;
+            
+            if(ifsDataFile->eof())
+            {
+                break;
+            }
+            
+            dWavelength *= nm;
+            dEnergy = (h_Planck * c_light / dWavelength);
+            dData *= m;
+            
+            pEnergy->push_back(dEnergy);
+            pData->push_back(dData);
+        }
+        
+        pMaterialPropertyTable = pLXeMaterial->GetMaterialPropertiesTable();
+        
+        pMaterialPropertyTable->RemoveProperty("RAYLEIGH");
+        
+        pMaterialPropertyTable->AddProperty("RAYLEIGH", &((*pEnergy)[0]), &((*pData)[0]), pEnergy->size());
+    }
+    
+    else
+    {
+        G4cout << "Could not find the LXe Rayleigh scattering length data." << G4endl;
+        G4cout << "Using previously loaded data file." << G4endl;
+    }
+    
+    pEnergy->clear();
+    pData->clear();
+    
+    ifsDataFile->close();
+    ifsDataFile->clear();
+}
+
+void G4XCDDetectorConstruction::SetLXeFanoFactor(G4double mLXeFanoFactor)
+{
+    dLXeFanoFactor = mLXeFanoFactor;
+    
+    if(pLXeMaterial)
+    {
+        pMaterialPropertyTable = pLXeMaterial->GetMaterialPropertiesTable();
+        
+        pMaterialPropertyTable->RemoveProperty("RESOLUTIONSCALE");
+        
+        pMaterialPropertyTable->AddConstProperty("RESOLUTIONSCALE", dLXeFanoFactor);
+    }
+}
+
+void G4XCDDetectorConstruction::SetLXeFastScintillationTimeConstant(G4double mLXeFastScintillationTimeConstant)
+{
+    dLXeFastScintillationTimeConstant = mLXeFastScintillationTimeConstant;
+    
+    if(pLXeMaterial)
+    {
+        pMaterialPropertyTable = pLXeMaterial->GetMaterialPropertiesTable();
+        
+        pMaterialPropertyTable->RemoveProperty("FASTTIMECONSTANT");
+        
+        pMaterialPropertyTable->AddConstProperty("FASTTIMECONSTANT", dLXeFastScintillationTimeConstant);
+    }
+    
+    else
+    {
+        G4cout << "Could not find the LXe material." << G4endl;
+    }
+}
+
+void G4XCDDetectorConstruction::SetLXeSlowScintillationTimeConstant(G4double mLXeSlowScintillationTimeConstant)
+{
+    dLXeSlowScintillationTimeConstant = mLXeSlowScintillationTimeConstant;
+    
+    if(pLXeMaterial)
+    {
+        pMaterialPropertyTable = pLXeMaterial->GetMaterialPropertiesTable();
+        
+        pMaterialPropertyTable->RemoveProperty("SLOWTIMECONSTANT");
+        
+        pMaterialPropertyTable->AddConstProperty("SLOWTIMECONSTANT", dLXeSlowScintillationTimeConstant);
+    }
+    
+    else
+    {
+        G4cout << "Could not find the LXe material." << G4endl;
+    }
+}
+
+void G4XCDDetectorConstruction::SetLXeDensityData(G4String* mLXeDensityData)
+{
+    pLXeDensityData = mLXeDensityData;
+    
+    ifsDataFile->open(pLXeDensityData->c_str(), ios::in);
+    ifsDataFile->close();
+    ifsDataFile->clear();
+}
+
+void G4XCDDetectorConstruction::SetGXeScintillationSpectrumData(G4String* mGXeScintillationSpectrumData)
+{
+    pGXeScintillationSpectrumData = mGXeScintillationSpectrumData;
+    
+    ifsDataFile->open(pGXeScintillationSpectrumData->c_str(), ios::in);
+    
+    if((ifsDataFile->is_open()) && (pGXeMaterial))
+    {
+        getline((*ifsDataFile), (*pDummyString));
+        
+        while(true)
+        {
+            (*ifsDataFile) >> dWavelength >> dData;
+            
+            if(ifsDataFile->eof())
+            {
+                break;
+            }
+            
+            dWavelength *= nm;
+            dEnergy = (h_Planck * c_light / dWavelength);
+            
+            pEnergy->push_back(dEnergy);
+            pData->push_back(dData);
+        }
+        
+        pMaterialPropertyTable = pGXeMaterial->GetMaterialPropertiesTable();
+        
+        pMaterialPropertyTable->RemoveProperty("FASTCOMPONENT");
+        pMaterialPropertyTable->RemoveProperty("SLOWCOMPONENT");
+        
+        pMaterialPropertyTable->AddProperty("FASTCOMPONENT", &((*pEnergy)[0]), &((*pData)[0]), pEnergy->size());
+        pMaterialPropertyTable->AddProperty("SLOWCOMPONENT", &((*pEnergy)[0]), &((*pData)[0]), pEnergy->size());
+    }
+    
+    else
+    {
+        G4cout << "Could not find the GXe scintillation spectrum data." << G4endl;
+        G4cout << "Using previously loaded data file." << G4endl;
+    }
+    
+    pEnergy->clear();
+    pData->clear();
+    
+    ifsDataFile->close();
+    ifsDataFile->clear();
+}
+
+void G4XCDDetectorConstruction::SetGXeIndexOfRefractionData(G4String* mGXeIndexOfRefractionData)
+{
+    pGXeIndexOfRefractionData = mGXeIndexOfRefractionData;
+    
+    ifsDataFile->open(pGXeIndexOfRefractionData->c_str(), ios::in);
+    
+    if((ifsDataFile->is_open()) && (pGXeMaterial))
+    {
+        getline((*ifsDataFile), (*pDummyString));
+        
+        while(true)
+        {
+            (*ifsDataFile) >> dWavelength >> dData;
+            
+            if(ifsDataFile->eof())
+            {
+                break;
+            }
+            
+            dWavelength *= nm;
+            dEnergy = (h_Planck * c_light / dWavelength);
+            
+            pEnergy->push_back(dEnergy);
+            pData->push_back(dData);
+        }
+        
+        pMaterialPropertyTable = pGXeMaterial->GetMaterialPropertiesTable();
+        
+        pMaterialPropertyTable->RemoveProperty("RINDEX");
+        
+        pMaterialPropertyTable->AddProperty("RINDEX", &((*pEnergy)[0]), &((*pData)[0]), pEnergy->size());
+    }
+    
+    else
+    {
+        G4cout << "Could not find the GXe index of refraction data." << G4endl;
+        G4cout << "Using previously loaded data file." << G4endl;
+    }
+    
+    pEnergy->clear();
+    pData->clear();
+    
+    ifsDataFile->close();
+    ifsDataFile->clear();
+}
+
+void G4XCDDetectorConstruction::SetGXeAbsorptionLengthData(G4String* mGXeAbsorptionLengthData)
+{
+    pGXeAbsorptionLengthData = mGXeAbsorptionLengthData;
+    
+    ifsDataFile->open(pGXeAbsorptionLengthData->c_str(), ios::in);
+    
+    if((ifsDataFile->is_open()) && (pGXeMaterial))
+    {
+        getline((*ifsDataFile), (*pDummyString));
+        
+        while(true)
+        {
+            (*ifsDataFile) >> dWavelength >> dData;
+            
+            if(ifsDataFile->eof())
+            {
+                break;
+            }
+            
+            dWavelength *= nm;
+            dEnergy = (h_Planck * c_light / dWavelength);
+            dData *= m;
+            
+            pEnergy->push_back(dEnergy);
+            pData->push_back(dData);
+        }
+        
+        pMaterialPropertyTable = pGXeMaterial->GetMaterialPropertiesTable();
+        
+        pMaterialPropertyTable->RemoveProperty("ABSLENGTH");
+        
+        pMaterialPropertyTable->AddProperty("ABSLENGTH", &((*pEnergy)[0]), &((*pData)[0]), pEnergy->size());
+    }
+    
+    else
+    {
+        G4cout << "Could not find the GXe absorption length data." << G4endl;
+        G4cout << "Using previously loaded data file." << G4endl;
+    }
+    
+    pEnergy->clear();
+    pData->clear();
+    
+    ifsDataFile->close();
+    ifsDataFile->clear();
+}
+
+void G4XCDDetectorConstruction::SetGXeRayleighScatteringLengthData(G4String* mGXeRayleighScatteringLengthData)
+{
+    pGXeRayleighScatteringLengthData = mGXeRayleighScatteringLengthData;
+    
+    ifsDataFile->open(pGXeRayleighScatteringLengthData->c_str(), ios::in);
+    
+    if((ifsDataFile->is_open()) && (pGXeMaterial))
+    {
+        getline((*ifsDataFile), (*pDummyString));
+        
+        while(true)
+        {
+            (*ifsDataFile) >> dWavelength >> dData;
+            
+            if(ifsDataFile->eof())
+            {
+                break;
+            }
+            
+            dWavelength *= nm;
+            dEnergy = (h_Planck * c_light / dWavelength);
+            dData *= m;
+            
+            pEnergy->push_back(dEnergy);
+            pData->push_back(dData);
+        }
+        
+        pMaterialPropertyTable = pGXeMaterial->GetMaterialPropertiesTable();
+        
+        pMaterialPropertyTable->RemoveProperty("RAYLEIGH");
+        
+        pMaterialPropertyTable->AddProperty("RAYLEIGH", &((*pEnergy)[0]), &((*pData)[0]), pEnergy->size());
+    }
+    
+    else
+    {
+        G4cout << "Could not find the GXe Rayleigh scattering length data." << G4endl;
+        G4cout << "Using previously loaded data file." << G4endl;
+    }
+    
+    pEnergy->clear();
+    pData->clear();
+    
+    ifsDataFile->close();
+    ifsDataFile->clear();
+}
+
+void G4XCDDetectorConstruction::SetGXeFanoFactor(G4double mGXeFanoFactor)
+{
+    dGXeFanoFactor = mGXeFanoFactor;
+    
+    if(pGXeMaterial)
+    {
+        pMaterialPropertyTable = pGXeMaterial->GetMaterialPropertiesTable();
+        
+        pMaterialPropertyTable->RemoveProperty("RESOLUTIONSCALE");
+        
+        pMaterialPropertyTable->AddConstProperty("RESOLUTIONSCALE", dGXeFanoFactor);
+    }
+    
+    else
+    {
+        G4cout << "Could not find the GXe material." << G4endl;
+        G4cout << "Using the previously loaded data file." << G4endl;
+    }
+}
+
+void G4XCDDetectorConstruction::SetGXeFastScintillationTimeConstant(G4double mGXeFastScintillationTimeConstant)
+{
+    dGXeFastScintillationTimeConstant = mGXeFastScintillationTimeConstant;
+    
+    if(pGXeMaterial)
+    {
+        pMaterialPropertyTable = pGXeMaterial->GetMaterialPropertiesTable();
+        
+        pMaterialPropertyTable->RemoveProperty("FASTTIMECONSTANT");
+        
+        pMaterialPropertyTable->AddConstProperty("FASTTIMECONSTANT", dGXeFastScintillationTimeConstant);
+    }
+    
+    else
+    {
+        G4cout << "Could not find the GXe material." << G4endl;
+    }
+}
+
+void G4XCDDetectorConstruction::SetGXeSlowScintillationTimeConstant(G4double mGXeSlowScintillationTimeConstant)
+{
+    dGXeSlowScintillationTimeConstant = mGXeSlowScintillationTimeConstant;
+    
+    if(pGXeMaterial)
+    {
+        pMaterialPropertyTable = pGXeMaterial->GetMaterialPropertiesTable();
+        
+        pMaterialPropertyTable->RemoveProperty("SLOWTIMECONSTANT");
+        
+        pMaterialPropertyTable->AddConstProperty("SLOWTIMECONSTANT", dGXeSlowScintillationTimeConstant);
+    }
+    
+    else
+    {
+        G4cout << "Could not find the GXe material." << G4endl;
+    }
+}
+
+void G4XCDDetectorConstruction::SetGXeDensityData(G4String* mGXeDensityData)
+{
+    pGXeDensityData = mGXeDensityData;
+    
+    ifsDataFile->open(pGXeDensityData->c_str(), ios::in);
+    ifsDataFile->close();
+    ifsDataFile->clear();
+}
+
+void G4XCDDetectorConstruction::SetXePressure(G4double mXePressure)
+{
+    dXePressure = mXePressure;
+}
+
