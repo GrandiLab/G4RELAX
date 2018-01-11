@@ -1,24 +1,24 @@
 ///////////////////////////
 // Nickolas Upole        //
 // University of Chicago //
-// Summer 2016           //
-// G4XCDPhysicsList.hh   //
+// Winter 2018           //
+// RELAXPhysicsList.hh   //
 ///////////////////////////
 
-#ifndef G4XCDPhysicsList_h
-#define G4XCDPhysicsList_h 1
+#ifndef RELAXPhysicsList_h
+#define RELAXPhysicsList_h 1
 
 #include "globals.hh"
 
 #include "G4VUserPhysicsList.hh"
 
-#include "G4XCDPhysicsMessenger.hh"
+#include "RELAXPhysicsMessenger.hh"
 
-class G4XCDPhysicsList : public G4VUserPhysicsList
+class RELAXPhysicsList : public G4VUserPhysicsList
 {
 public:
-    G4XCDPhysicsList();
-    ~G4XCDPhysicsList();
+    RELAXPhysicsList();
+    ~RELAXPhysicsList();
 
     // List of Functions
     void ConstructParticle();
@@ -41,7 +41,7 @@ private:
     void SetCuts();
     
     // List of Variables
-    G4XCDPhysicsMessenger* pG4XCDPhysicsMessenger;
+    RELAXPhysicsMessenger* pG4XCDPhysicsMessenger;
     
     G4bool bScintillation;
     G4bool bCerenkov;

@@ -1,29 +1,29 @@
 ///////////////////////////
 // Nickolas Upole        //
 // University of Chicago //
-// Summer 2016           //
-// G4XCDPhysicsList.cc   //
+// Winter 2018           //
+// RELAXPhysicsList.cc   //
 ///////////////////////////
 
-#include "G4XCDPhysicsList.hh"
+#include "RELAXPhysicsList.hh"
 
 #include "G4ParticleDefinition.hh"
 #include "G4ProcessManager.hh"
 
-G4XCDPhysicsList::G4XCDPhysicsList() : G4VUserPhysicsList()
+RELAXPhysicsList::RELAXPhysicsList() : G4VUserPhysicsList()
 {
-    pG4XCDPhysicsMessenger = new G4XCDPhysicsMessenger(this);
+    pRELAXPhysicsMessenger = new RELAXPhysicsMessenger(this);
     
     bScintillation = false;
     bCerenkov = false;
 }
 
-G4XCDPhysicsList::~G4XCDPhysicsList()
+RELAXPhysicsList::~RELAXPhysicsList()
 {
     
 }
 
-void G4XCDPhysicsList::ConstructParticle()
+void RELAXPhysicsList::ConstructParticle()
 {
     ConstructBosons();
     ConstructLeptons();
@@ -36,7 +36,7 @@ void G4XCDPhysicsList::ConstructParticle()
 #include "G4Gamma.hh"
 #include "G4OpticalPhoton.hh"
 
-void G4XCDPhysicsList::ConstructBosons()
+void RELAXPhysicsList::ConstructBosons()
 {
     G4Geantino::Geantino();
     
@@ -56,7 +56,7 @@ void G4XCDPhysicsList::ConstructBosons()
 #include "G4NeutrinoMu.hh"
 #include "G4AntiNeutrinoMu.hh"
 
-void G4XCDPhysicsList::ConstructLeptons()
+void RELAXPhysicsList::ConstructLeptons()
 {
     G4Electron::Electron();
     G4Positron::Positron();
@@ -77,7 +77,7 @@ void G4XCDPhysicsList::ConstructLeptons()
 #include "G4BaryonConstructor.hh"
 #include "G4GenericIon.hh"
 
-void G4XCDPhysicsList::ConstructHadrons()
+void RELAXPhysicsList::ConstructHadrons()
 {
     G4Neutron::Neutron();
     G4Proton::Proton();
@@ -86,12 +86,12 @@ void G4XCDPhysicsList::ConstructHadrons()
     G4GenericIon::GenericIon();
 }
 
-void G4XCDPhysicsList::ConstructShortLived()
+void RELAXPhysicsList::ConstructShortLived()
 {
 
 }
 
-void G4XCDPhysicsList::ConstructProcess()
+void RELAXPhysicsList::ConstructProcess()
 {
     ConstructEMPhysics();
     ConstructHadronPhysics();
@@ -103,7 +103,7 @@ void G4XCDPhysicsList::ConstructProcess()
 #include "G4VPhysicsConstructor.hh"
 #include "G4EmLivermorePhysics.hh"
 
-void G4XCDPhysicsList::ConstructEMPhysics()
+void RELAXPhysicsList::ConstructEMPhysics()
 {
     G4VPhysicsConstructor* pEMPhysicsList;
     pEMPhysicsList = new G4EmLivermorePhysics();
@@ -120,7 +120,7 @@ void G4XCDPhysicsList::ConstructEMPhysics()
 #include "G4NeutronHPCapture.hh"
 #include "G4NeutronHPCaptureData.hh"
 
-void G4XCDPhysicsList::ConstructHadronPhysics()
+void RELAXPhysicsList::ConstructHadronPhysics()
 {
     // Reset the particle iterator
     theParticleIterator->reset();
@@ -177,7 +177,7 @@ void G4XCDPhysicsList::ConstructHadronPhysics()
 #include "G4OpAbsorption.hh"
 #include "G4OpRayleigh.hh"
 
-void G4XCDPhysicsList::ConstructOpticalPhotonPhysics()
+void RELAXPhysicsList::ConstructOpticalPhotonPhysics()
 {
     G4Scintillation* pScintillation = new G4Scintillation();
     pScintillation->SetTrackSecondariesFirst(true);
@@ -221,7 +221,7 @@ void G4XCDPhysicsList::ConstructOpticalPhotonPhysics()
 #include "G4Decay.hh"
 #include "G4RadioactiveDecay.hh"
 
-void G4XCDPhysicsList::ConstructDecayPhysics()
+void RELAXPhysicsList::ConstructDecayPhysics()
 {
     G4Decay* pDecay = new G4Decay();
     G4RadioactiveDecay* pRadioactiveDecay = new G4RadioactiveDecay();
@@ -247,12 +247,12 @@ void G4XCDPhysicsList::ConstructDecayPhysics()
     }
 }
 
-void G4XCDPhysicsList::AddTransportation()
+void RELAXPhysicsList::AddTransportation()
 {
     G4VUserPhysicsList::AddTransportation();
 }
 
-void G4XCDPhysicsList::SetCuts()
+void RELAXPhysicsList::SetCuts()
 {
     // G4ProductionCutsTable::GetProductionCutsTable()->SetEnergyRange(0.1*keV, 1*GeV);
     
@@ -263,12 +263,12 @@ void G4XCDPhysicsList::SetCuts()
     // SetCutValue(0.01*um, "Neutron");
 }
 
-void G4XCDPhysicsList::SetScintillation(G4bool mScintillation)
+void RELAXPhysicsList::SetScintillation(G4bool mScintillation)
 {
     bScintillation = mScintillation;
 }
 
-void G4XCDPhysicsList::SetCerenkov(G4bool mCerenkov)
+void RELAXPhysicsList::SetCerenkov(G4bool mCerenkov)
 {
     bCerenkov = mCerenkov;
 }
