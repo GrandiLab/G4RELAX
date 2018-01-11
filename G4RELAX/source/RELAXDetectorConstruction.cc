@@ -1833,7 +1833,7 @@ void RELAXDetectorConstruction::ConstructLaboratory()
 
 }
 
-void G4XCDDetectorConstruction::SetPTFEIndexOfRefraction(G4String* mPTFEIndexOfRefractionData)
+void RELAXDetectorConstruction::SetPTFEIndexOfRefraction(G4String* mPTFEIndexOfRefractionData)
 {
     pPTFEIndexOfRefractionData = mPTFEIndexOfRefractionData;
     
@@ -1879,7 +1879,7 @@ void G4XCDDetectorConstruction::SetPTFEIndexOfRefraction(G4String* mPTFEIndexOfR
     ifsDataFile->clear();
 }
 
-void G4XCDDetectorConstruction::SetPTFEReflectivity(G4String* mPTFEReflectivityData)
+void RELAXDetectorConstruction::SetPTFEReflectivity(G4String* mPTFEReflectivityData)
 {
     pPTFEReflectivityData = mPTFEReflectivityData;
     
@@ -1925,7 +1925,7 @@ void G4XCDDetectorConstruction::SetPTFEReflectivity(G4String* mPTFEReflectivityD
     ifsDataFile->clear();
 }
 
-void G4XCDDetectorConstruction::SetPTFESpecularLobeConstant(G4String* mPTFESpecularLobeConstantData)
+void RELAXDetectorConstruction::SetPTFESpecularLobeConstant(G4String* mPTFESpecularLobeConstantData)
 {
     pPTFESpecularLobeConstantData = mPTFESpecularLobeConstantData;
     
@@ -1971,7 +1971,7 @@ void G4XCDDetectorConstruction::SetPTFESpecularLobeConstant(G4String* mPTFESpecu
     ifsDataFile->clear();
 }
 
-void G4XCDDetectorConstruction::SetPTFESpecularSpikeConstant(G4String* mPTFESpecularSpikeConstantData)
+void RELAXDetectorConstruction::SetPTFESpecularSpikeConstant(G4String* mPTFESpecularSpikeConstantData)
 {
     pPTFESpecularSpikeConstantData = mPTFESpecularSpikeConstantData;
     
@@ -2017,7 +2017,7 @@ void G4XCDDetectorConstruction::SetPTFESpecularSpikeConstant(G4String* mPTFESpec
     ifsDataFile->clear();
 }
 
-void G4XCDDetectorConstruction::SetPTFEBackscatterConstant(G4String* mPTFEBackscatterConstantData)
+void RELAXDetectorConstruction::SetPTFEBackscatterConstant(G4String* mPTFEBackscatterConstantData)
 {
     pPTFEBackscatterConstantData = mPTFEBackscatterConstantData;
     
@@ -2063,7 +2063,7 @@ void G4XCDDetectorConstruction::SetPTFEBackscatterConstant(G4String* mPTFEBacksc
     ifsDataFile->clear();
 }
 
-void G4XCDDetectorConstruction::SetPTFEEfficiency(G4String* mPTFEEfficiencyData)
+void RELAXDetectorConstruction::SetPTFEEfficiency(G4String* mPTFEEfficiencyData)
 {
     pPTFEEfficiencyData = mPTFEEfficiencyData;
     
@@ -2109,7 +2109,7 @@ void G4XCDDetectorConstruction::SetPTFEEfficiency(G4String* mPTFEEfficiencyData)
     ifsDataFile->clear();
 }
 
-void G4XCDDetectorConstruction::SetLXeScintillationSpectrumData(G4String* mLXeScintillationSpectrumData)
+void RELAXDetectorConstruction::SetLXeScintillationSpectrumData(G4String* mLXeScintillationSpectrumData)
 {
     pLXeScintillationSpectrumData = mLXeScintillationSpectrumData;
     
@@ -2157,7 +2157,7 @@ void G4XCDDetectorConstruction::SetLXeScintillationSpectrumData(G4String* mLXeSc
     ifsDataFile->clear();
 }
 
-void G4XCDDetectorConstruction::SetLXeIndexOfRefractionData(G4String* mLXeIndexOfRefractionData)
+void RELAXDetectorConstruction::SetLXeIndexOfRefractionData(G4String* mLXeIndexOfRefractionData)
 {
     pLXeIndexOfRefractionData = mLXeIndexOfRefractionData;
     
@@ -2203,7 +2203,7 @@ void G4XCDDetectorConstruction::SetLXeIndexOfRefractionData(G4String* mLXeIndexO
     ifsDataFile->clear();
 }
 
-void G4XCDDetectorConstruction::SetLXeAbsorptionLengthData(G4String* mLXeAbsorptionLengthData)
+void RELAXDetectorConstruction::SetLXeAbsorptionLengthData(G4String* mLXeAbsorptionLengthData)
 {
     pLXeAbsorptionLengthData = mLXeAbsorptionLengthData;
     
@@ -2250,7 +2250,7 @@ void G4XCDDetectorConstruction::SetLXeAbsorptionLengthData(G4String* mLXeAbsorpt
     ifsDataFile->clear();
 }
 
-void G4XCDDetectorConstruction::SetLXeRayleighScatteringLengthData(G4String* mLXeRayleighScatteringLengthData)
+void RELAXDetectorConstruction::SetLXeRayleighScatteringLengthData(G4String* mLXeRayleighScatteringLengthData)
 {
     pLXeRayleighScatteringLengthData = mLXeRayleighScatteringLengthData;
 
@@ -2297,7 +2297,7 @@ void G4XCDDetectorConstruction::SetLXeRayleighScatteringLengthData(G4String* mLX
     ifsDataFile->clear();
 }
 
-void G4XCDDetectorConstruction::SetLXeFanoFactor(G4double mLXeFanoFactor)
+void RELAXDetectorConstruction::SetLXeFanoFactor(G4double mLXeFanoFactor)
 {
     dLXeFanoFactor = mLXeFanoFactor;
     
@@ -2311,7 +2311,7 @@ void G4XCDDetectorConstruction::SetLXeFanoFactor(G4double mLXeFanoFactor)
     }
 }
 
-void G4XCDDetectorConstruction::SetLXeFastScintillationTimeConstant(G4double mLXeFastScintillationTimeConstant)
+void RELAXDetectorConstruction::SetLXeFastScintillationTimeConstant(G4double mLXeFastScintillationTimeConstant)
 {
     dLXeFastScintillationTimeConstant = mLXeFastScintillationTimeConstant;
     
@@ -2330,7 +2330,7 @@ void G4XCDDetectorConstruction::SetLXeFastScintillationTimeConstant(G4double mLX
     }
 }
 
-void G4XCDDetectorConstruction::SetLXeSlowScintillationTimeConstant(G4double mLXeSlowScintillationTimeConstant)
+void RELAXDetectorConstruction::SetLXeSlowScintillationTimeConstant(G4double mLXeSlowScintillationTimeConstant)
 {
     dLXeSlowScintillationTimeConstant = mLXeSlowScintillationTimeConstant;
     
@@ -2349,7 +2349,7 @@ void G4XCDDetectorConstruction::SetLXeSlowScintillationTimeConstant(G4double mLX
     }
 }
 
-void G4XCDDetectorConstruction::SetLXeDensityData(G4String* mLXeDensityData)
+void RELAXDetectorConstruction::SetLXeDensityData(G4String* mLXeDensityData)
 {
     pLXeDensityData = mLXeDensityData;
     
@@ -2358,7 +2358,7 @@ void G4XCDDetectorConstruction::SetLXeDensityData(G4String* mLXeDensityData)
     ifsDataFile->clear();
 }
 
-void G4XCDDetectorConstruction::SetGXeScintillationSpectrumData(G4String* mGXeScintillationSpectrumData)
+void RELAXDetectorConstruction::SetGXeScintillationSpectrumData(G4String* mGXeScintillationSpectrumData)
 {
     pGXeScintillationSpectrumData = mGXeScintillationSpectrumData;
     
@@ -2406,7 +2406,7 @@ void G4XCDDetectorConstruction::SetGXeScintillationSpectrumData(G4String* mGXeSc
     ifsDataFile->clear();
 }
 
-void G4XCDDetectorConstruction::SetGXeIndexOfRefractionData(G4String* mGXeIndexOfRefractionData)
+void RELAXDetectorConstruction::SetGXeIndexOfRefractionData(G4String* mGXeIndexOfRefractionData)
 {
     pGXeIndexOfRefractionData = mGXeIndexOfRefractionData;
     
@@ -2452,7 +2452,7 @@ void G4XCDDetectorConstruction::SetGXeIndexOfRefractionData(G4String* mGXeIndexO
     ifsDataFile->clear();
 }
 
-void G4XCDDetectorConstruction::SetGXeAbsorptionLengthData(G4String* mGXeAbsorptionLengthData)
+void RELAXDetectorConstruction::SetGXeAbsorptionLengthData(G4String* mGXeAbsorptionLengthData)
 {
     pGXeAbsorptionLengthData = mGXeAbsorptionLengthData;
     
@@ -2499,7 +2499,7 @@ void G4XCDDetectorConstruction::SetGXeAbsorptionLengthData(G4String* mGXeAbsorpt
     ifsDataFile->clear();
 }
 
-void G4XCDDetectorConstruction::SetGXeRayleighScatteringLengthData(G4String* mGXeRayleighScatteringLengthData)
+void RELAXDetectorConstruction::SetGXeRayleighScatteringLengthData(G4String* mGXeRayleighScatteringLengthData)
 {
     pGXeRayleighScatteringLengthData = mGXeRayleighScatteringLengthData;
     
@@ -2546,7 +2546,7 @@ void G4XCDDetectorConstruction::SetGXeRayleighScatteringLengthData(G4String* mGX
     ifsDataFile->clear();
 }
 
-void G4XCDDetectorConstruction::SetGXeFanoFactor(G4double mGXeFanoFactor)
+void RELAXDetectorConstruction::SetGXeFanoFactor(G4double mGXeFanoFactor)
 {
     dGXeFanoFactor = mGXeFanoFactor;
     
@@ -2566,7 +2566,7 @@ void G4XCDDetectorConstruction::SetGXeFanoFactor(G4double mGXeFanoFactor)
     }
 }
 
-void G4XCDDetectorConstruction::SetGXeFastScintillationTimeConstant(G4double mGXeFastScintillationTimeConstant)
+void RELAXDetectorConstruction::SetGXeFastScintillationTimeConstant(G4double mGXeFastScintillationTimeConstant)
 {
     dGXeFastScintillationTimeConstant = mGXeFastScintillationTimeConstant;
     
@@ -2585,7 +2585,7 @@ void G4XCDDetectorConstruction::SetGXeFastScintillationTimeConstant(G4double mGX
     }
 }
 
-void G4XCDDetectorConstruction::SetGXeSlowScintillationTimeConstant(G4double mGXeSlowScintillationTimeConstant)
+void RELAXDetectorConstruction::SetGXeSlowScintillationTimeConstant(G4double mGXeSlowScintillationTimeConstant)
 {
     dGXeSlowScintillationTimeConstant = mGXeSlowScintillationTimeConstant;
     
@@ -2604,7 +2604,7 @@ void G4XCDDetectorConstruction::SetGXeSlowScintillationTimeConstant(G4double mGX
     }
 }
 
-void G4XCDDetectorConstruction::SetGXeDensityData(G4String* mGXeDensityData)
+void RELAXDetectorConstruction::SetGXeDensityData(G4String* mGXeDensityData)
 {
     pGXeDensityData = mGXeDensityData;
     
@@ -2613,7 +2613,7 @@ void G4XCDDetectorConstruction::SetGXeDensityData(G4String* mGXeDensityData)
     ifsDataFile->clear();
 }
 
-void G4XCDDetectorConstruction::SetXePressure(G4double mXePressure)
+void RELAXDetectorConstruction::SetXePressure(G4double mXePressure)
 {
     dXePressure = mXePressure;
 }

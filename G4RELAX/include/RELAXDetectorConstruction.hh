@@ -123,8 +123,6 @@ public:
     void SetXePressure(G4double mXePressure);
 
 private:
-    double dXePressure;
-
     // List of Functions
     void DefineMaterials();
     void ConstructLaboratory();
