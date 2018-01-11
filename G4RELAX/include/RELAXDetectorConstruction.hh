@@ -9,6 +9,7 @@
 #define RELAXDetectorConstruction_h 1
 
 #include <math.h>
+#include <vector>
 
 #include "globals.hh"
 
