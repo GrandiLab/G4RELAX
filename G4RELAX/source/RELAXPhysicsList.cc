@@ -122,6 +122,9 @@ void RELAXPhysicsList::ConstructEMPhysics()
 
 void RELAXPhysicsList::ConstructHadronPhysics()
 {
+    // Get the Particle Iterator
+    auto theParticleIterator = GetParticleIterator();
+
     // Reset the particle iterator
     theParticleIterator->reset();
 
@@ -187,6 +190,8 @@ void RELAXPhysicsList::ConstructOpticalPhotonPhysics()
     G4OpBoundaryProcess* pOpBoundaryProcess = new G4OpBoundaryProcess();
     G4OpAbsorption* pOpAbsorption = new G4OpAbsorption();
     G4OpRayleigh* pOpRayleigh = new G4OpRayleigh();
+
+    auto theParticleIterator = GetParticleIterator();
     
     theParticleIterator->reset();
     
@@ -226,6 +231,8 @@ void RELAXPhysicsList::ConstructDecayPhysics()
     G4Decay* pDecay = new G4Decay();
     G4RadioactiveDecay* pRadioactiveDecay = new G4RadioactiveDecay();
     
+    auto theParticleIterator = GetParticleIterator();
+
     theParticleIterator->reset();
     
     while((*theParticleIterator)())
@@ -256,9 +263,9 @@ void RELAXPhysicsList::SetCuts()
 {
     // G4ProductionCutsTable::GetProductionCutsTable()->SetEnergyRange(0.1*keV, 1*GeV);
     
-    SetCutValue(5.0*nm, "gamma");
-    SetCutValue(5.0*nm, "proton");
-    SetCutValue(5.0*nm, "nucleus");
+    // SetCutValue(5.0*nm, "gamma");
+    // SetCutValue(5.0*nm, "proton");
+    // SetCutValue(5.0*nm, "nucleus");
     // SetCutValue(0.01*um, "electron");
     // SetCutValue(0.01*um, "Neutron");
 }
