@@ -1,12 +1,12 @@
 ///////////////////////////////
 // Nickolas Upole            //
 // University of Chicago     //
-// Summer 2016               //
-// G4XCDAnalysisMessenger.cc //
+// Winter 2018               //
+// RELAXAnalysisMessenger.cc //
 ///////////////////////////////
 
-#ifndef G4XCDAnalysisMessenger_h
-#define G4XCDAnalysisMessenger_h 1
+#ifndef RELAXAnalysisMessenger_h
+#define RELAXAnalysisMessenger_h 1
 
 #include "globals.hh"
 
@@ -15,20 +15,20 @@
 #include "G4UIcommand.hh"
 #include "G4UIcmdWithAString.hh"
 
-class G4XCDAnalysisManager;
+class RELAXAnalysisManager;
 
-class G4XCDAnalysisMessenger : public G4UImessenger
+class RELAXAnalysisMessenger : public G4UImessenger
 {
 public:
-    G4XCDAnalysisMessenger(G4XCDAnalysisManager* pG4XCDAnalysisManager);
-    ~G4XCDAnalysisMessenger();
+    RELAXAnalysisMessenger(RELAXAnalysisManager* pRELAXAnalysisManager);
+    ~RELAXAnalysisMessenger();
     
     void SetNewValue(G4UIcommand* pG4UICommand, G4String sNewValue);
     
 private:
-    G4XCDAnalysisManager* pG4XCDAM;
+    RELAXAnalysisManager* pRELAXAM;
     
-    G4UIdirectory* pG4XCDAnalysisDir;
+    G4UIdirectory* pRELAXAnalysisDir;
     
     G4UIcmdWithAString* pSetFilenameReferenceCmd;
 };

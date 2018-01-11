@@ -1,48 +1,48 @@
 ///////////////////////////////
 // Nickolas Upole            //
 // University of Chicago     //
-// Summer 2016               //
-// G4XCDAnalysisMessenger.cc //
+// Winter 2018               //
+// RELAXAnalysisMessenger.cc //
 ///////////////////////////////
 
-#include "G4XCDAnalysisMessenger.hh"
-#include "G4XCDAnalysisManager.hh"
+#include "RELAXAnalysisMessenger.hh"
+#include "RELAXAnalysisManager.hh"
 
-G4XCDAnalysisMessenger::G4XCDAnalysisMessenger(G4XCDAnalysisManager* pG4XCDAnalysisManager) : pG4XCDAM(pG4XCDAnalysisManager)
+RELAXAnalysisMessenger::RELAXAnalysisMessenger(RELAXAnalysisManager* pRELAXAnalysisManager) : pRELAXAM(pRELAXAnalysisManager)
 {
     ////////////////////////////////
     // Set the Analysis Directory //
     ////////////////////////////////
-    pG4XCDAnalysisDir = new G4UIdirectory("/G4XCD/analysis/");
-    pG4XCDAnalysisDir->SetGuidance("Control of the G4XCD Analysis.");
+    pRELAXAnalysisDir = new G4UIdirectory("/RELAX/analysis/");
+    pRELAXAnalysisDir->SetGuidance("Control of the RELAX Analysis.");
     
     ///////////////////////////////
     // Set the Analysis Commands //
     ///////////////////////////////
-    pSetFilenameReferenceCmd = new G4UIcmdWithAString("/G4XCD/analysis/SetFilenameReference", this);
+    pSetFilenameReferenceCmd = new G4UIcmdWithAString("/RELAX/analysis/SetFilenameReference", this);
     pSetFilenameReferenceCmd->SetGuidance("Set the Root File Reference.");
     pSetFilenameReferenceCmd->SetDefaultValue("./Results/events.root");
     pSetFilenameReferenceCmd->AvailableForStates(G4State_PreInit, G4State_Idle);
 }
 
-G4XCDAnalysisMessenger::~G4XCDAnalysisMessenger()
+RELAXAnalysisMessenger::~RELAXAnalysisMessenger()
 {
     ///////////////////////////////////////
     // Delete the Commands and Directory //
     ///////////////////////////////////////
     delete pSetFilenameReferenceCmd;
     
-    delete pG4XCDAnalysisDir;
+    delete pRELAXAnalysisDir;
 }
 
-void G4XCDAnalysisMessenger::SetNewValue(G4UIcommand* pG4UICommand, G4String sNewValue)
+void RELAXAnalysisMessenger::SetNewValue(G4UIcommand* pG4UICommand, G4String sNewValue)
 {
     ////////////////////////////////////////////
     // Update Value for Detector Construction //
     ////////////////////////////////////////////
     if(pG4UICommand == pSetFilenameReferenceCmd)
     {
-        pG4XCDAM->SetFilenameReference(&sNewValue);
+        pRELAXAM->SetFilenameReference(&sNewValue);
 
     }
 }
