@@ -337,12 +337,12 @@ void RELAXAnalysisManager::SteppingAction(const G4Step* pStep)
                     
                     else if(sDepositingProcess == "neutronInelastic")
                     {
-                        RELAXEventData->iInelasticScattersFiducialVolume++;
+                        pRELAXEventData->iInelasticScattersFiducialVolume++;
                     }
                     
                     else if(sDepositingProcess == "nCapture")
                     {
-                        RELAXEventData->iNeutronCaptureFiducialVolume++;
+                        pRELAXEventData->iNeutronCaptureFiducialVolume++;
                     }
                 }
                 
