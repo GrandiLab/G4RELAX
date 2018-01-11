@@ -1,12 +1,12 @@
 ///////////////////////////////
 // Nickolas Upole            //
 // University of Chicago     //
-// Summer 2016               //
-// G4XCDDetectorMessenger.hh //
+// Winter 2018               //
+// RELAXDetectorMessenger.hh //
 ///////////////////////////////
 
-#ifndef G4XCDDetectorMessenger_h
-#define G4XCDDetectorMessenger_h 1
+#ifndef RELAXDetectorMessenger_h
+#define RELAXDetectorMessenger_h 1
 
 #include "globals.hh"
 
@@ -17,21 +17,21 @@
 #include "G4UIcmdWithADoubleAndUnit.hh"
 #include "G4UIcmdWithADouble.hh"
 
-class G4XCDDetectorConstruction;
+class RELAXDetectorConstruction;
 
-class G4XCDDetectorMessenger : public G4UImessenger
+class RELAXDetectorMessenger : public G4UImessenger
 {
 public:
-    G4XCDDetectorMessenger(G4XCDDetectorConstruction* pG4XCDDetectorConstruction);
-    ~G4XCDDetectorMessenger();
+    RELAXDetectorMessenger(RELAXDetectorConstruction* pRELAXDetectorConstruction);
+    ~RELAXDetectorMessenger();
     
     void SetNewValue(G4UIcommand* pG4UICommand, G4String sNewValue);
     
 private:
-    G4XCDDetectorConstruction* pG4XCDDetector;
+    RELAXDetectorConstruction* pRELAXDetector;
     
-    G4UIdirectory* pG4XCDDir;
-    G4UIdirectory* pG4XCDDetectorDir;
+    G4UIdirectory* pRELAXDir;
+    G4UIdirectory* pRELAXDetectorDir;
     
     G4UIcmdWithAString* pPTFEIndexOfRefractionDataCmd;
     G4UIcmdWithAString* pPTFEReflectivityDataCmd;
