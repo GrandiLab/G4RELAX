@@ -68,8 +68,6 @@ private:
     G4VPhysicalVolume* pGatePV;
     G4VPhysicalVolume* pAnodePV;
     G4VPhysicalVolume* pScreeningMeshPV;
-
-
 };
 
 #endif

@@ -41,7 +41,7 @@ private:
     void SetCuts();
     
     // List of Variables
-    RELAXPhysicsMessenger* pG4XCDPhysicsMessenger;
+    RELAXPhysicsMessenger* pRELAXPhysicsMessenger;
     
     G4bool bScintillation;
     G4bool bCerenkov;
