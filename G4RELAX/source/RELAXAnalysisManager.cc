@@ -134,7 +134,7 @@ void RELAXAnalysisManager::BeginOfRunAction(const G4Run* pRun)
     pTree4->Branch("peactivevolume", &(pRELAXEventData->iPEActiveVolume), "peactivevolume/I");
     pTree4->Branch("pefiducialvolume", &(pRELAXEventData->iPEFiducialVolume), "pefiducialvolume/I");
     pTree4->Branch("pegatelxe", &(pRELAXEventData->iPEGateLXe), "pegatelxe/I");
-    pTree4->Branch("pegategxe", &(RELAXEventData->iPEGateGXe), "pegategxe/I");
+    pTree4->Branch("pegategxe", &(pRELAXEventData->iPEGateGXe), "pegategxe/I");
     pTree4->Branch("peregiony", &(pRELAXEventData->iPERegionY), "peregiony/I");
     pTree4->Branch("pesurroundinggxe", &(pRELAXEventData->iPESurroundingGXe), "pesurroundinggxe/I");
     pTree4->Branch("comptonscattersptfe", &(pRELAXEventData->iComptonScattersPTFE), "comptonscattersptfe/I");
