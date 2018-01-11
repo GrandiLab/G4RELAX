@@ -17,7 +17,7 @@ RELAXStackingAction::~RELAXStackingAction()
     
 }
 
-G4ClassificationOfNewTrack G4XCDStackingAction::ClassifyNewTrack(const G4Track* pTrack)
+G4ClassificationOfNewTrack RELAXStackingAction::ClassifyNewTrack(const G4Track* pTrack)
 {
     if(pTrack->GetParentID() == 0)
     {
