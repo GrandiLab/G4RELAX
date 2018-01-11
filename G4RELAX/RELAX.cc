@@ -61,7 +61,7 @@ int main(int argc, char** argv)
     // Terminate Job //
     ///////////////////
     delete pUISession;
-    delete RELAXAnalysisManager;
+    delete pRELAXAnalysisManager;
     delete pVisualManager;
     delete pRunManager;
 
