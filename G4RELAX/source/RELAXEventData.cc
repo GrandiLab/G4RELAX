@@ -1,13 +1,13 @@
 ///////////////////////////
 // Nickolas Upole        //
 // University of Chicago //
-// Summer 2016           //
-// G4XCDEventData.cc     //
+// Winter 2018           //
+// RELAXEventData.cc     //
 ///////////////////////////
 
-#include "G4XCDEventData.hh"
+#include "RELAXEventData.hh"
 
-G4XCDEventData::G4XCDEventData()
+RELAXEventData::RELAXEventData()
 {
     iEventID = 0;
     
@@ -123,7 +123,7 @@ G4XCDEventData::G4XCDEventData()
     iComptonScattersSurroundingGXe = 0;
 }
 
-G4XCDEventData::~G4XCDEventData()
+RELAXEventData::~RELAXEventData()
 {
     delete pTrackID;
     delete pParentID;
@@ -150,7 +150,7 @@ G4XCDEventData::~G4XCDEventData()
     delete pInteractionTimeEJ301;
 }
 
-void G4XCDEventData::Clear()
+void RELAXEventData::Clear()
 {
     iEventID = 0;
     

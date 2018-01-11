@@ -1,12 +1,12 @@
 ///////////////////////////
 // Nickolas Upole        //
 // University of Chicago //
-// Summer 2016           //
-// G4XCDEventData.hh     //
+// Winter 2018           //
+// RELAXEventData.hh     //
 ///////////////////////////
 
-#ifndef G4XCDEventData_h
-#define G4XCDEventData_h 1
+#ifndef RELAXEventData_h
+#define RELAXEventData_h 1
 
 #include "globals.hh"
 
@@ -16,11 +16,11 @@
 using std::string;
 using std::vector;
 
-class G4XCDEventData
+class RELAXEventData
 {
 public:
-    G4XCDEventData();
-    ~G4XCDEventData();
+    RELAXEventData();
+    ~RELAXEventData();
     
     // List of Funcions
     void Clear();
