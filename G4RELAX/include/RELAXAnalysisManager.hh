@@ -1,12 +1,12 @@
 /////////////////////////////
 // Nickolas Upole          //
 // University of Chicago   //
-// Summer 2016             //
-// G4XCDAnalysisManager.hh //
+// Winter 2018             //
+// RELAXAnalysisManager.hh //
 /////////////////////////////
 
-#ifndef G4XCDAnalysisManager_h
-#define G4XCDAnalysisManager_h 1
+#ifndef RELAXAnalysisManager_h
+#define RELAXAnalysisManager_h 1
 
 #include "globals.hh"
 
@@ -23,16 +23,16 @@
 #include "TTree.h"
 #include "TMath.h"
 
-#include "G4XCDAnalysisMessenger.hh"
-#include "G4XCDEventData.hh"
+#include "RELAXAnalysisMessenger.hh"
+#include "RELAXEventData.hh"
 
 using std::map;
 
-class G4XCDAnalysisManager
+class RELAXAnalysisManager
 {
 public:
-    G4XCDAnalysisManager();
-    ~G4XCDAnalysisManager();
+    RELAXAnalysisManager();
+    ~RELAXAnalysisManager();
     
     // List of Functions
     void BeginOfRunAction(const G4Run* pRun);
@@ -45,7 +45,7 @@ public:
     
 private:
     // List of Variables
-    G4XCDAnalysisMessenger* pG4XCDAnalysisMessenger;
+    RELAXAnalysisMessenger* pRELAXAnalysisMessenger;
     
     G4String* pFilenameReference;
     
@@ -57,7 +57,7 @@ private:
     
     G4Track* pTrack;
     
-    G4XCDEventData* pG4XCDEventData;
+    RELAXEventData* pRELAXEventData;
     
     G4String sParticleType;
     G4String sDepositingProcess;

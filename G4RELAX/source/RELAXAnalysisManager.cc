@@ -1,20 +1,20 @@
 /////////////////////////////
 // Nickolas Upole          //
 // University of Chicago   //
-// Summer 2016             //
-// G4XCDAnalysisManager.cc //
+// Winter 2018             //
+// RELAXAnalysisManager.cc //
 /////////////////////////////
 
-#include "G4XCDAnalysisManager.hh"
+#include "RELAXAnalysisManager.hh"
 
-G4XCDAnalysisManager::G4XCDAnalysisManager()
+RELAXAnalysisManager::RELAXAnalysisManager()
 {
-    pG4XCDAnalysisMessenger = new G4XCDAnalysisMessenger(this);
+    pRELAXAnalysisMessenger = new RELAXAnalysisMessenger(this);
     
     pFilenameReference = new G4String("./Results/events.root");
 
     pMapParticleType = new map<int, G4String>;
-    pG4XCDEventData = new G4XCDEventData();
+    pRELAXEventData = new RELAXEventData();
     
     dActiveVolumeX = 0.0000;
     dActiveVolumeY = 0.0000;
@@ -24,175 +24,175 @@ G4XCDAnalysisManager::G4XCDAnalysisManager()
     dFiducialVolumeHeight = 20.0000*mm;
 }
 
-G4XCDAnalysisManager::~G4XCDAnalysisManager()
+RELAXAnalysisManager::~RELAXAnalysisManager()
 {
-    delete pG4XCDAnalysisMessenger;
+    delete pRELAXAnalysisMessenger;
     
     delete pFilenameReference;
     
     delete pMapParticleType;
-    delete pG4XCDEventData;
+    delete pRELAXEventData;
 }
 
-void G4XCDAnalysisManager::BeginOfRunAction(const G4Run* pRun)
+void RELAXAnalysisManager::BeginOfRunAction(const G4Run* pRun)
 {
-    pFile = new TFile(pFilenameReference->c_str(), "RECREATE", "Results of G4XCD Simulation");
-    pTree1 = new TTree("t1", "Tree containing raw data from the G4XCD Simulation");
-    pTree2 = new TTree("t2", "Tree containing processed data from the G4XCD Simulation");
-    pTree3 = new TTree("t3", "Tree containing nuclear recoil data from the G4XCD Simulation");
-    pTree4 = new TTree("t4", "Tree containing electronic recoil data from the G4XCD Simulation");
+    pFile = new TFile(pFilenameReference->c_str(), "RECREATE", "Results of RELAX Simulation");
+    pTree1 = new TTree("t1", "Tree containing raw data from the RELAX Simulation");
+    pTree2 = new TTree("t2", "Tree containing processed data from the RELAX Simulation");
+    pTree3 = new TTree("t3", "Tree containing nuclear recoil data from the RELAX Simulation");
+    pTree4 = new TTree("t4", "Tree containing electronic recoil data from the RELAX Simulation");
     
     gROOT->ProcessLine("#include <vector>");
     
-    pTree1->Branch("eventid", &(pG4XCDEventData->iEventID), "eventid/I");
-    pTree1->Branch("trackid", "vector<int>", &pG4XCDEventData->pTrackID);
-    pTree1->Branch("parentid", "vector<int>", &pG4XCDEventData->pParentID);
-    pTree1->Branch("particletype", "vector<string>", &pG4XCDEventData->pParticleType);
-    pTree1->Branch("parenttype", "vector<string>", &pG4XCDEventData->pParentType);
-    pTree1->Branch("creatorprocess", "vector<string>", &pG4XCDEventData->pCreatorProcess);
-    pTree1->Branch("depositprocess", "vector<string>", &pG4XCDEventData->pDepositingProcess);
-    pTree1->Branch("volume", "vector<string>", &pG4XCDEventData->pVolume);
-    pTree1->Branch("initx", "vector<double>", &pG4XCDEventData->pInitX);
-    pTree1->Branch("inity", "vector<double>", &pG4XCDEventData->pInitY);
-    pTree1->Branch("initz", "vector<double>", &pG4XCDEventData->pInitZ);
-    pTree1->Branch("finalx", "vector<double>", &pG4XCDEventData->pFinalX);
-    pTree1->Branch("finaly", "vector<double>", &pG4XCDEventData->pFinalY);
-    pTree1->Branch("finalz", "vector<double>", &pG4XCDEventData->pFinalZ);
-    pTree1->Branch("initkinenergy", "vector<double>", &pG4XCDEventData->pInitKinEnergy);
-    pTree1->Branch("finalkinenergy", "vector<double>", &pG4XCDEventData->pFinalKinEnergy);
-    pTree1->Branch("energydeposited", "vector<double>", &pG4XCDEventData->pEnergyDeposited);
-    pTree1->Branch("inittime", "vector<double>", &pG4XCDEventData->pInitTime);
-    pTree1->Branch("finaltime", "vector<double>", &pG4XCDEventData->pFinalTime);
+    pTree1->Branch("eventid", &(pRELAXEventData->iEventID), "eventid/I");
+    pTree1->Branch("trackid", "vector<int>", &pRELAXEventData->pTrackID);
+    pTree1->Branch("parentid", "vector<int>", &pRELAXEventData->pParentID);
+    pTree1->Branch("particletype", "vector<string>", &pRELAXEventData->pParticleType);
+    pTree1->Branch("parenttype", "vector<string>", &pRELAXEventData->pParentType);
+    pTree1->Branch("creatorprocess", "vector<string>", &pRELAXEventData->pCreatorProcess);
+    pTree1->Branch("depositprocess", "vector<string>", &pRELAXEventData->pDepositingProcess);
+    pTree1->Branch("volume", "vector<string>", &pRELAXEventData->pVolume);
+    pTree1->Branch("initx", "vector<double>", &pRELAXEventData->pInitX);
+    pTree1->Branch("inity", "vector<double>", &pRELAXEventData->pInitY);
+    pTree1->Branch("initz", "vector<double>", &pRELAXEventData->pInitZ);
+    pTree1->Branch("finalx", "vector<double>", &pRELAXEventData->pFinalX);
+    pTree1->Branch("finaly", "vector<double>", &pRELAXEventData->pFinalY);
+    pTree1->Branch("finalz", "vector<double>", &pRELAXEventData->pFinalZ);
+    pTree1->Branch("initkinenergy", "vector<double>", &pRELAXEventData->pInitKinEnergy);
+    pTree1->Branch("finalkinenergy", "vector<double>", &pRELAXEventData->pFinalKinEnergy);
+    pTree1->Branch("energydeposited", "vector<double>", &pRELAXEventData->pEnergyDeposited);
+    pTree1->Branch("inittime", "vector<double>", &pRELAXEventData->pInitTime);
+    pTree1->Branch("finaltime", "vector<double>", &pRELAXEventData->pFinalTime);
     
-    pTree2->Branch("eventid", &(pG4XCDEventData->iEventID), "eventid/I");
-    pTree2->Branch("firstinteractiontimelxe", &(pG4XCDEventData->dFirstInteractionTimeLXe), "firstinteractiontimelxe/D");
-    pTree2->Branch("totalenergydeposited", &(pG4XCDEventData->dTotalEnergyDeposited), "totalenergydeposited/D");
-    pTree2->Branch("energydepositedregionx", &(pG4XCDEventData->dEnergyDepositedRegionX), "energydepositedregionx/D");
-    pTree2->Branch("energydepositedactivevolume", &(pG4XCDEventData->dEnergyDepositedActiveVolume), "energydepositedactivevolume/D");
-    pTree2->Branch("energydepositedfiducialvolume", &(pG4XCDEventData->dEnergyDepositedFiducialVolume), "energydepositedfiducialvolume/D");
-    pTree2->Branch("energydepositedgatelxe", &(pG4XCDEventData->dEnergyDepositedGateLXe), "energydepositedgatelxe/D");
-    pTree2->Branch("energydepositedgategxe", &(pG4XCDEventData->dEnergyDepositedGateGXe), "energydepositedgategxe/D");
-    pTree2->Branch("energydepositedregiony", &(pG4XCDEventData->dEnergyDepositedRegionY), "energydepositedregiony/D");
-    pTree2->Branch("totalinteractionsregionx", &(pG4XCDEventData->iTotalInteractionsRegionX), "totalinteractionsregionx/I");
-    pTree2->Branch("totalinteractionsactivevolume", &(pG4XCDEventData->iTotalInteractionsActiveVolume), "totalinteractionsactivevolume/I");
-    pTree2->Branch("totalinteractionsfiducialvolume", &(pG4XCDEventData->iTotalInteractionsFiducialVolume), "totalinteractionsfiducialvolume/I");
-    pTree2->Branch("totalinteractionsgatelxe", &(pG4XCDEventData->iTotalInteractionsGateLXe), "totalinteractionsgatelxe/I");
-    pTree2->Branch("totalinteractionsgategxe", &(pG4XCDEventData->iTotalInteractionsGateGXe), "totalinteractionsgategxe/I");
-    pTree2->Branch("totalinteractionsregiony", &(pG4XCDEventData->iTotalInteractionsRegionY), "totalinteractionsregiony/I");
-    pTree2->Branch("interactionxej301", "vector<double>", &(pG4XCDEventData->pInteractionXEJ301));
-    pTree2->Branch("interactionyej301", "vector<double>", &(pG4XCDEventData->pInteractionYEJ301));
-    pTree2->Branch("interactionzej301", "vector<double>", &(pG4XCDEventData->pInteractionZEJ301));
-    pTree2->Branch("interactiontimeej301", "vector<double>", &(pG4XCDEventData->pInteractionTimeEJ301));
-    pTree2->Branch("totalenergydepositedej301", &(pG4XCDEventData->dTotalEnergyDepositedEJ301), "totalenergydepositedej301/D");
-    pTree2->Branch("totalpeej301", &(pG4XCDEventData->dTotalPEEJ301), "totalpeej301/D");
+    pTree2->Branch("eventid", &(pRELAXEventData->iEventID), "eventid/I");
+    pTree2->Branch("firstinteractiontimelxe", &(pRELAXEventData->dFirstInteractionTimeLXe), "firstinteractiontimelxe/D");
+    pTree2->Branch("totalenergydeposited", &(pRELAXEventData->dTotalEnergyDeposited), "totalenergydeposited/D");
+    pTree2->Branch("energydepositedregionx", &(pRELAXEventData->dEnergyDepositedRegionX), "energydepositedregionx/D");
+    pTree2->Branch("energydepositedactivevolume", &(pRELAXEventData->dEnergyDepositedActiveVolume), "energydepositedactivevolume/D");
+    pTree2->Branch("energydepositedfiducialvolume", &(pRELAXEventData->dEnergyDepositedFiducialVolume), "energydepositedfiducialvolume/D");
+    pTree2->Branch("energydepositedgatelxe", &(pRELAXEventData->dEnergyDepositedGateLXe), "energydepositedgatelxe/D");
+    pTree2->Branch("energydepositedgategxe", &(pRELAXEventData->dEnergyDepositedGateGXe), "energydepositedgategxe/D");
+    pTree2->Branch("energydepositedregiony", &(pRELAXEventData->dEnergyDepositedRegionY), "energydepositedregiony/D");
+    pTree2->Branch("totalinteractionsregionx", &(pRELAXEventData->iTotalInteractionsRegionX), "totalinteractionsregionx/I");
+    pTree2->Branch("totalinteractionsactivevolume", &(pRELAXEventData->iTotalInteractionsActiveVolume), "totalinteractionsactivevolume/I");
+    pTree2->Branch("totalinteractionsfiducialvolume", &(pRELAXEventData->iTotalInteractionsFiducialVolume), "totalinteractionsfiducialvolume/I");
+    pTree2->Branch("totalinteractionsgatelxe", &(pRELAXEventData->iTotalInteractionsGateLXe), "totalinteractionsgatelxe/I");
+    pTree2->Branch("totalinteractionsgategxe", &(pRELAXEventData->iTotalInteractionsGateGXe), "totalinteractionsgategxe/I");
+    pTree2->Branch("totalinteractionsregiony", &(pRELAXEventData->iTotalInteractionsRegionY), "totalinteractionsregiony/I");
+    pTree2->Branch("interactionxej301", "vector<double>", &(pRELAXEventData->pInteractionXEJ301));
+    pTree2->Branch("interactionyej301", "vector<double>", &(pRELAXEventData->pInteractionYEJ301));
+    pTree2->Branch("interactionzej301", "vector<double>", &(pRELAXEventData->pInteractionZEJ301));
+    pTree2->Branch("interactiontimeej301", "vector<double>", &(pRELAXEventData->pInteractionTimeEJ301));
+    pTree2->Branch("totalenergydepositedej301", &(pRELAXEventData->dTotalEnergyDepositedEJ301), "totalenergydepositedej301/D");
+    pTree2->Branch("totalpeej301", &(pRELAXEventData->dTotalPEEJ301), "totalpeej301/D");
     
-    pTree3->Branch("eventid", &(pG4XCDEventData->iEventID), "eventid/I");
-    pTree3->Branch("firstneutroninteractionprocess", "string", &(pG4XCDEventData->sFirstNeutronInteractionProcess));
-    pTree3->Branch("firstneutroninteractionvolume", "string", &(pG4XCDEventData->sFirstNeutronInteractionVolume));
-    pTree3->Branch("firstneutroninteractionx", &(pG4XCDEventData->dFirstNeutronInteractionX), "firstneutroninteractionx/D");
-    pTree3->Branch("firstneutroninteractiony", &(pG4XCDEventData->dFirstNeutronInteractionY), "firstneutroninteractiony/D");
-    pTree3->Branch("firstneutroninteractionz", &(pG4XCDEventData->dFirstNeutronInteractionZ), "firstneutroninteractionz/D");
-    pTree3->Branch("firstneutroninteractiontime", &(pG4XCDEventData->dFirstNeutronInteractionTime), "firstneutroninteractiontime/D");
-    pTree3->Branch("secondneutroninteractionprocess", "string", &(pG4XCDEventData->sSecondNeutronInteractionProcess));
-    pTree3->Branch("secondneutroninteractionvolume", "string", &(pG4XCDEventData->sSecondNeutronInteractionVolume));
-    pTree3->Branch("secondneutroninteractionx", &(pG4XCDEventData->dSecondNeutronInteractionX), "secondneutroninteractionx/D");
-    pTree3->Branch("secondneutroninteractiony", &(pG4XCDEventData->dSecondNeutronInteractionY), "secondneutroninteractiony/D");
-    pTree3->Branch("secondneutroninteractionz", &(pG4XCDEventData->dSecondNeutronInteractionZ), "secondneutroninteractionz/D");
-    pTree3->Branch("secondneutroninteractiontime", &(pG4XCDEventData->dSecondNeutronInteractionTime), "secondneutroninteractiontime/D");
-    pTree3->Branch("elasticscattersptfe", &(pG4XCDEventData->iElasticScattersPTFE), "elasticscattersptfe/I");
-    pTree3->Branch("elasticscatterssurroundinglxe", &(pG4XCDEventData->iElasticScattersSurroundingLXe), "elasticscatterssurroundinglxe/I");
-    pTree3->Branch("elasticscattersregionx", &(pG4XCDEventData->iElasticScattersRegionX), "elasticscattersregionx/I");
-    pTree3->Branch("elasticscattersactivevolume", &(pG4XCDEventData->iElasticScattersActiveVolume), "elasticscattersactivevolume/I");
-    pTree3->Branch("elasticscattersfiducialvolume", &(pG4XCDEventData->iElasticScattersFiducialVolume), "elasticscattersfiducialvolume/I");
-    pTree3->Branch("elasticscattersgatelxe", &(pG4XCDEventData->iElasticScattersGateLXe), "elasticscattersgatelxe/I");
-    pTree3->Branch("elasticscattersgategxe", &(pG4XCDEventData->iElasticScattersGateGXe), "elasticscattersgategxe/I");
-    pTree3->Branch("elasticscattersregiony", &(pG4XCDEventData->iElasticScattersRegionY), "elasticscattersregiony/I");
-    pTree3->Branch("elasticscatterssurroundinggxe", &(pG4XCDEventData->iElasticScattersSurroundingGXe), "elasticscatterssurroundinggxe/I");
-    pTree3->Branch("inelasticscattersptfe", &(pG4XCDEventData->iInelasticScattersPTFE), "inelasticscattersptfe/I");
-    pTree3->Branch("inelasticscatterssurroundinglxe", &(pG4XCDEventData->iInelasticScattersSurroundingLXe), "inelasticscatterssurroundinglxe/I");
-    pTree3->Branch("inelasticscattersregionx", &(pG4XCDEventData->iInelasticScattersRegionX), "inelasticscattersregionx/I");
-    pTree3->Branch("inelasticscattersactivevolume", &(pG4XCDEventData->iInelasticScattersActiveVolume), "inelasticscattersactivevolume/I");
-    pTree3->Branch("inelasticscattersfiducialvolume", &(pG4XCDEventData->iInelasticScattersFiducialVolume), "inelasticscattersfiducialvolume/I");
-    pTree3->Branch("inelasticscattersgatelxe", &(pG4XCDEventData->iInelasticScattersGateLXe), "inelasticscattersgatelxe/I");
-    pTree3->Branch("inelasticscattersgategxe", &(pG4XCDEventData->iInelasticScattersGateGXe), "inelasticscattersgategxe/I");
-    pTree3->Branch("inelasticscattersregiony", &(pG4XCDEventData->iInelasticScattersRegionY), "inelasticscattersregiony/I");
-    pTree3->Branch("inelasticscatterssurroundinggxe", &(pG4XCDEventData->iInelasticScattersSurroundingGXe), "inelasticscatterssurroundinggxe/I");
-    pTree3->Branch("neutroncaptureptfe", &(pG4XCDEventData->iNeutronCapturePTFE), "neutroncaptureptfe/I");
-    pTree3->Branch("neutroncapturesurroundinglxe", &(pG4XCDEventData->iNeutronCaptureSurroundingLXe), "neutroncapturesurroundinglxe/I");
-    pTree3->Branch("neutroncaptureregionx", &(pG4XCDEventData->iNeutronCaptureRegionX), "neutroncaptureregionx/I");
-    pTree3->Branch("neutroncaptureactivevolume", &(pG4XCDEventData->iNeutronCaptureActiveVolume), "neutroncaptureactivevolume/I");
-    pTree3->Branch("neutroncapturefiducialvolume", &(pG4XCDEventData->iNeutronCaptureFiducialVolume), "neutroncapturefiducialvolume/I");
-    pTree3->Branch("neutroncapturegatelxe", &(pG4XCDEventData->iNeutronCaptureGateLXe), "neutroncapturegatelxe/I");
-    pTree3->Branch("neutroncapturegategxe", &(pG4XCDEventData->iNeutronCaptureGateGXe), "neutroncapturegategxe/I");
-    pTree3->Branch("neutroncaptureregiony", &(pG4XCDEventData->iNeutronCaptureRegionY), "neutroncaptureregiony/I");
-    pTree3->Branch("neutroncapturesurroundinggxe", &(pG4XCDEventData->iNeutronCaptureSurroundingGXe), "neutroncapturesurroundinggxe/I");
+    pTree3->Branch("eventid", &(pRELAXEventData->iEventID), "eventid/I");
+    pTree3->Branch("firstneutroninteractionprocess", "string", &(pRELAXEventData->sFirstNeutronInteractionProcess));
+    pTree3->Branch("firstneutroninteractionvolume", "string", &(pRELAXEventData->sFirstNeutronInteractionVolume));
+    pTree3->Branch("firstneutroninteractionx", &(pRELAXEventData->dFirstNeutronInteractionX), "firstneutroninteractionx/D");
+    pTree3->Branch("firstneutroninteractiony", &(pRELAXEventData->dFirstNeutronInteractionY), "firstneutroninteractiony/D");
+    pTree3->Branch("firstneutroninteractionz", &(pRELAXEventData->dFirstNeutronInteractionZ), "firstneutroninteractionz/D");
+    pTree3->Branch("firstneutroninteractiontime", &(pRELAXEventData->dFirstNeutronInteractionTime), "firstneutroninteractiontime/D");
+    pTree3->Branch("secondneutroninteractionprocess", "string", &(pRELAXEventData->sSecondNeutronInteractionProcess));
+    pTree3->Branch("secondneutroninteractionvolume", "string", &(pRELAXEventData->sSecondNeutronInteractionVolume));
+    pTree3->Branch("secondneutroninteractionx", &(pRELAXEventData->dSecondNeutronInteractionX), "secondneutroninteractionx/D");
+    pTree3->Branch("secondneutroninteractiony", &(pRELAXEventData->dSecondNeutronInteractionY), "secondneutroninteractiony/D");
+    pTree3->Branch("secondneutroninteractionz", &(pRELAXEventData->dSecondNeutronInteractionZ), "secondneutroninteractionz/D");
+    pTree3->Branch("secondneutroninteractiontime", &(pRELAXEventData->dSecondNeutronInteractionTime), "secondneutroninteractiontime/D");
+    pTree3->Branch("elasticscattersptfe", &(pRELAXEventData->iElasticScattersPTFE), "elasticscattersptfe/I");
+    pTree3->Branch("elasticscatterssurroundinglxe", &(pRELAXEventData->iElasticScattersSurroundingLXe), "elasticscatterssurroundinglxe/I");
+    pTree3->Branch("elasticscattersregionx", &(pRELAXEventData->iElasticScattersRegionX), "elasticscattersregionx/I");
+    pTree3->Branch("elasticscattersactivevolume", &(pRELAXEventData->iElasticScattersActiveVolume), "elasticscattersactivevolume/I");
+    pTree3->Branch("elasticscattersfiducialvolume", &(pRELAXEventData->iElasticScattersFiducialVolume), "elasticscattersfiducialvolume/I");
+    pTree3->Branch("elasticscattersgatelxe", &(pRELAXEventData->iElasticScattersGateLXe), "elasticscattersgatelxe/I");
+    pTree3->Branch("elasticscattersgategxe", &(pRELAXEventData->iElasticScattersGateGXe), "elasticscattersgategxe/I");
+    pTree3->Branch("elasticscattersregiony", &(pRELAXEventData->iElasticScattersRegionY), "elasticscattersregiony/I");
+    pTree3->Branch("elasticscatterssurroundinggxe", &(pRELAXEventData->iElasticScattersSurroundingGXe), "elasticscatterssurroundinggxe/I");
+    pTree3->Branch("inelasticscattersptfe", &(pRELAXEventData->iInelasticScattersPTFE), "inelasticscattersptfe/I");
+    pTree3->Branch("inelasticscatterssurroundinglxe", &(pRELAXEventData->iInelasticScattersSurroundingLXe), "inelasticscatterssurroundinglxe/I");
+    pTree3->Branch("inelasticscattersregionx", &(pRELAXEventData->iInelasticScattersRegionX), "inelasticscattersregionx/I");
+    pTree3->Branch("inelasticscattersactivevolume", &(pRELAXEventData->iInelasticScattersActiveVolume), "inelasticscattersactivevolume/I");
+    pTree3->Branch("inelasticscattersfiducialvolume", &(pRELAXEventData->iInelasticScattersFiducialVolume), "inelasticscattersfiducialvolume/I");
+    pTree3->Branch("inelasticscattersgatelxe", &(pRELAXEventData->iInelasticScattersGateLXe), "inelasticscattersgatelxe/I");
+    pTree3->Branch("inelasticscattersgategxe", &(pRELAXEventData->iInelasticScattersGateGXe), "inelasticscattersgategxe/I");
+    pTree3->Branch("inelasticscattersregiony", &(pRELAXEventData->iInelasticScattersRegionY), "inelasticscattersregiony/I");
+    pTree3->Branch("inelasticscatterssurroundinggxe", &(pRELAXEventData->iInelasticScattersSurroundingGXe), "inelasticscatterssurroundinggxe/I");
+    pTree3->Branch("neutroncaptureptfe", &(pRELAXEventData->iNeutronCapturePTFE), "neutroncaptureptfe/I");
+    pTree3->Branch("neutroncapturesurroundinglxe", &(pRELAXEventData->iNeutronCaptureSurroundingLXe), "neutroncapturesurroundinglxe/I");
+    pTree3->Branch("neutroncaptureregionx", &(pRELAXEventData->iNeutronCaptureRegionX), "neutroncaptureregionx/I");
+    pTree3->Branch("neutroncaptureactivevolume", &(pRELAXEventData->iNeutronCaptureActiveVolume), "neutroncaptureactivevolume/I");
+    pTree3->Branch("neutroncapturefiducialvolume", &(pRELAXEventData->iNeutronCaptureFiducialVolume), "neutroncapturefiducialvolume/I");
+    pTree3->Branch("neutroncapturegatelxe", &(pRELAXEventData->iNeutronCaptureGateLXe), "neutroncapturegatelxe/I");
+    pTree3->Branch("neutroncapturegategxe", &(pRELAXEventData->iNeutronCaptureGateGXe), "neutroncapturegategxe/I");
+    pTree3->Branch("neutroncaptureregiony", &(pRELAXEventData->iNeutronCaptureRegionY), "neutroncaptureregiony/I");
+    pTree3->Branch("neutroncapturesurroundinggxe", &(pRELAXEventData->iNeutronCaptureSurroundingGXe), "neutroncapturesurroundinggxe/I");
     
-    pTree4->Branch("eventid", &(pG4XCDEventData->iEventID), "eventid/I");
-    pTree4->Branch("peptfe", &(pG4XCDEventData->iPEPTFE), "peptfe/I");
-    pTree4->Branch("pesurroundinglxe", &(pG4XCDEventData->iPESurroundingLXe), "pesurroundinglxe/I");
-    pTree4->Branch("peregionx", &(pG4XCDEventData->iPERegionX), "peregionx/I");
-    pTree4->Branch("peactivevolume", &(pG4XCDEventData->iPEActiveVolume), "peactivevolume/I");
-    pTree4->Branch("pefiducialvolume", &(pG4XCDEventData->iPEFiducialVolume), "pefiducialvolume/I");
-    pTree4->Branch("pegatelxe", &(pG4XCDEventData->iPEGateLXe), "pegatelxe/I");
-    pTree4->Branch("pegategxe", &(pG4XCDEventData->iPEGateGXe), "pegategxe/I");
-    pTree4->Branch("peregiony", &(pG4XCDEventData->iPERegionY), "peregiony/I");
-    pTree4->Branch("pesurroundinggxe", &(pG4XCDEventData->iPESurroundingGXe), "pesurroundinggxe/I");
-    pTree4->Branch("comptonscattersptfe", &(pG4XCDEventData->iComptonScattersPTFE), "comptonscattersptfe/I");
-    pTree4->Branch("comptonscatterssurroundinglxe", &(pG4XCDEventData->iComptonScattersSurroundingLXe), "comptonscatterssurroundinglxe/I");
-    pTree4->Branch("comptonscattersregionx", &(pG4XCDEventData->iComptonScattersRegionX), "comptonscattersregionx/I");
-    pTree4->Branch("comptonscattersactivevolume", &(pG4XCDEventData->iComptonScattersActiveVolume), "comptonscattersactivevolume/I");
-    pTree4->Branch("comptonscattersfiducialvolume", &(pG4XCDEventData->iComptonScattersFiducialVolume), "comptonscattersfiducialvolume/I");
-    pTree4->Branch("comptonscattersgatelxe", &(pG4XCDEventData->iComptonScattersGateLXe), "comptonscattersgatelxe/I");
-    pTree4->Branch("comptonscattersgategxe", &(pG4XCDEventData->iComptonScattersGateGXe), "comptonscattersgategxe/I");
-    pTree4->Branch("comptonscattersregiony", &(pG4XCDEventData->iComptonScattersRegionY), "comptonscattersregiony/I");
-    pTree4->Branch("comptonscatterssurroundinggxe", &(pG4XCDEventData->iComptonScattersSurroundingGXe), "comptonscatterssurroundinggxe/I");
+    pTree4->Branch("eventid", &(pRELAXEventData->iEventID), "eventid/I");
+    pTree4->Branch("peptfe", &(pRELAXEventData->iPEPTFE), "peptfe/I");
+    pTree4->Branch("pesurroundinglxe", &(pRELAXEventData->iPESurroundingLXe), "pesurroundinglxe/I");
+    pTree4->Branch("peregionx", &(pRELAXEventData->iPERegionX), "peregionx/I");
+    pTree4->Branch("peactivevolume", &(pRELAXEventData->iPEActiveVolume), "peactivevolume/I");
+    pTree4->Branch("pefiducialvolume", &(pRELAXEventData->iPEFiducialVolume), "pefiducialvolume/I");
+    pTree4->Branch("pegatelxe", &(pRELAXEventData->iPEGateLXe), "pegatelxe/I");
+    pTree4->Branch("pegategxe", &(RELAXEventData->iPEGateGXe), "pegategxe/I");
+    pTree4->Branch("peregiony", &(pRELAXEventData->iPERegionY), "peregiony/I");
+    pTree4->Branch("pesurroundinggxe", &(pRELAXEventData->iPESurroundingGXe), "pesurroundinggxe/I");
+    pTree4->Branch("comptonscattersptfe", &(pRELAXEventData->iComptonScattersPTFE), "comptonscattersptfe/I");
+    pTree4->Branch("comptonscatterssurroundinglxe", &(pRELAXEventData->iComptonScattersSurroundingLXe), "comptonscatterssurroundinglxe/I");
+    pTree4->Branch("comptonscattersregionx", &(pRELAXEventData->iComptonScattersRegionX), "comptonscattersregionx/I");
+    pTree4->Branch("comptonscattersactivevolume", &(pRELAXEventData->iComptonScattersActiveVolume), "comptonscattersactivevolume/I");
+    pTree4->Branch("comptonscattersfiducialvolume", &(pRELAXEventData->iComptonScattersFiducialVolume), "comptonscattersfiducialvolume/I");
+    pTree4->Branch("comptonscattersgatelxe", &(pRELAXEventData->iComptonScattersGateLXe), "comptonscattersgatelxe/I");
+    pTree4->Branch("comptonscattersgategxe", &(pRELAXEventData->iComptonScattersGateGXe), "comptonscattersgategxe/I");
+    pTree4->Branch("comptonscattersregiony", &(pRELAXEventData->iComptonScattersRegionY), "comptonscattersregiony/I");
+    pTree4->Branch("comptonscatterssurroundinggxe", &(pRELAXEventData->iComptonScattersSurroundingGXe), "comptonscatterssurroundinggxe/I");
 }
 
-void G4XCDAnalysisManager::BeginOfEventAction(const G4Event* pEvent)
+void RELAXAnalysisManager::BeginOfEventAction(const G4Event* pEvent)
 {
-    pG4XCDEventData->iEventID = pEvent->GetEventID();
+    pRELAXEventData->iEventID = pEvent->GetEventID();
 }
 
-void G4XCDAnalysisManager::SteppingAction(const G4Step* pStep)
+void RELAXAnalysisManager::SteppingAction(const G4Step* pStep)
 {
     pTrack = pStep->GetTrack();
     
-    pG4XCDEventData->pTrackID->push_back(pTrack->GetTrackID());
-    pG4XCDEventData->pParentID->push_back(pTrack->GetParentID());
-    pG4XCDEventData->pParticleType->push_back(sParticleType = pTrack->GetDefinition()->GetParticleName());
+    pRELAXEventData->pTrackID->push_back(pTrack->GetTrackID());
+    pRELAXEventData->pParentID->push_back(pTrack->GetParentID());
+    pRELAXEventData->pParticleType->push_back(sParticleType = pTrack->GetDefinition()->GetParticleName());
     
     if(pTrack->GetParentID())
     {
-        pG4XCDEventData->pParentType->push_back((*pMapParticleType)[pTrack->GetParentID()]);
+        pRELAXEventData->pParentType->push_back((*pMapParticleType)[pTrack->GetParentID()]);
     }
     
     else
     {
-        pG4XCDEventData->pParentType->push_back(G4String("none"));
+        pRELAXEventData->pParentType->push_back(G4String("none"));
     }
     
     if(pTrack->GetCreatorProcess())
     {
-        pG4XCDEventData->pCreatorProcess->push_back(pTrack->GetCreatorProcess()->GetProcessName());
+        pRELAXEventData->pCreatorProcess->push_back(pTrack->GetCreatorProcess()->GetProcessName());
     }
     
     else
     {
-        pG4XCDEventData->pCreatorProcess->push_back(G4String("none"));
+        pRELAXEventData->pCreatorProcess->push_back(G4String("none"));
     }
     
-    pG4XCDEventData->pDepositingProcess->push_back(sDepositingProcess = pStep->GetPostStepPoint()->GetProcessDefinedStep()->GetProcessName());
-    pG4XCDEventData->pVolume->push_back(sVolume = pStep->GetPreStepPoint()->GetPhysicalVolume()->GetName());
-    pG4XCDEventData->pInitX->push_back(pStep->GetPreStepPoint()->GetPosition().x()/mm);
-    pG4XCDEventData->pInitY->push_back(pStep->GetPreStepPoint()->GetPosition().y()/mm);
-    pG4XCDEventData->pInitZ->push_back(pStep->GetPreStepPoint()->GetPosition().z()/mm);
-    pG4XCDEventData->pFinalX->push_back(dInteractionX = pStep->GetPostStepPoint()->GetPosition().x()/mm);
-    pG4XCDEventData->pFinalY->push_back(dInteractionY = pStep->GetPostStepPoint()->GetPosition().y()/mm);
-    pG4XCDEventData->pFinalZ->push_back(dInteractionZ = pStep->GetPostStepPoint()->GetPosition().z()/mm);
-    pG4XCDEventData->pInitKinEnergy->push_back(pStep->GetPreStepPoint()->GetKineticEnergy()/keV);
-    pG4XCDEventData->pFinalKinEnergy->push_back(pStep->GetPostStepPoint()->GetKineticEnergy()/keV);
-    pG4XCDEventData->pInitTime->push_back(pStep->GetPreStepPoint()->GetGlobalTime()/ns);
-    pG4XCDEventData->pFinalTime->push_back(dInteractionTime = pStep->GetPostStepPoint()->GetGlobalTime()/ns);
+    pRELAXEventData->pDepositingProcess->push_back(sDepositingProcess = pStep->GetPostStepPoint()->GetProcessDefinedStep()->GetProcessName());
+    pRELAXEventData->pVolume->push_back(sVolume = pStep->GetPreStepPoint()->GetPhysicalVolume()->GetName());
+    pRELAXEventData->pInitX->push_back(pStep->GetPreStepPoint()->GetPosition().x()/mm);
+    pRELAXEventData->pInitY->push_back(pStep->GetPreStepPoint()->GetPosition().y()/mm);
+    pRELAXEventData->pInitZ->push_back(pStep->GetPreStepPoint()->GetPosition().z()/mm);
+    pRELAXEventData->pFinalX->push_back(dInteractionX = pStep->GetPostStepPoint()->GetPosition().x()/mm);
+    pRELAXEventData->pFinalY->push_back(dInteractionY = pStep->GetPostStepPoint()->GetPosition().y()/mm);
+    pRELAXEventData->pFinalZ->push_back(dInteractionZ = pStep->GetPostStepPoint()->GetPosition().z()/mm);
+    pRELAXEventData->pInitKinEnergy->push_back(pStep->GetPreStepPoint()->GetKineticEnergy()/keV);
+    pRELAXEventData->pFinalKinEnergy->push_back(pStep->GetPostStepPoint()->GetKineticEnergy()/keV);
+    pRELAXEventData->pInitTime->push_back(pStep->GetPreStepPoint()->GetGlobalTime()/ns);
+    pRELAXEventData->pFinalTime->push_back(dInteractionTime = pStep->GetPostStepPoint()->GetGlobalTime()/ns);
     
     dEnergyDeposited = pStep->GetTotalEnergyDeposit()/keV;
     
@@ -219,42 +219,42 @@ void G4XCDAnalysisManager::SteppingAction(const G4Step* pStep)
             if((sSecondaryParticleName == "proton") || (sSecondaryParticleName == "deuteron") || (sSecondaryParticleName == "C12") || (sSecondaryParticleName == "C13"))
             {
                 dEnergyDeposited += (*pSecondaryTrackVector)[iCounter1]->GetKineticEnergy()/keV;
-                pG4XCDEventData->dTotalPEEJ301 += 0.084 * 1.7 * (*pSecondaryTrackVector)[iCounter1]->GetKineticEnergy()/keV;
+                pRELAXEventData->dTotalPEEJ301 += 0.084 * 1.7 * (*pSecondaryTrackVector)[iCounter1]->GetKineticEnergy()/keV;
             }
             
             else if(sSecondaryParticleName == "gamma")
             {
                 dEnergyDeposited += (*pSecondaryTrackVector)[iCounter1]->GetKineticEnergy()/keV;
-                pG4XCDEventData->dTotalPEEJ301 += 1.7 * (*pSecondaryTrackVector)[iCounter1]->GetKineticEnergy()/keV;
+                pRELAXEventData->dTotalPEEJ301 += 1.7 * (*pSecondaryTrackVector)[iCounter1]->GetKineticEnergy()/keV;
             }
         }
     }
     
-    pG4XCDEventData->pEnergyDeposited->push_back(dEnergyDeposited);
+    pRELAXEventData->pEnergyDeposited->push_back(dEnergyDeposited);
     
     if(sDepositingProcess != "Transportation")
     {
         if(sVolume == "RegionX")
         {
-            pG4XCDEventData->iTotalInteractionsRegionX++;
-            pG4XCDEventData->dEnergyDepositedRegionX += dEnergyDeposited;
-            pG4XCDEventData->dTotalEnergyDeposited += dEnergyDeposited;
+            pRELAXEventData->iTotalInteractionsRegionX++;
+            pRELAXEventData->dEnergyDepositedRegionX += dEnergyDeposited;
+            pRELAXEventData->dTotalEnergyDeposited += dEnergyDeposited;
             
             if(sParticleType == "neutron")
             {
                 if(sDepositingProcess == "hadElastic")
                 {
-                    pG4XCDEventData->iElasticScattersRegionX++;
+                    pRELAXEventData->iElasticScattersRegionX++;
                 }
                 
                 else if(sDepositingProcess == "neutronInelastic")
                 {
-                    pG4XCDEventData->iInelasticScattersRegionX++;
+                    pRELAXEventData->iInelasticScattersRegionX++;
                 }
                 
                 else if(sDepositingProcess == "nCapture")
                 {
-                    pG4XCDEventData->iNeutronCaptureRegionX++;
+                    pRELAXEventData->iNeutronCaptureRegionX++;
                 }
 
             }
@@ -263,42 +263,42 @@ void G4XCDAnalysisManager::SteppingAction(const G4Step* pStep)
             {
                 if(sDepositingProcess == "phot")
                 {
-                    pG4XCDEventData->iPERegionX++;
+                    pRELAXEventData->iPERegionX++;
                 }
                 
                 else if(sDepositingProcess == "compt")
                 {
-                    pG4XCDEventData->iComptonScattersRegionX++;
+                    pRELAXEventData->iComptonScattersRegionX++;
                 }
             }
             
-            if(((pG4XCDEventData->dFirstInteractionTimeLXe) < 0) || (dInteractionTime < (pG4XCDEventData->dFirstInteractionTimeLXe)))
+            if(((pRELAXEventData->dFirstInteractionTimeLXe) < 0) || (dInteractionTime < (pRELAXEventData->dFirstInteractionTimeLXe)))
             {
-                (pG4XCDEventData->dFirstInteractionTimeLXe) = dInteractionTime;
+                (pRELAXEventData->dFirstInteractionTimeLXe) = dInteractionTime;
             }
         }
         
         else if(sVolume == "LXeActiveVolume")
         {
-            pG4XCDEventData->iTotalInteractionsActiveVolume++;
-            pG4XCDEventData->dEnergyDepositedActiveVolume += dEnergyDeposited;
-            pG4XCDEventData->dTotalEnergyDeposited += dEnergyDeposited;
+            pRELAXEventData->iTotalInteractionsActiveVolume++;
+            pRELAXEventData->dEnergyDepositedActiveVolume += dEnergyDeposited;
+            pRELAXEventData->dTotalEnergyDeposited += dEnergyDeposited;
             
             if(sParticleType == "neutron")
             {
                 if(sDepositingProcess == "hadElastic")
                 {
-                    pG4XCDEventData->iElasticScattersActiveVolume++;
+                    pRELAXEventData->iElasticScattersActiveVolume++;
                 }
                 
                 else if(sDepositingProcess == "neutronInelastic")
                 {
-                    pG4XCDEventData->iInelasticScattersActiveVolume++;
+                    pRELAXEventData->iInelasticScattersActiveVolume++;
                 }
                 
                 else if(sDepositingProcess == "nCapture")
                 {
-                    pG4XCDEventData->iNeutronCaptureActiveVolume++;
+                    pRELAXEventData->iNeutronCaptureActiveVolume++;
                 }
 
             }
@@ -307,42 +307,42 @@ void G4XCDAnalysisManager::SteppingAction(const G4Step* pStep)
             {
                 if(sDepositingProcess == "phot")
                 {
-                    pG4XCDEventData->iPEActiveVolume++;
+                    pRELAXEventData->iPEActiveVolume++;
                 }
                 
                 else if(sDepositingProcess == "compt")
                 {
-                    pG4XCDEventData->iComptonScattersActiveVolume++;
+                    pRELAXEventData->iComptonScattersActiveVolume++;
                 }
             }
             
-            if(((pG4XCDEventData->dFirstInteractionTimeLXe) < 0) || (dInteractionTime < (pG4XCDEventData->dFirstInteractionTimeLXe)))
+            if(((pRELAXEventData->dFirstInteractionTimeLXe) < 0) || (dInteractionTime < (pRELAXEventData->dFirstInteractionTimeLXe)))
             {
-                (pG4XCDEventData->dFirstInteractionTimeLXe) = dInteractionTime;
+                (pRELAXEventData->dFirstInteractionTimeLXe) = dInteractionTime;
             }
             
             dInteractionRadius = TMath::Sqrt(TMath::Power(dInteractionX - dActiveVolumeX, 2) + TMath::Power(dInteractionY - dActiveVolumeY, 2));
             
             if((dInteractionRadius < dFiducialVolumeRadius) && (dInteractionZ > (dActiveVolumeZ - 0.5 * dFiducialVolumeHeight)) && (dInteractionZ < (dActiveVolumeZ + 0.5 * dFiducialVolumeHeight)))
             {
-                pG4XCDEventData->iTotalInteractionsFiducialVolume++;
-                pG4XCDEventData->dEnergyDepositedFiducialVolume += dEnergyDeposited;
+                pRELAXEventData->iTotalInteractionsFiducialVolume++;
+                pRELAXEventData->dEnergyDepositedFiducialVolume += dEnergyDeposited;
                 
                 if(sParticleType == "neutron")
                 {
                     if(sDepositingProcess == "hadElastic")
                     {
-                        pG4XCDEventData->iElasticScattersFiducialVolume++;
+                        pRELAXEventData->iElasticScattersFiducialVolume++;
                     }
                     
                     else if(sDepositingProcess == "neutronInelastic")
                     {
-                        pG4XCDEventData->iInelasticScattersFiducialVolume++;
+                        RELAXEventData->iInelasticScattersFiducialVolume++;
                     }
                     
                     else if(sDepositingProcess == "nCapture")
                     {
-                        pG4XCDEventData->iNeutronCaptureFiducialVolume++;
+                        RELAXEventData->iNeutronCaptureFiducialVolume++;
                     }
                 }
                 
@@ -350,12 +350,12 @@ void G4XCDAnalysisManager::SteppingAction(const G4Step* pStep)
                 {
                     if(sDepositingProcess == "phot")
                     {
-                        pG4XCDEventData->iPEFiducialVolume++;
+                        pRELAXEventData->iPEFiducialVolume++;
                     }
                     
                     else if(sDepositingProcess == "compt")
                     {
-                        pG4XCDEventData->iComptonScattersFiducialVolume++;
+                        pRELAXEventData->iComptonScattersFiducialVolume++;
                     }
                 }
             }
@@ -363,25 +363,25 @@ void G4XCDAnalysisManager::SteppingAction(const G4Step* pStep)
         
         else if(sVolume == "GateLXe")
         {
-            pG4XCDEventData->iTotalInteractionsGateLXe++;
-            pG4XCDEventData->dEnergyDepositedGateLXe += dEnergyDeposited;
-            pG4XCDEventData->dTotalEnergyDeposited += dEnergyDeposited;
+            pRELAXEventData->iTotalInteractionsGateLXe++;
+            pRELAXEventData->dEnergyDepositedGateLXe += dEnergyDeposited;
+            pRELAXEventData->dTotalEnergyDeposited += dEnergyDeposited;
             
             if(sParticleType == "neutron")
             {
                 if(sDepositingProcess == "hadElastic")
                 {
-                    pG4XCDEventData->iElasticScattersGateLXe++;
+                    pRELAXEventData->iElasticScattersGateLXe++;
                 }
                 
                 else if(sDepositingProcess == "neutronInelastic")
                 {
-                    pG4XCDEventData->iInelasticScattersGateLXe++;
+                    pRELAXEventData->iInelasticScattersGateLXe++;
                 }
                 
                 else if(sDepositingProcess == "nCapture")
                 {
-                    pG4XCDEventData->iNeutronCaptureGateLXe++;
+                    pRELAXEventData->iNeutronCaptureGateLXe++;
                 }
             }
             
@@ -389,42 +389,42 @@ void G4XCDAnalysisManager::SteppingAction(const G4Step* pStep)
             {
                 if(sDepositingProcess == "phot")
                 {
-                    pG4XCDEventData->iPEGateLXe++;
+                    pRELAXEventData->iPEGateLXe++;
                 }
                 
                 else if(sDepositingProcess == "compt")
                 {
-                    pG4XCDEventData->iComptonScattersGateLXe++;
+                    pRELAXEventData->iComptonScattersGateLXe++;
                 }
             }
             
-            if(((pG4XCDEventData->dFirstInteractionTimeLXe) < 0) || (dInteractionTime < (pG4XCDEventData->dFirstInteractionTimeLXe)))
+            if(((pRELAXEventData->dFirstInteractionTimeLXe) < 0) || (dInteractionTime < (pRELAXEventData->dFirstInteractionTimeLXe)))
             {
-                (pG4XCDEventData->dFirstInteractionTimeLXe) = dInteractionTime;
+                (pRELAXEventData->dFirstInteractionTimeLXe) = dInteractionTime;
             }
         }
         
         else if(sVolume == "GateGXe")
         {
-            pG4XCDEventData->iTotalInteractionsGateGXe++;
-            pG4XCDEventData->dEnergyDepositedGateGXe += dEnergyDeposited;
-            pG4XCDEventData->dTotalEnergyDeposited += dEnergyDeposited;
+            pRELAXEventData->iTotalInteractionsGateGXe++;
+            pRELAXEventData->dEnergyDepositedGateGXe += dEnergyDeposited;
+            pRELAXEventData->dTotalEnergyDeposited += dEnergyDeposited;
         
             if(sParticleType == "neutron")
             {
                 if(sDepositingProcess == "hadElastic")
                 {
-                    pG4XCDEventData->iElasticScattersGateGXe++;
+                    pRELAXEventData->iElasticScattersGateGXe++;
                 }
                 
                 else if(sDepositingProcess == "neutronInelastic")
                 {
-                    pG4XCDEventData->iInelasticScattersGateGXe++;
+                    pRELAXEventData->iInelasticScattersGateGXe++;
                 }
                 
                 else if(sDepositingProcess == "nCapture")
                 {
-                    pG4XCDEventData->iNeutronCaptureGateGXe++;
+                    pRELAXEventData->iNeutronCaptureGateGXe++;
                 }
             }
             
@@ -432,42 +432,42 @@ void G4XCDAnalysisManager::SteppingAction(const G4Step* pStep)
             {
                 if(sDepositingProcess == "phot")
                 {
-                    pG4XCDEventData->iPEGateGXe++;
+                    pRELAXEventData->iPEGateGXe++;
                 }
                 
                 else if(sDepositingProcess == "compt")
                 {
-                    pG4XCDEventData->iComptonScattersGateGXe++;
+                    pRELAXEventData->iComptonScattersGateGXe++;
                 }
             }
             
-            if(((pG4XCDEventData->dFirstInteractionTimeLXe) < 0) || (dInteractionTime < (pG4XCDEventData->dFirstInteractionTimeLXe)))
+            if(((pRELAXEventData->dFirstInteractionTimeLXe) < 0) || (dInteractionTime < (pRELAXEventData->dFirstInteractionTimeLXe)))
             {
-                (pG4XCDEventData->dFirstInteractionTimeLXe) = dInteractionTime;
+                (pRELAXEventData->dFirstInteractionTimeLXe) = dInteractionTime;
             }
         }
         
         else if(sVolume == "RegionY")
         {
-            pG4XCDEventData->iTotalInteractionsRegionY++;
-            pG4XCDEventData->dEnergyDepositedRegionY += dEnergyDeposited;
-            pG4XCDEventData->dTotalEnergyDeposited += dEnergyDeposited;
+            pRELAXEventData->iTotalInteractionsRegionY++;
+            pRELAXEventData->dEnergyDepositedRegionY += dEnergyDeposited;
+            pRELAXEventData->dTotalEnergyDeposited += dEnergyDeposited;
             
             if(sParticleType == "neutron")
             {
                 if(sDepositingProcess == "hadElastic")
                 {
-                    pG4XCDEventData->iElasticScattersRegionY++;
+                    pRELAXEventData->iElasticScattersRegionY++;
                 }
                 
                 else if(sDepositingProcess == "neutronInelastic")
                 {
-                    pG4XCDEventData->iInelasticScattersRegionY++;
+                    pRELAXEventData->iInelasticScattersRegionY++;
                 }
                 
                 else if(sDepositingProcess == "nCapture")
                 {
-                    pG4XCDEventData->iNeutronCaptureRegionY++;
+                    pRELAXEventData->iNeutronCaptureRegionY++;
                 }
             }
             
@@ -475,18 +475,18 @@ void G4XCDAnalysisManager::SteppingAction(const G4Step* pStep)
             {
                 if(sDepositingProcess == "phot")
                 {
-                    pG4XCDEventData->iPERegionY++;
+                    pRELAXEventData->iPERegionY++;
                 }
                 
                 else if(sDepositingProcess == "compt")
                 {
-                    pG4XCDEventData->iComptonScattersRegionY++;
+                    pRELAXEventData->iComptonScattersRegionY++;
                 }
             }
             
-            if(((pG4XCDEventData->dFirstInteractionTimeLXe) < 0) || (dInteractionTime < (pG4XCDEventData->dFirstInteractionTimeLXe)))
+            if(((pRELAXEventData->dFirstInteractionTimeLXe) < 0) || (dInteractionTime < (pRELAXEventData->dFirstInteractionTimeLXe)))
             {
-                (pG4XCDEventData->dFirstInteractionTimeLXe) = dInteractionTime;
+                (pRELAXEventData->dFirstInteractionTimeLXe) = dInteractionTime;
             }
         }
     
@@ -496,17 +496,17 @@ void G4XCDAnalysisManager::SteppingAction(const G4Step* pStep)
             {
                 if(sDepositingProcess == "hadElastic")
                 {
-                    pG4XCDEventData->iElasticScattersSurroundingLXe++;
+                    pRELAXEventData->iElasticScattersSurroundingLXe++;
                 }
                 
                 else if(sDepositingProcess == "neutronInelastic")
                 {
-                    pG4XCDEventData->iInelasticScattersSurroundingLXe++;
+                    pRELAXEventData->iInelasticScattersSurroundingLXe++;
                 }
                 
                 else if(sDepositingProcess == "nCapture")
                 {
-                    pG4XCDEventData->iNeutronCaptureSurroundingLXe++;
+                    pRELAXEventData->iNeutronCaptureSurroundingLXe++;
                 }
             }
             
@@ -514,12 +514,12 @@ void G4XCDAnalysisManager::SteppingAction(const G4Step* pStep)
             {
                 if(sDepositingProcess == "phot")
                 {
-                    pG4XCDEventData->iPESurroundingLXe++;
+                    pRELAXEventData->iPESurroundingLXe++;
                 }
                 
                 else if(sDepositingProcess == "compt")
                 {
-                    pG4XCDEventData->iComptonScattersSurroundingLXe++;
+                    pRELAXEventData->iComptonScattersSurroundingLXe++;
                 }
             }
         }
@@ -530,17 +530,17 @@ void G4XCDAnalysisManager::SteppingAction(const G4Step* pStep)
             {
                 if(sDepositingProcess == "hadElastic")
                 {
-                    pG4XCDEventData->iElasticScattersSurroundingGXe++;
+                    pRELAXEventData->iElasticScattersSurroundingGXe++;
                 }
                 
                 else if(sDepositingProcess == "neutronInelastic")
                 {
-                    pG4XCDEventData->iInelasticScattersSurroundingGXe++;
+                    pRELAXEventData->iInelasticScattersSurroundingGXe++;
                 }
                 
                 else if(sDepositingProcess == "nCapture")
                 {
-                    pG4XCDEventData->iNeutronCaptureSurroundingGXe++;
+                    pRELAXEventData->iNeutronCaptureSurroundingGXe++;
                 }
             }
             
@@ -548,12 +548,12 @@ void G4XCDAnalysisManager::SteppingAction(const G4Step* pStep)
             {
                 if(sDepositingProcess == "phot")
                 {
-                    pG4XCDEventData->iPESurroundingGXe++;
+                    pRELAXEventData->iPESurroundingGXe++;
                 }
                 
                 else if(sDepositingProcess == "compt")
                 {
-                    pG4XCDEventData->iComptonScattersSurroundingGXe++;
+                    pRELAXEventData->iComptonScattersSurroundingGXe++;
                 }
             }
         }
@@ -564,17 +564,17 @@ void G4XCDAnalysisManager::SteppingAction(const G4Step* pStep)
             {
                 if(sDepositingProcess == "hadElastic")
                 {
-                    pG4XCDEventData->iElasticScattersPTFE++;
+                    pRELAXEventData->iElasticScattersPTFE++;
                 }
         
                 else if(sDepositingProcess == "neutronInelastic")
                 {
-                    pG4XCDEventData->iInelasticScattersPTFE++;
+                    pRELAXEventData->iInelasticScattersPTFE++;
                 }
                 
                 else if(sDepositingProcess == "nCapture")
                 {
-                    pG4XCDEventData->iNeutronCapturePTFE++;
+                    pRELAXEventData->iNeutronCapturePTFE++;
                 }
 
             }
@@ -583,23 +583,23 @@ void G4XCDAnalysisManager::SteppingAction(const G4Step* pStep)
             {
                 if(sDepositingProcess == "phot")
                 {
-                    pG4XCDEventData->iPEPTFE++;
+                    pRELAXEventData->iPEPTFE++;
                 }
                 
                 else if(sDepositingProcess == "compt")
                 {
-                    pG4XCDEventData->iComptonScattersPTFE++;
+                    pRELAXEventData->iComptonScattersPTFE++;
                 }
             }
         }
         
         else if(sVolume == "EJ301")
         {
-            pG4XCDEventData->pInteractionXEJ301->push_back(dInteractionX);
-            pG4XCDEventData->pInteractionYEJ301->push_back(dInteractionY);
-            pG4XCDEventData->pInteractionZEJ301->push_back(dInteractionZ);
-            pG4XCDEventData->pInteractionTimeEJ301->push_back(dInteractionTime);
-            pG4XCDEventData->dTotalEnergyDepositedEJ301 += dEnergyDeposited;
+            pRELAXEventData->pInteractionXEJ301->push_back(dInteractionX);
+            pRELAXEventData->pInteractionYEJ301->push_back(dInteractionY);
+            pRELAXEventData->pInteractionZEJ301->push_back(dInteractionZ);
+            pRELAXEventData->pInteractionTimeEJ301->push_back(dInteractionTime);
+            pRELAXEventData->dTotalEnergyDepositedEJ301 += dEnergyDeposited;
             
             /*if(sParticleType == "proton")
             {
@@ -607,49 +607,49 @@ void G4XCDAnalysisManager::SteppingAction(const G4Step* pStep)
             }*/
         }
         
-        if((!pG4XCDEventData->iFoundFirstNeutronInteraction) && (sParticleType == "neutron"))
+        if((!pRELAXEventData->iFoundFirstNeutronInteraction) && (sParticleType == "neutron"))
         {
-            pG4XCDEventData->sFirstNeutronInteractionProcess = sDepositingProcess;
-            pG4XCDEventData->sFirstNeutronInteractionVolume = sVolume;
+            pRELAXEventData->sFirstNeutronInteractionProcess = sDepositingProcess;
+            pRELAXEventData->sFirstNeutronInteractionVolume = sVolume;
             
             dInteractionRadius = TMath::Sqrt(TMath::Power(dInteractionX - dActiveVolumeX, 2) + TMath::Power(dInteractionY - dActiveVolumeY, 2));
             
             if((sVolume == "LXeActiveVolume") && (dInteractionRadius < dFiducialVolumeRadius) && (dInteractionZ > (dActiveVolumeZ - 0.5 * dFiducialVolumeHeight)) && (dInteractionZ < (dActiveVolumeZ + 0.5 * dFiducialVolumeHeight)))
             {
-                pG4XCDEventData->sFirstNeutronInteractionVolume = "FiducialVolume";
+                pRELAXEventData->sFirstNeutronInteractionVolume = "FiducialVolume";
             }
             
-            pG4XCDEventData->dFirstNeutronInteractionX = dInteractionX;
-            pG4XCDEventData->dFirstNeutronInteractionY = dInteractionY;
-            pG4XCDEventData->dFirstNeutronInteractionZ = dInteractionZ;
-            pG4XCDEventData->dFirstNeutronInteractionTime = dInteractionTime;
+            pRELAXEventData->dFirstNeutronInteractionX = dInteractionX;
+            pRELAXEventData->dFirstNeutronInteractionY = dInteractionY;
+            pRELAXEventData->dFirstNeutronInteractionZ = dInteractionZ;
+            pRELAXEventData->dFirstNeutronInteractionTime = dInteractionTime;
             
-            pG4XCDEventData->iFoundFirstNeutronInteraction = 1;
+            pRELAXEventData->iFoundFirstNeutronInteraction = 1;
         }
         
-        else if((!pG4XCDEventData->iFoundSecondNeutronInteraction) && (sParticleType == "neutron"))
+        else if((!pRELAXEventData->iFoundSecondNeutronInteraction) && (sParticleType == "neutron"))
         {
-            pG4XCDEventData->sSecondNeutronInteractionProcess = sDepositingProcess;
-            pG4XCDEventData->sSecondNeutronInteractionVolume = sVolume;
+            pRELAXEventData->sSecondNeutronInteractionProcess = sDepositingProcess;
+            pRELAXEventData->sSecondNeutronInteractionVolume = sVolume;
             
             dInteractionRadius = TMath::Sqrt(TMath::Power(dInteractionX - dActiveVolumeX, 2) + TMath::Power(dInteractionY - dActiveVolumeY, 2));
             
             if((sVolume == "LXeActiveVolume") && (dInteractionRadius < dFiducialVolumeRadius) && (dInteractionZ > (dActiveVolumeZ - 0.5 * dFiducialVolumeHeight)) && (dInteractionZ < (dActiveVolumeZ + 0.5 * dFiducialVolumeHeight)))
             {
-                pG4XCDEventData->sSecondNeutronInteractionVolume = "FiducialVolume";
+                pRELAXEventData->sSecondNeutronInteractionVolume = "FiducialVolume";
             }
             
-            pG4XCDEventData->dSecondNeutronInteractionX = dInteractionX;
-            pG4XCDEventData->dSecondNeutronInteractionY = dInteractionY;
-            pG4XCDEventData->dSecondNeutronInteractionZ = dInteractionZ;
-            pG4XCDEventData->dSecondNeutronInteractionTime = dInteractionTime;
+            pRELAXEventData->dSecondNeutronInteractionX = dInteractionX;
+            pRELAXEventData->dSecondNeutronInteractionY = dInteractionY;
+            pRELAXEventData->dSecondNeutronInteractionZ = dInteractionZ;
+            pRELAXEventData->dSecondNeutronInteractionTime = dInteractionTime;
             
-            pG4XCDEventData->iFoundSecondNeutronInteraction = 1;
+            pRELAXEventData->iFoundSecondNeutronInteraction = 1;
         }
     }
 }
 
-void G4XCDAnalysisManager::EndOfEventAction(const G4Event* pEvent)
+void RELAXAnalysisManager::EndOfEventAction(const G4Event* pEvent)
 {
     pTree1->Fill();
     pTree2->Fill();
@@ -657,16 +657,16 @@ void G4XCDAnalysisManager::EndOfEventAction(const G4Event* pEvent)
     pTree4->Fill();
     
     pMapParticleType->clear();
-    pG4XCDEventData->Clear();
+    pRELAXEventData->Clear();
 }
 
-void G4XCDAnalysisManager::EndOfRunAction(const G4Run* pRun)
+void RELAXAnalysisManager::EndOfRunAction(const G4Run* pRun)
 {
     pFile->Write();
     pFile->Close();
 }
 
-void G4XCDAnalysisManager::SetFilenameReference(G4String* mFilenameReference)
+void RELAXAnalysisManager::SetFilenameReference(G4String* mFilenameReference)
 {
     pFilenameReference = mFilenameReference;
 }
