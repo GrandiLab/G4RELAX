@@ -31,6 +31,8 @@
 
 #include "RELAXDetectorMessenger.hh"
 
+using namespace std;
+
 class RELAXDetectorConstruction : public G4VUserDetectorConstruction
 {
 public:
