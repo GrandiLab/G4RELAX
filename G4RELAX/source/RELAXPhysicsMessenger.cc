@@ -13,8 +13,8 @@ RELAXPhysicsMessenger::RELAXPhysicsMessenger(RELAXPhysicsList* pRELAXPhysicsList
     ///////////////////////////////
     // Set the Physics Directory //
     ///////////////////////////////
-    pRELAXPhysicsDirectory = new G4UIdirectory("/G4XCD/physics/");
-    pG4XCDPhysicsDirectory->SetGuidance("Control of the G4XCD Physics.");
+    pRELAXPhysicsDir = new G4UIdirectory("/G4XCD/physics/");
+    pRELAXPhysicsDir->SetGuidance("Control of the G4XCD Physics.");
     
     ///////////////////////////////
     // Set the Detector Commands //

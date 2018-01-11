@@ -28,7 +28,7 @@ public:
 private:
     RELAXPhysicsList* pRELAXPhysics;
     
-    G4UIdirectory* pRELAXPhysicsDirectory;
+    G4UIdirectory* pRELAXPhysicsDir;
     
     G4UIcmdWithABool* pSetScintillationCmd;
     G4UIcmdWithABool* pSetCerenkovCmd;
