@@ -26,7 +26,7 @@ public:
     
 private:
     // List of Variables
-    RELAXAnalysisManager* RELAXAnalysisManager;
+    RELAXAnalysisManager* pRELAXAnalysisManager;
 };
 
 #endif
