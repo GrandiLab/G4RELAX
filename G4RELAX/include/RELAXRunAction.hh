@@ -18,7 +18,7 @@
 class RELAXRunAction : public G4UserRunAction
 {
 public:
-    RELAXRunAction(RELAXAnalysisManager* pG4XCDAM = 0);
+    RELAXRunAction(RELAXAnalysisManager* pRELAXAM = 0);
     ~RELAXRunAction();
     
     // List of Functions
