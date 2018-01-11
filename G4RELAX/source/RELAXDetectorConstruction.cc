@@ -1372,7 +1372,7 @@ void RELAXDetectorConstruction::ConstructLaboratory()
     G4double dPTFE05StockWing1Height      = 2 * dPTFE05StockHeight1;
     G4double dPTFE05StockWing1StartAngle  = 32.255 * deg;
 
-    G4double dPTFE05StockWing2InnerRadius = dPTFE01StockRadius4 + 0.	5 * mm;
+    G4double dPTFE05StockWing2InnerRadius = dPTFE01StockRadius4 + 0.5 * mm;
     G4double dPTFE05StockWing2OuterRadius = dPTFE05StockWing2InnerRadius + 20 * mm;
     G4double dPTFE05StockWing2Height      = dPTFE05StockHeight1 - dPTFE05StockHeight3;
     G4double dPTFE05StockWing2StartAngle  = 12.5 * deg;
