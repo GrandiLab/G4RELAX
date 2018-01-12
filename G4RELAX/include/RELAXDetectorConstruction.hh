@@ -161,6 +161,7 @@ private:
 
     G4Material* pGXeMaterial;
     G4Material* pLXeMaterial;
+    G4Material* pPTFEMaterial;
 };
 
 #endif
