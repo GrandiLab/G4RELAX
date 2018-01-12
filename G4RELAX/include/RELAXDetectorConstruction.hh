@@ -158,10 +158,6 @@ private:
     G4VPhysicalVolume* pGatePV;
     G4VPhysicalVolume* pAnodePV;
     G4VPhysicalVolume* pScreeningMeshPV;
-
-    G4Material* pGXeMaterial;
-    G4Material* pLXeMaterial;
-    G4Material* pPTFEMaterial;
 };
 
 #endif
