@@ -93,6 +93,7 @@ public:
     G4double dXeTemperature;
     
     RELAXDetectorMessenger* pRELAXDetectorMessenger;
+    G4MaterialPropertiesTable* pMaterialPropertyTable;
 
     G4double LinearInterpolator();
     void SetPTFEIndexOfRefraction(G4String* mPTFEIndexOfRefractionData);
