@@ -1839,6 +1839,8 @@ void RELAXDetectorConstruction::SetPTFEIndexOfRefraction(G4String* mPTFEIndexOfR
     
     ifsDataFile->open(pPTFEIndexOfRefractionData->c_str(), ios::in);
     
+    G4Material* pPTFEMaterial = G4Material::GetMaterial("PTFE");
+
     if((ifsDataFile->is_open()) && (pPTFEMaterial))
     {
         getline((*ifsDataFile), (*pDummyString));
@@ -1884,6 +1886,8 @@ void RELAXDetectorConstruction::SetPTFEReflectivity(G4String* mPTFEReflectivityD
     pPTFEReflectivityData = mPTFEReflectivityData;
     
     ifsDataFile->open(pPTFEReflectivityData->c_str(), ios::in);
+
+    G4Material* pPTFEMaterial = G4Material::GetMaterial("PTFE");
     
     if((ifsDataFile->is_open()) && (pPTFEMaterial))
     {
@@ -1931,6 +1935,8 @@ void RELAXDetectorConstruction::SetPTFESpecularLobeConstant(G4String* mPTFESpecu
     
     ifsDataFile->open(pPTFESpecularLobeConstantData->c_str(), ios::in);
     
+    G4Material* pPTFEMaterial = G4Material::GetMaterial("PTFE");
+
     if((ifsDataFile->is_open()) && (pPTFEMaterial))
     {
         getline((*ifsDataFile), (*pDummyString));
@@ -1977,6 +1983,8 @@ void RELAXDetectorConstruction::SetPTFESpecularSpikeConstant(G4String* mPTFESpec
     
     ifsDataFile->open(pPTFESpecularSpikeConstantData->c_str(), ios::in);
     
+    G4Material* pPTFEMaterial = G4Material::GetMaterial("PTFE");
+
     if((ifsDataFile->is_open()) && (pPTFEMaterial))
     {
         getline((*ifsDataFile), (*pDummyString));
@@ -2023,6 +2031,8 @@ void RELAXDetectorConstruction::SetPTFEBackscatterConstant(G4String* mPTFEBacksc
     
     ifsDataFile->open(pPTFEBackscatterConstantData->c_str(), ios::in);
     
+    G4Material* pPTFEMaterial = G4Material::GetMaterial("PTFE");
+
     if((ifsDataFile->is_open()) && (pPTFEMaterial))
     {
         getline((*ifsDataFile), (*pDummyString));
@@ -2069,6 +2079,8 @@ void RELAXDetectorConstruction::SetPTFEEfficiency(G4String* mPTFEEfficiencyData)
     
     ifsDataFile->open(pPTFEEfficiencyData->c_str(), ios::in);
     
+    G4Material* pPTFEMaterial = G4Material::GetMaterial("PTFE");
+
     if((ifsDataFile->is_open()) && (pPTFEMaterial))
     {
         getline((*ifsDataFile), (*pDummyString));
@@ -2115,6 +2127,8 @@ void RELAXDetectorConstruction::SetLXeScintillationSpectrumData(G4String* mLXeSc
     
     ifsDataFile->open(pLXeScintillationSpectrumData->c_str(), ios::in);
     
+    G4Material* pLXeMaterial = G4Material::GetMaterial("LXe");
+
     if((ifsDataFile->is_open()) && (pLXeMaterial))
     {
         getline((*ifsDataFile), (*pDummyString));
@@ -2163,6 +2177,8 @@ void RELAXDetectorConstruction::SetLXeIndexOfRefractionData(G4String* mLXeIndexO
     
     ifsDataFile->open(pLXeIndexOfRefractionData->c_str(), ios::in);
     
+    G4Material* pLXeMaterial = G4Material::GetMaterial("LXe");
+
     if((ifsDataFile->is_open()) && (pLXeMaterial))
     {
         getline((*ifsDataFile), (*pDummyString));
@@ -2209,6 +2225,8 @@ void RELAXDetectorConstruction::SetLXeAbsorptionLengthData(G4String* mLXeAbsorpt
     
     ifsDataFile->open(pLXeAbsorptionLengthData->c_str(), ios::in);
     
+    G4Material* pLXeMaterial = G4Material::GetMaterial("LXe");
+
     if((ifsDataFile->is_open()) && (pLXeMaterial))
     {
         getline((*ifsDataFile), (*pDummyString));
@@ -2256,6 +2274,8 @@ void RELAXDetectorConstruction::SetLXeRayleighScatteringLengthData(G4String* mLX
 
     ifsDataFile->open(pLXeRayleighScatteringLengthData->c_str(), ios::in);
     
+    G4Material* pLXeMaterial = G4Material::GetMaterial("LXe");
+
     if((ifsDataFile->is_open()) && (pLXeMaterial))
     {
         getline((*ifsDataFile), (*pDummyString));
@@ -2301,6 +2321,8 @@ void RELAXDetectorConstruction::SetLXeFanoFactor(G4double mLXeFanoFactor)
 {
     dLXeFanoFactor = mLXeFanoFactor;
     
+    G4Material* pLXeMaterial = G4Material::GetMaterial("LXe");
+
     if(pLXeMaterial)
     {
         pMaterialPropertyTable = pLXeMaterial->GetMaterialPropertiesTable();
@@ -2315,6 +2337,8 @@ void RELAXDetectorConstruction::SetLXeFastScintillationTimeConstant(G4double mLX
 {
     dLXeFastScintillationTimeConstant = mLXeFastScintillationTimeConstant;
     
+    G4Material* pLXeMaterial = G4Material::GetMaterial("LXe");
+
     if(pLXeMaterial)
     {
         pMaterialPropertyTable = pLXeMaterial->GetMaterialPropertiesTable();
@@ -2333,6 +2357,8 @@ void RELAXDetectorConstruction::SetLXeFastScintillationTimeConstant(G4double mLX
 void RELAXDetectorConstruction::SetLXeSlowScintillationTimeConstant(G4double mLXeSlowScintillationTimeConstant)
 {
     dLXeSlowScintillationTimeConstant = mLXeSlowScintillationTimeConstant;
+
+    G4Material* pLXeMaterial = G4Material::GetMaterial("LXe");
     
     if(pLXeMaterial)
     {
@@ -2363,6 +2389,8 @@ void RELAXDetectorConstruction::SetGXeScintillationSpectrumData(G4String* mGXeSc
     pGXeScintillationSpectrumData = mGXeScintillationSpectrumData;
     
     ifsDataFile->open(pGXeScintillationSpectrumData->c_str(), ios::in);
+
+    G4Material* pGXeMaterial = G4Material::GetMaterial("GXe");
     
     if((ifsDataFile->is_open()) && (pGXeMaterial))
     {
@@ -2411,7 +2439,9 @@ void RELAXDetectorConstruction::SetGXeIndexOfRefractionData(G4String* mGXeIndexO
     pGXeIndexOfRefractionData = mGXeIndexOfRefractionData;
     
     ifsDataFile->open(pGXeIndexOfRefractionData->c_str(), ios::in);
-    
+
+    G4Material* pGXeMaterial = G4Material::GetMaterial("GXe");    
+
     if((ifsDataFile->is_open()) && (pGXeMaterial))
     {
         getline((*ifsDataFile), (*pDummyString));
@@ -2457,6 +2487,8 @@ void RELAXDetectorConstruction::SetGXeAbsorptionLengthData(G4String* mGXeAbsorpt
     pGXeAbsorptionLengthData = mGXeAbsorptionLengthData;
     
     ifsDataFile->open(pGXeAbsorptionLengthData->c_str(), ios::in);
+
+    G4Material* pGXeMaterial = G4Material::GetMaterial("GXe");
     
     if((ifsDataFile->is_open()) && (pGXeMaterial))
     {
@@ -2504,6 +2536,8 @@ void RELAXDetectorConstruction::SetGXeRayleighScatteringLengthData(G4String* mGX
     pGXeRayleighScatteringLengthData = mGXeRayleighScatteringLengthData;
     
     ifsDataFile->open(pGXeRayleighScatteringLengthData->c_str(), ios::in);
+
+    G4Material* pGXeMaterial = G4Material::GetMaterial("GXe");
     
     if((ifsDataFile->is_open()) && (pGXeMaterial))
     {
@@ -2549,6 +2583,8 @@ void RELAXDetectorConstruction::SetGXeRayleighScatteringLengthData(G4String* mGX
 void RELAXDetectorConstruction::SetGXeFanoFactor(G4double mGXeFanoFactor)
 {
     dGXeFanoFactor = mGXeFanoFactor;
+
+    G4Material* pGXeMaterial = G4Material::GetMaterial("GXe");
     
     if(pGXeMaterial)
     {
@@ -2569,6 +2605,8 @@ void RELAXDetectorConstruction::SetGXeFanoFactor(G4double mGXeFanoFactor)
 void RELAXDetectorConstruction::SetGXeFastScintillationTimeConstant(G4double mGXeFastScintillationTimeConstant)
 {
     dGXeFastScintillationTimeConstant = mGXeFastScintillationTimeConstant;
+
+    G4Material* pGXeMaterial = G4Material::GetMaterial("GXe");
     
     if(pGXeMaterial)
     {
@@ -2589,6 +2627,8 @@ void RELAXDetectorConstruction::SetGXeSlowScintillationTimeConstant(G4double mGX
 {
     dGXeSlowScintillationTimeConstant = mGXeSlowScintillationTimeConstant;
     
+    G4Material* pGXeMaterial = G4Material::GetMaterial("GXe");
+
     if(pGXeMaterial)
     {
         pMaterialPropertyTable = pGXeMaterial->GetMaterialPropertiesTable();
