@@ -8,7 +8,7 @@
 #include "RELAXDetectorMessenger.hh"
 #include "RELAXDetectorConstruction.hh"
 
-RELAXDetectorMessenger::RELAXDetectorMessenger(RELAXDetectorConstruction* pRELAXDDetectorConstruction) : pRELAXDDetector(pRELAXDetectorConstruction)
+RELAXDetectorMessenger::RELAXDetectorMessenger(RELAXDetectorConstruction* pRELAXDetectorConstruction) : pRELAXDDetector(pRELAXDetectorConstruction)
 {
     ////////////////////////////////
     // Set the Detector Directory //
