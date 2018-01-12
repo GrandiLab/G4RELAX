@@ -62,7 +62,7 @@ RELAXDetectorConstruction::RELAXDetectorConstruction() : G4VUserDetectorConstruc
 
 RELAXDetectorConstruction::~RELAXDetectorConstruction()
 {
-    delete pG4XCDDetectorMessenger;
+    delete pRELAXDetectorMessenger;
     
     delete pDummyString;
     delete ifsDataFile;
