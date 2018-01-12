@@ -18,6 +18,7 @@
 #include "G4SystemOfUnits.hh"
 #include "G4Element.hh"
 #include "G4Material.hh"
+#include "G4MaterialPropertiesTable.hh"
 #include "G4Box.hh"
 #include "G4GenericPolycone.hh"
 #include "G4Tubs.hh"
@@ -32,6 +33,7 @@
 #include "RELAXDetectorMessenger.hh"
 
 using namespace std;
+using namespace CLHEP;
 
 class RELAXDetectorConstruction : public G4VUserDetectorConstruction
 {
