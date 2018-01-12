@@ -97,111 +97,111 @@ void RELAXDetectorConstruction::DefineMaterials()
     G4Isotope* pH1Isotope = new G4Isotope("H1", 1, 1, 1.007825*g/mole);
     G4Isotope* pH2Isotope = new G4Isotope("H2", 1, 2, 2.014102*g/mole);
 
-    G4Isotope* pBe9Isotope = new G4Isotope("Be9", 4, 5, 9.012182*g/mole);
+    G4Isotope* pBe9Isotope = new G4Isotope("Be9", 4, 9, 9.012182*g/mole);
 
-    G4Isotope* pB10Isotope = new G4Isotope("B10", 5, 5, 10.012937*g/mole);
-    G4Isotope* pB11Isotope = new G4Isotope("B11", 5, 6, 11.009305*g/mole);
+    G4Isotope* pB10Isotope = new G4Isotope("B10", 5, 10, 10.012937*g/mole);
+    G4Isotope* pB11Isotope = new G4Isotope("B11", 5, 11, 11.009305*g/mole);
 
-    G4Isotope* pC12Isotope = new G4Isotope("C12", 6, 6, 12.000000*g/mole);
-    G4Isotope* pC13Isotope = new G4Isotope("C13", 6, 7, 13.003355*g/mole);
+    G4Isotope* pC12Isotope = new G4Isotope("C12", 6, 12, 12.000000*g/mole);
+    G4Isotope* pC13Isotope = new G4Isotope("C13", 6, 13, 13.003355*g/mole);
 
-    G4Isotope* pN14Isotope = new G4Isotope("N14", 7, 7, 14.003074*g/mole);
-    G4Isotope* pN15Isotope = new G4Isotope("N15", 7, 8, 15.000109*g/mole);
+    G4Isotope* pN14Isotope = new G4Isotope("N14", 7, 14, 14.003074*g/mole);
+    G4Isotope* pN15Isotope = new G4Isotope("N15", 7, 15, 15.000109*g/mole);
 
-    G4Isotope* pO16Isotope = new G4Isotope("O16", 8,  8, 15.994915*g/mole);
-    G4Isotope* pO17Isotope = new G4Isotope("O17", 8,  9, 16.999132*g/mole);
-    G4Isotope* pO18Isotope = new G4Isotope("O18", 8, 10, 17.999160*g/mole);
+    G4Isotope* pO16Isotope = new G4Isotope("O16", 8, 16, 15.994915*g/mole);
+    G4Isotope* pO17Isotope = new G4Isotope("O17", 8, 17, 16.999132*g/mole);
+    G4Isotope* pO18Isotope = new G4Isotope("O18", 8, 18, 17.999160*g/mole);
 
-    G4Isotope* pF19Isotope = new G4Isotope("F19", 9, 10, 18.998403*g/mole);
+    G4Isotope* pF19Isotope = new G4Isotope("F19", 9, 19, 18.998403*g/mole);
 
-    G4Isotope* pNa23Isotope = new G4Isotope("Na23", 11, 12, 22.989770*g/mole);
+    G4Isotope* pNa23Isotope = new G4Isotope("Na23", 11, 23, 22.989770*g/mole);
 
-    G4Isotope* pMg24Isotope = new G4Isotope("Mg24", 12, 12, 23.985042*g/mole);
-    G4Isotope* pMg25Isotope = new G4Isotope("Mg25", 12, 13, 24.985837*g/mole);
-    G4Isotope* pMg26Isotope = new G4Isotope("Mg26", 12, 14, 25.982593*g/mole);
+    G4Isotope* pMg24Isotope = new G4Isotope("Mg24", 12, 24, 23.985042*g/mole);
+    G4Isotope* pMg25Isotope = new G4Isotope("Mg25", 12, 25, 24.985837*g/mole);
+    G4Isotope* pMg26Isotope = new G4Isotope("Mg26", 12, 26, 25.982593*g/mole);
 
-    G4Isotope* pAl27Isotope = new G4Isotope("Al27", 13, 14, 26.981538*g/mole);
+    G4Isotope* pAl27Isotope = new G4Isotope("Al27", 13, 27, 26.981538*g/mole);
 
-    G4Isotope* pSi28Isotope = new G4Isotope("Si28", 14, 14, 27.976927*g/mole);
-    G4Isotope* pSi29Isotope = new G4Isotope("Si29", 14, 15, 28.976495*g/mole);
-    G4Isotope* pSi30Isotope = new G4Isotope("Si30", 14, 16, 29.973770*g/mole);
+    G4Isotope* pSi28Isotope = new G4Isotope("Si28", 14, 28, 27.976927*g/mole);
+    G4Isotope* pSi29Isotope = new G4Isotope("Si29", 14, 29, 28.976495*g/mole);
+    G4Isotope* pSi30Isotope = new G4Isotope("Si30", 14, 30, 29.973770*g/mole);
 
-    G4Isotope* pP31Isotope = new G4Isotope("P31", 15, 16, 30.973762*g/mole);
+    G4Isotope* pP31Isotope = new G4Isotope("P31", 15, 31, 30.973762*g/mole);
 
-    G4Isotope* pS32Isotope = new G4Isotope("S32", 16, 16, 31.972071*g/mole);
-    G4Isotope* pS33Isotope = new G4Isotope("S33", 16, 17, 32.971458*g/mole);
-    G4Isotope* pS34Isotope = new G4Isotope("S34", 16, 18, 33.967867*g/mole);
-    G4Isotope* pS36Isotope = new G4Isotope("S36", 16, 20, 35.967081*g/mole);
+    G4Isotope* pS32Isotope = new G4Isotope("S32", 16, 32, 31.972071*g/mole);
+    G4Isotope* pS33Isotope = new G4Isotope("S33", 16, 33, 32.971458*g/mole);
+    G4Isotope* pS34Isotope = new G4Isotope("S34", 16, 34, 33.967867*g/mole);
+    G4Isotope* pS36Isotope = new G4Isotope("S36", 16, 36, 35.967081*g/mole);
 
-    G4Isotope* pAr36Isotope = new G4Isotope("Ar36", 18, 18, 35.967546*g/mole);
-    G4Isotope* pAr38Isotope = new G4Isotope("Ar38", 18, 20, 37.962732*g/mole);
-    G4Isotope* pAr40Isotope = new G4Isotope("Ar40", 18, 22, 39.962383*g/mole);
+    G4Isotope* pAr36Isotope = new G4Isotope("Ar36", 18, 36, 35.967546*g/mole);
+    G4Isotope* pAr38Isotope = new G4Isotope("Ar38", 18, 38, 37.962732*g/mole);
+    G4Isotope* pAr40Isotope = new G4Isotope("Ar40", 18, 40, 39.962383*g/mole);
 
-    G4Isotope* pK39Isotope = new G4Isotope("K39", 19, 20, 38.963707*g/mole);
-    G4Isotope* pK40Isotope = new G4Isotope("K40", 19, 21, 39.963999*g/mole);
-    G4Isotope* pK41Isotope = new G4Isotope("K41", 19, 22, 40.961826*g/mole);
+    G4Isotope* pK39Isotope = new G4Isotope("K39", 19, 39, 38.963707*g/mole);
+    G4Isotope* pK40Isotope = new G4Isotope("K40", 19, 40, 39.963999*g/mole);
+    G4Isotope* pK41Isotope = new G4Isotope("K41", 19, 41, 40.961826*g/mole);
 
-    G4Isotope* pCa40Isotope = new G4Isotope("Ca40", 20, 20, 39.962591*g/mole);
-    G4Isotope* pCa42Isotope = new G4Isotope("Ca42", 20, 22, 41.958618*g/mole);
-    G4Isotope* pCa43Isotope = new G4Isotope("Ca43", 20, 23, 42.958767*g/mole);
-    G4Isotope* pCa44Isotope = new G4Isotope("Ca44", 20, 24, 43.955481*g/mole);
-    G4Isotope* pCa46Isotope = new G4Isotope("Ca46", 20, 26, 45.953693*g/mole);
-    G4Isotope* pCa48Isotope = new G4Isotope("Ca48", 20, 28, 47.952534*g/mole);
+    G4Isotope* pCa40Isotope = new G4Isotope("Ca40", 20, 40, 39.962591*g/mole);
+    G4Isotope* pCa42Isotope = new G4Isotope("Ca42", 20, 42, 41.958618*g/mole);
+    G4Isotope* pCa43Isotope = new G4Isotope("Ca43", 20, 43, 42.958767*g/mole);
+    G4Isotope* pCa44Isotope = new G4Isotope("Ca44", 20, 44, 43.955481*g/mole);
+    G4Isotope* pCa46Isotope = new G4Isotope("Ca46", 20, 46, 45.953693*g/mole);
+    G4Isotope* pCa48Isotope = new G4Isotope("Ca48", 20, 48, 47.952534*g/mole);
 
-    G4Isotope* pTi46Isotope = new G4Isotope("Ti46", 22, 24, 45.952629*g/mole);
-    G4Isotope* pTi47Isotope = new G4Isotope("Ti47", 22, 25, 46.951764*g/mole);
-    G4Isotope* pTi48Isotope = new G4Isotope("Ti48", 22, 26, 47.947947*g/mole);
-    G4Isotope* pTi49Isotope = new G4Isotope("Ti49", 22, 27, 48.947871*g/mole);
-    G4Isotope* pTi50Isotope = new G4Isotope("Ti50", 22, 28, 49.944792*g/mole);
+    G4Isotope* pTi46Isotope = new G4Isotope("Ti46", 22, 46, 45.952629*g/mole);
+    G4Isotope* pTi47Isotope = new G4Isotope("Ti47", 22, 47, 46.951764*g/mole);
+    G4Isotope* pTi48Isotope = new G4Isotope("Ti48", 22, 48, 47.947947*g/mole);
+    G4Isotope* pTi49Isotope = new G4Isotope("Ti49", 22, 49, 48.947871*g/mole);
+    G4Isotope* pTi50Isotope = new G4Isotope("Ti50", 22, 50, 49.944792*g/mole);
 
-    G4Isotope* pCr50Isotope = new G4Isotope("Cr50", 24, 26, 49.946050*g/mole);
-    G4Isotope* pCr52Isotope = new G4Isotope("Cr52", 24, 28, 51.940512*g/mole);
-    G4Isotope* pCr53Isotope = new G4Isotope("Cr53", 24, 29, 52.940654*g/mole);
-    G4Isotope* pCr54Isotope = new G4Isotope("Cr54", 24, 30, 53.938885*g/mole);
+    G4Isotope* pCr50Isotope = new G4Isotope("Cr50", 24, 50, 49.946050*g/mole);
+    G4Isotope* pCr52Isotope = new G4Isotope("Cr52", 24, 52, 51.940512*g/mole);
+    G4Isotope* pCr53Isotope = new G4Isotope("Cr53", 24, 53, 52.940654*g/mole);
+    G4Isotope* pCr54Isotope = new G4Isotope("Cr54", 24, 54, 53.938885*g/mole);
 
-    G4Isotope* pMn55Isotope = new G4Isotope("Mn55", 25, 30, 54.938050*g/mole);
+    G4Isotope* pMn55Isotope = new G4Isotope("Mn55", 25, 55, 54.938050*g/mole);
 
-    G4Isotope* pFe54Isotope = new G4Isotope("Fe54", 26, 28, 53.939615*g/mole);
-    G4Isotope* pFe56Isotope = new G4Isotope("Fe56", 26, 30, 55.934942*g/mole);
-    G4Isotope* pFe57Isotope = new G4Isotope("Fe57", 26, 31, 56.935399*g/mole);
-    G4Isotope* pFe58Isotope = new G4Isotope("Fe58", 26, 32, 57.933280*g/mole);
+    G4Isotope* pFe54Isotope = new G4Isotope("Fe54", 26, 54, 53.939615*g/mole);
+    G4Isotope* pFe56Isotope = new G4Isotope("Fe56", 26, 56, 55.934942*g/mole);
+    G4Isotope* pFe57Isotope = new G4Isotope("Fe57", 26, 57, 56.935399*g/mole);
+    G4Isotope* pFe58Isotope = new G4Isotope("Fe58", 26, 58, 57.933280*g/mole);
 
-    G4Isotope* pCo59Isotope = new G4Isotope("Co59", 27, 32, 58.933200*g/mole);
+    G4Isotope* pCo59Isotope = new G4Isotope("Co59", 27, 59, 58.933200*g/mole);
 
-    G4Isotope* pNi58Isotope = new G4Isotope("Ni58", 28, 30, 57.935348*g/mole);
-    G4Isotope* pNi60Isotope = new G4Isotope("Ni60", 28, 32, 59.930791*g/mole);
-    G4Isotope* pNi61Isotope = new G4Isotope("Ni61", 28, 33, 60.931060*g/mole);
-    G4Isotope* pNi62Isotope = new G4Isotope("Ni62", 28, 34, 61.928349*g/mole);
-    G4Isotope* pNi64Isotope = new G4Isotope("Ni64", 28, 36, 63.927970*g/mole);
+    G4Isotope* pNi58Isotope = new G4Isotope("Ni58", 28, 58, 57.935348*g/mole);
+    G4Isotope* pNi60Isotope = new G4Isotope("Ni60", 28, 60, 59.930791*g/mole);
+    G4Isotope* pNi61Isotope = new G4Isotope("Ni61", 28, 61, 60.931060*g/mole);
+    G4Isotope* pNi62Isotope = new G4Isotope("Ni62", 28, 62, 61.928349*g/mole);
+    G4Isotope* pNi64Isotope = new G4Isotope("Ni64", 28, 64, 63.927970*g/mole);
 
-    G4Isotope* pCu63Isotope = new G4Isotope("Cu63", 29, 34, 62.929601*g/mole);
-    G4Isotope* pCu65Isotope = new G4Isotope("Cu65", 29, 36, 64.927794*g/mole);
+    G4Isotope* pCu63Isotope = new G4Isotope("Cu63", 29, 63, 62.929601*g/mole);
+    G4Isotope* pCu65Isotope = new G4Isotope("Cu65", 29, 65, 64.927794*g/mole);
 
-    G4Isotope* pMo92Isotope = new G4Isotope("Mo92",  42, 50, 91.906810*g/mole);
-    G4Isotope* pMo94Isotope = new G4Isotope("Mo94",  42, 52, 93.905088*g/mole);
-    G4Isotope* pMo95Isotope = new G4Isotope("Mo95",  42, 53, 94.905841*g/mole);
-    G4Isotope* pMo96Isotope = new G4Isotope("Mo96",  42, 54, 95.904679*g/mole);
-    G4Isotope* pMo97Isotope = new G4Isotope("Mo97",  42, 55, 96.906021*g/mole);
-    G4Isotope* pMo98Isotope = new G4Isotope("Mo98",  42, 56, 97.905408*g/mole);
-    G4Isotope* pMo100Isotope = new G4Isotope("Mo100", 42, 58, 99.907477*g/mole);
+    G4Isotope* pMo92Isotope = new G4Isotope("Mo92",  42, 92, 91.906810*g/mole);
+    G4Isotope* pMo94Isotope = new G4Isotope("Mo94",  42, 94, 93.905088*g/mole);
+    G4Isotope* pMo95Isotope = new G4Isotope("Mo95",  42, 95, 94.905841*g/mole);
+    G4Isotope* pMo96Isotope = new G4Isotope("Mo96",  42, 96, 95.904679*g/mole);
+    G4Isotope* pMo97Isotope = new G4Isotope("Mo97",  42, 97, 96.906021*g/mole);
+    G4Isotope* pMo98Isotope = new G4Isotope("Mo98",  42, 98, 97.905408*g/mole);
+    G4Isotope* pMo100Isotope = new G4Isotope("Mo100", 42, 100, 99.907477*g/mole);
 
-    G4Isotope* pSb121Isotope = new G4Isotope("Sb121", 51, 70, 120.903818*g/mole);
-    G4Isotope* pSb123Isotope = new G4Isotope("Sb123", 51, 72, 122.904216*g/mole);
+    G4Isotope* pSb121Isotope = new G4Isotope("Sb121", 51, 121, 120.903818*g/mole);
+    G4Isotope* pSb123Isotope = new G4Isotope("Sb123", 51, 123, 122.904216*g/mole);
 
-    G4Isotope* pXe124Isotope = new G4Isotope("Xe124", 54, 70, 123.905896*g/mole);
-    G4Isotope* pXe126Isotope = new G4Isotope("Xe126", 54, 72, 125.904269*g/mole);
-    G4Isotope* pXe128Isotope = new G4Isotope("Xe128", 54, 74, 127.903530*g/mole);
-    G4Isotope* pXe129Isotope = new G4Isotope("Xe129", 54, 75, 128.904779*g/mole);
-    G4Isotope* pXe130Isotope = new G4Isotope("Xe130", 54, 76, 129.903508*g/mole);
-    G4Isotope* pXe131Isotope = new G4Isotope("Xe131", 54, 77, 130.905082*g/mole);
-    G4Isotope* pXe132Isotope = new G4Isotope("Xe132", 54, 78, 131.904154*g/mole);
-    G4Isotope* pXe134Isotope = new G4Isotope("Xe134", 54, 80, 133.905395*g/mole);
-    G4Isotope* pXe136Isotope = new G4Isotope("Xe136", 54, 82, 135.907220*g/mole);
+    G4Isotope* pXe124Isotope = new G4Isotope("Xe124", 54, 124, 123.905896*g/mole);
+    G4Isotope* pXe126Isotope = new G4Isotope("Xe126", 54, 126, 125.904269*g/mole);
+    G4Isotope* pXe128Isotope = new G4Isotope("Xe128", 54, 128, 127.903530*g/mole);
+    G4Isotope* pXe129Isotope = new G4Isotope("Xe129", 54, 129, 128.904779*g/mole);
+    G4Isotope* pXe130Isotope = new G4Isotope("Xe130", 54, 130, 129.903508*g/mole);
+    G4Isotope* pXe131Isotope = new G4Isotope("Xe131", 54, 131, 130.905082*g/mole);
+    G4Isotope* pXe132Isotope = new G4Isotope("Xe132", 54, 132, 131.904154*g/mole);
+    G4Isotope* pXe134Isotope = new G4Isotope("Xe134", 54, 134, 133.905395*g/mole);
+    G4Isotope* pXe136Isotope = new G4Isotope("Xe136", 54, 136, 135.907220*g/mole);
 
-    G4Isotope* pPb204Isotope = new G4Isotope("Pb204", 82, 122, 203.973029*g/mole);
-    G4Isotope* pPb206Isotope = new G4Isotope("Pb206", 82, 124, 205.974449*g/mole);
-    G4Isotope* pPb207Isotope = new G4Isotope("Pb207", 82, 125, 206.975881*g/mole);
-    G4Isotope* pPb208Isotope = new G4Isotope("Pb208", 82, 126, 207.976636*g/mole);
+    G4Isotope* pPb204Isotope = new G4Isotope("Pb204", 82, 204, 203.973029*g/mole);
+    G4Isotope* pPb206Isotope = new G4Isotope("Pb206", 82, 206, 205.974449*g/mole);
+    G4Isotope* pPb207Isotope = new G4Isotope("Pb207", 82, 207, 206.975881*g/mole);
+    G4Isotope* pPb208Isotope = new G4Isotope("Pb208", 82, 208, 207.976636*g/mole);
 
     // Create Elements
     G4Element* pHElement = new G4Element("Hydrogen", "H", 2);
