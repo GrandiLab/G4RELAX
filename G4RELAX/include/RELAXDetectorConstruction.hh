@@ -162,6 +162,11 @@ private:
 
     G4double dLaboratoryHeight;
     G4double dFloorHeight;
+
+    G4double dPTFE00StockHeight1;
+    G4double dPTFE01StockHeight5;
+    G4double dPTFE02StockHeight5;
+    G4double dPTFE03StockHeight5;
 };
 
 #endif
