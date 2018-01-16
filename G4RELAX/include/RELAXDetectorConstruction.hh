@@ -129,6 +129,7 @@ private:
     // List of Functions
     void DefineMaterials();
     void ConstructLaboratory();
+    void ConstructCryostat();
     std::map<G4String, G4Material*>* GetMaterialTable();
 
     // List of Volumes
@@ -158,6 +159,9 @@ private:
     G4VPhysicalVolume* pGatePV;
     G4VPhysicalVolume* pAnodePV;
     G4VPhysicalVolume* pScreeningMeshPV;
+
+    G4double dLaboratoryHeight;
+    G4double dFloorHeight;
 };
 
 #endif

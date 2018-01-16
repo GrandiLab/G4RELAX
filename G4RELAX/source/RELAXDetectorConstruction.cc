@@ -87,6 +87,7 @@ G4VPhysicalVolume* RELAXDetectorConstruction::Construct()
 {
     DefineMaterials();
     ConstructLaboratory();
+    ConstructCryostat();
 
     return pLaboratoryPV;
 }
@@ -444,19 +445,168 @@ void RELAXDetectorConstruction::ConstructLaboratory()
     //////////////////////////
 
     // Set Laboratory Variables
-    G4double dLaboratoryLength = 400.000 * cm;
-    G4double dLaboratoryWidth  = 400.000 * cm;
-    G4double dLaboratoryHeight = 400.000 * cm;
+    G4double dLaboratoryLength = 160.000 * cm;
+    G4double dLaboratoryWidth  = 160.000 * cm;
+    dLaboratoryHeight = 100.000 * cm;
 
     // Create Laboratory
     G4Box* pLaboratoryBox = new G4Box("LaboratoryBox", 0.5 * dLaboratoryLength, 0.5 * dLaboratoryWidth, 0.5 * dLaboratoryHeight);
-    pLaboratoryLV = new G4LogicalVolume(pLaboratoryBox, G4Material::GetMaterial("Air"), "LaboratoryLV");
-    pLaboratoryPV = new G4PVPlacement(0, G4ThreeVector(), pLaboratoryLV, "Laboratory", 0, false, 0);
+    pLaboratoryLV         = new G4LogicalVolume(pLaboratoryBox, G4Material::GetMaterial("Air"), "LaboratoryLV");
+    pLaboratoryPV         = new G4PVPlacement(0, G4ThreeVector(), pLaboratoryLV, "Laboratory", 0, false, 0);
 
-    pLaboratoryLV->SetVisAttributes(G4VisAttributes::Invisible);
+    G4VisAttributes* pLaboratoryVisAtt = new G4VisAttributes(G4Colour(1.0, 1.0, 1.0, 0.0));
+    pLaboratoryVisAtt->SetForceSolid(true);
+    pLaboratoryLV->SetVisAttributes(pLaboratoryVisAtt);
+    //pLaboratoryLV->SetVisAttributes(G4VisAttributes::Invisible);
 
     // Set Mother Logical Volume
     pMotherLV = pLaboratoryLV;
+
+    /////////////////////
+    // Construct Floor //
+    /////////////////////
+
+    // Set Floor variables
+    G4double dFloorLength = dLaboratoryLength;
+    G4double dFloorWidth  = dLaboratoryWidth; 
+    dFloorHeight = 15.00 * cm;
+
+    G4double dFloorPlacementX = 0.00 * cm;
+    G4double dFloorPlacementY = 0.00 * cm;
+    G4double dFloorPlacementZ = 0.5 * (dFloorHeight - dLaboratoryHeight);
+
+    G4ThreeVector dFloorXYZ(dFloorPlacementX, dFloorPlacementY, dFloorPlacementZ);
+    
+    // Create Laboratory
+    G4Box* pFloorBox = new G4Box("FloorBox", 0.5 * dFloorLength, 0.5 * dFloorWidth, 0.5 * dFloorHeight);
+    G4LogicalVolume* pFloorLV = new G4LogicalVolume(pFloorBox, G4Material::GetMaterial("Concrete"), "FloorLV");
+    G4VPhysicalVolume* pFloorPV = new G4PVPlacement(0, dFloorXYZ, pFloorLV, "Floor", pMotherLV, false, 0);
+
+    G4VisAttributes* pFloorVisAtt = new G4VisAttributes(G4Colour::Gray());
+    pFloorVisAtt->SetForceSolid(true);
+    pFloorLV->SetVisAttributes(pFloorVisAtt);
+}
+
+void RELAXDetectorConstruction::ConstructCryostat()
+{
+    ////////////////////////
+    // Construct Cryostat //
+    ////////////////////////
+
+    // Set Cryostat variables
+    G4double dOuterCryostatRadius1 = 0.0000*cm;
+    G4double dOuterCryostatRadius2 = 10.4775*cm;
+    G4double dOuterCryostatRadius3 = dOuterCryostatRadius2;
+    G4double dOuterCryostatRadius4 = 6.4389*cm;
+    G4double dOuterCryostatRadius5 = dOuterCryostatRadius4;
+    G4double dOuterCryostatRadius6 = 6.1214*cm;
+    G4double dOuterCryostatRadius7 = dOuterCryostatRadius6;
+    G4double dOuterCryostatRadius8 = dOuterCryostatRadius1;
+    G4double dOuterCryostatRadius9 = dOuterCryostatRadius1;
+
+    G4double dOuterCryostatRadius10 = 11.4300*cm;
+
+    
+    G4double dOuterCryostatHeight1 = 42.2275*cm;
+    G4double dOuterCryostatHeight2 = dOuterCryostatHeight1;
+    G4double dOuterCryostatHeight3 = 37.7825*cm;
+    G4double dOuterCryostatHeight4 = dOuterCryostatHeight3;
+    G4double dOuterCryostatHeight5 = -dOuterCryostatHeight1;
+    G4double dOuterCryostatHeight6 = -dOuterCryostatHeight1;
+    G4double dOuterCryostatHeight7 = -41.9100*cm;
+    G4double dOuterCryostatHeight8 = dOuterCryostatHeight7;
+    G4double dOuterCryostatHeight9 = dOuterCryostatHeight1;
+
+    G4double dOuterCryostatRadiusArray[] = { dOuterCryostatRadius1,
+                                             dOuterCryostatRadius2,
+                                             dOuterCryostatRadius3,
+                                             dOuterCryostatRadius4,
+                                             dOuterCryostatRadius5,
+                                             dOuterCryostatRadius6,
+                                             dOuterCryostatRadius7,
+                                             dOuterCryostatRadius8,
+                                             dOuterCryostatRadius9};
+
+    G4double dOuterCryostatHeightArray[] = { dOuterCryostatHeight1,
+                                             dOuterCryostatHeight2,
+                                             dOuterCryostatHeight3,
+                                             dOuterCryostatHeight4,
+                                             dOuterCryostatHeight5,
+                                             dOuterCryostatHeight6,
+                                             dOuterCryostatHeight7,
+                                             dOuterCryostatHeight8,
+                                             dOuterCryostatHeight9};
+
+    G4double dOuterCryostatSS1PlacementX = 0.0000*cm;
+    G4double dOuterCryostatSS1PlacementY = 0.0000*cm;
+    G4double dOuterCryostatSS1PlacementZ = dOuterCryostatHeight7 - cos(asin(dOuterCryostatRadius6 / dOuterCryostatRadius10)) * dOuterCryostatRadius10;
+
+    G4double dOuterCryostatPlacementX = 0.0000*cm;
+    G4double dOuterCryostatPlacementY = 0.0000*cm;
+    G4double dOuterCryostatPlacementZ = 0.5 * ((2 * (dOuterCryostatHeight1 + dFloorHeight)) - dLaboratoryHeight);
+
+    G4RotationMatrix dOuterCryostatRot;
+    dOuterCryostatRot.rotateZ(0.00);
+
+    G4ThreeVector dOuterCryostatSS1XYZ(dOuterCryostatSS1PlacementX, dOuterCryostatSS1PlacementY, dOuterCryostatSS1PlacementZ);
+    G4Transform3D dOuterCryostatSS1Transform(dOuterCryostatRot, dOuterCryostatSS1XYZ);
+
+    G4ThreeVector dOuterCryostatXYZ(dOuterCryostatPlacementX, dOuterCryostatPlacementY, dOuterCryostatPlacementZ);
+
+    // Create Cryostat
+    G4GenericPolycone* pOuterCryostatPolycone1 = new G4GenericPolycone("OuterCryostatPolycone1", 0.0, 2 * M_PI, 9, dOuterCryostatRadiusArray, dOuterCryostatHeightArray);
+    G4Sphere* pOuterCryostatSphere2 = new G4Sphere("OuterCryostatSphere2", 0.0 * cm, dOuterCryostatRadius10, 0.0, 2 * M_PI, 0.0, asin(dOuterCryostatRadius6 / dOuterCryostatRadius10));
+    G4SubtractionSolid* pOuterCryostat = new G4SubtractionSolid("OuterCryostat", pOuterCryostatPolycone1, pOuterCryostatSphere2, dOuterCryostatSS1Transform);
+
+    G4LogicalVolume* pOuterCryostatLV = new G4LogicalVolume(pOuterCryostat, G4Material::GetMaterial("Stainless Steel"), "OuterCryostat");
+    G4PVPlacement* pOuterCryostatPV = new G4PVPlacement(0, dOuterCryostatXYZ, pOuterCryostatLV, "OuterCryostat", pMotherLV, false, 0);
+
+    G4VisAttributes* pOuterCryostatVisAtt = new G4VisAttributes(G4Colour(1.0, 0.0, 0.0, 0.25));
+    pOuterCryostatVisAtt->SetForceSolid(true);
+    pOuterCryostatLV->SetVisAttributes(pOuterCryostatVisAtt);
+
+    // Set it as mother volume
+    pMotherLV = pOuterCryostatLV;
+
+    ///////////////////////////////
+    // Construct Cryostat Vacuum //
+    ///////////////////////////////
+
+    G4double dCryostatVacuumRadius1 = 6.2865*cm;
+    G4double dCryostatVacuumRadius2 = dOuterCryostatRadius10;
+
+    G4double dCryostatVacuumHeight1 = dOuterCryostatHeight3 - dOuterCryostatHeight7 + 2.2225*cm - ((cos(asin(dCryostatVacuumRadius1 / dOuterCryostatRadius10)) - cos(asin(dOuterCryostatRadius6 / dOuterCryostatRadius10))) * dOuterCryostatRadius10 + 0.1524*cm);
+
+    G4double dCryostatVacuumSS1PlacementX = 0.0000*cm;
+    G4double dCryostatVacuumSS1PlacementY = 0.0000*cm;
+    G4double dCryostatVacuumSS1PlacementZ = -0.5 * (dCryostatVacuumHeight1 + 2 * cos(asin(dCryostatVacuumRadius1 / dCryostatVacuumRadius2)) * dCryostatVacuumRadius2);
+
+    G4double dCryostatVacuumPlacementX = 0.0000*cm;
+    G4double dCryostatVacuumPlacementY = 0.0000*cm;
+    G4double dCryostatVacuumPlacementZ = 0.5 * (2 * dOuterCryostatHeight3 + 4.4450*cm - dCryostatVacuumHeight1);
+
+    G4RotationMatrix dCryostatVacuumRot;
+    dCryostatVacuumRot.rotateZ(0.0);
+
+    G4ThreeVector dCryostatVacuumSS1XYZ(dCryostatVacuumSS1PlacementX, dCryostatVacuumSS1PlacementY, dCryostatVacuumSS1PlacementZ);
+    G4Transform3D dCryostatVacuumSS1Transform(dCryostatVacuumRot, dCryostatVacuumSS1XYZ);
+
+    G4ThreeVector dCryostatVacuumXYZ(dCryostatVacuumPlacementX, dCryostatVacuumPlacementY, dCryostatVacuumPlacementZ);
+
+    // Create Cryostat
+    G4Tubs* pCryostatVacuumCylinder1 = new G4Tubs("CryostatVacuumCylinder1", 0.0 * cm, dCryostatVacuumRadius1, 0.5 * dCryostatVacuumHeight1, 0.0, 2 * M_PI);
+    G4Sphere* pCryostatVacuumSphere2 = new G4Sphere("CryostatVacuumSphere1", 0.0 * cm, dCryostatVacuumRadius2, 0.0, 2 * M_PI, 0.0, asin(dCryostatVacuumRadius1 / dCryostatVacuumRadius2));
+    G4SubtractionSolid* pCryostatVacuum = new G4SubtractionSolid("CryostatVacuum", pCryostatVacuumCylinder1, pCryostatVacuumSphere2, dCryostatVacuumSS1Transform);
+
+    G4LogicalVolume* pCryostatVacuumLV = new G4LogicalVolume(pCryostatVacuum, G4Material::GetMaterial("Vacuum"), "CryostatVacuumLV");
+    G4PVPlacement* pCryostatVacuumPV = new G4PVPlacement(0, dCryostatVacuumXYZ, pCryostatVacuumLV, "CryostatVacuum", pMotherLV, false, 0);
+
+    G4VisAttributes* pCryostatVacuumVisAtt = new G4VisAttributes(G4Colour(0.0, 0.0, 0.1, 0.5));
+    pCryostatVacuumVisAtt->SetForceSolid(true);
+    pCryostatVacuumLV->SetVisAttributes(pCryostatVacuumVisAtt);
+
+    // Set new MotherLV
+    pMotherLV = pCryostatVacuumLV;
 
 
     //////////////////////
@@ -1641,9 +1791,9 @@ void RELAXDetectorConstruction::ConstructLaboratory()
 
     // Create PTFE05
     pPTFE05LV = new G4LogicalVolume(pPTFE05StockWing2Sub1, G4Material::GetMaterial("PTFE"), "PTFE05");
-    pPTFE05PV = new G4PVPlacement(0, dPTFE05StockPlacement, pPTFE05LV, "PTFE05", pMotherLV, false, 0);
+//    pPTFE05PV = new G4PVPlacement(0, dPTFE05StockPlacement, pPTFE05LV, "PTFE05", pMotherLV, false, 0);
     G4LogicalVolume* test = new G4LogicalVolume(pPTFE05StockWing2S, G4Material::GetMaterial("PTFE"), "test");
-    G4VPhysicalVolume* testpv = new G4PVPlacement(0, testPlacement, test, "test", pMotherLV, false, 0);
+//    G4VPhysicalVolume* testpv = new G4PVPlacement(0, testPlacement, test, "test", pMotherLV, false, 0);
 
     //////////////////////
     // Construct PTFE06 //
