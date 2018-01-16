@@ -13,18 +13,18 @@ RELAXPhysicsMessenger::RELAXPhysicsMessenger(RELAXPhysicsList* pRELAXPhysicsList
     ///////////////////////////////
     // Set the Physics Directory //
     ///////////////////////////////
-    pRELAXPhysicsDir = new G4UIdirectory("/G4XCD/physics/");
-    pRELAXPhysicsDir->SetGuidance("Control of the G4XCD Physics.");
+    pRELAXPhysicsDir = new G4UIdirectory("/RELAX/physics/");
+    pRELAXPhysicsDir->SetGuidance("Control of the RELAX Physics.");
     
     ///////////////////////////////
     // Set the Detector Commands //
     ///////////////////////////////
-    pSetScintillationCmd = new G4UIcmdWithABool("/G4XCD/physics/SetScintillation", this);
+    pSetScintillationCmd = new G4UIcmdWithABool("/RELAX/physics/SetScintillation", this);
     pSetScintillationCmd->SetGuidance("Switch scintillation on (true) or off (false).");
     pSetScintillationCmd->SetDefaultValue(false);
     pSetScintillationCmd->AvailableForStates(G4State_PreInit);
     
-    pSetCerenkovCmd = new G4UIcmdWithABool("/G4XCD/physics/SetCerenkov", this);
+    pSetCerenkovCmd = new G4UIcmdWithABool("/RELAX/physics/SetCerenkov", this);
     pSetCerenkovCmd->SetGuidance("Switch Cerenkov on (true) or off (false).");
     pSetCerenkovCmd->SetDefaultValue(false);
     pSetCerenkovCmd->AvailableForStates(G4State_PreInit);
