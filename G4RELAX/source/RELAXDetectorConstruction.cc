@@ -1587,19 +1587,19 @@ void RELAXDetectorConstruction::ConstructCryostat()
   	G4double dPMTRadius19 = dPMTRadius10;
   	G4double dPMTRadius20 = dPMTRadius1;
 
-  	G4double dPMTHeight1  = -5.7 * cm;
+  	G4double dPMTHeight1  = 5.7 * cm;
   	G4double dPMTHeight2  = dPMTHeight1;
-  	G4double dPMTHeight3  = -5.650 * cm;
+  	G4double dPMTHeight3  = 5.650 * cm;
   	G4double dPMTHeight4  = dPMTHeight3;
-  	G4double dPMTHeight5  = -4.8 * cm;
+  	G4double dPMTHeight5  = 4.8 * cm;
   	G4double dPMTHeight6  = dPMTHeight5;
-  	G4double dPMTHeight7  = -4.3 * cm;
+  	G4double dPMTHeight7  = 4.3 * cm;
   	G4double dPMTHeight8  = dPMTHeight7;
-  	G4double dPMTHeight9  = -3.120 * cm;
-  	G4double dPMTHeight10 = -1.940 * cm;
-  	G4double dPMTHeight11 = -0.94 * cm;
+  	G4double dPMTHeight9  = 3.120 * cm;
+  	G4double dPMTHeight10 = 1.940 * cm;
+  	G4double dPMTHeight11 = 0.94 * cm;
   	G4double dPMTHeight12 = dPMTHeight11;
-  	G4double dPMTHeight13 = -0.84 * cm;
+  	G4double dPMTHeight13 = 0.84 * cm;
   	G4double dPMTHeight14 = dPMTHeight13;
   	G4double dPMTHeight15 = 5.1 * cm;
   	G4double dPMTHeight16 = dPMTHeight15;
@@ -1652,7 +1652,7 @@ void RELAXDetectorConstruction::ConstructCryostat()
 
   	G4double dPMTPlacementX = 0.000 * cm;
   	G4double dPMTPlacementY = 0.000 ;
-  	G4double dPMTPlacementZ = dPMTRingPlacementZ - 0.5 * dPMTRingHeight - dPMTHeight20;
+  	G4double dPMTPlacementZ = dPMTRingPlacementZ - 0.5 * dPMTRingHeight - dPMTHeight3;
 
   	G4ThreeVector dPMTXYZ(dPMTPlacementX, dPMTPlacementY, dPMTPlacementZ);
 
@@ -1660,7 +1660,7 @@ void RELAXDetectorConstruction::ConstructCryostat()
 	G4GenericPolycone* pPMT = new G4GenericPolycone("PMT", 0, 2 * M_PI, 20, dPMTRadiusArray1, dPMTHeightArray1);
   	
   	G4LogicalVolume* pPMTLV = new G4LogicalVolume(pPMT, G4Material::GetMaterial("Kovar"), "PMTLV");
-  	G4PVPlacement* pPMTPV = new G4PVPlacement(0, dPMTXYZ, pPMTLV, "PMT", pLXeLV, false, 0);
+  	G4PVPlacement* pPMTPV = new G4PVPlacement(0, dPMTXYZ, pPMTLV, "PMT", pLXeLV, false, detectOverlap);
 
   	G4VisAttributes* pPMTVisAtt = new G4VisAttributes(G4Color(0.0, 0.0, 1.0, 1.0));
   	pPMTVisAtt->SetForceSolid(true);
@@ -2255,6 +2255,7 @@ void RELAXDetectorConstruction::ConstructCryostat()
     pAnodePV->CheckOverlaps();
     pScreeningMeshPV->CheckOverlaps();
     pGatePV->CheckOverlaps();
+    pPMTPV->CheckOverlaps();
 
     // Give the pieces color and shape
     G4VisAttributes * pPTFE00VisAtt = new G4VisAttributes(G4Colour(1.0, 1.0, 1.0, 0.5));
