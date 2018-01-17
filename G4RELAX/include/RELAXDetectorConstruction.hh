@@ -163,6 +163,7 @@ private:
     G4double dLaboratoryHeight;
     G4double dFloorHeight;
 
+    G4bool detectOverlap;
     G4double dPTFE00StockHeight1;
     G4double dPTFE01StockHeight5;
     G4double dPTFE02StockHeight5;
