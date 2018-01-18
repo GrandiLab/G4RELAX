@@ -1884,14 +1884,158 @@ void RELAXDetectorConstruction::ConstructCryostat()
   	G4LogicalVolume* pPMTLV = new G4LogicalVolume(pPMT, G4Material::GetMaterial("Kovar"), "PMTLV");
   	G4PVPlacement* pPMTPV = new G4PVPlacement(0, dPMTXYZ, pPMTLV, "PMT", pLXeLV, false, detectOverlap);
 
-  	G4VisAttributes* pPMTVisAtt = new G4VisAttributes(G4Color(0.0, 0.0, 1.0, 1.0));
+  	G4VisAttributes* pPMTVisAtt = new G4VisAttributes(G4Color(0.0, 0.0, 1.0, 0.25));
   	pPMTVisAtt->SetForceSolid(true);
   	pPMTLV->SetVisAttributes(pPMTVisAtt);
 
     //////////////////////////
-    // Construct Grid Rings //
+    // Construct PMT Vacuum //
     //////////////////////////
 
+    // Set PMT Vacuum Variables
+    G4double dPMTVacuumRadius1 = dPMTRadius1;
+    G4double dPMTVacuumRadius2 = dPMTRadius2;
+    G4double dPMTVacuumRadius3 = dPMTRadius3;
+    G4double dPMTVacuumRadius4 = 3.7 * cm;
+    G4double dPMTVacuumRadius5 = dPMTVacuumRadius4;
+    G4double dPMTVacuumRadius6 = 2.565 * cm;
+    G4double dPMTVacuumRadius7 = dPMTVacuumRadius6;
+    G4double dPMTVacuumRadius8 = dPMTRadius20;
+
+    G4double dPMTVacuumHeight1 = dPMTHeight1;
+    G4double dPMTVacuumHeight2 = dPMTHeight2;
+    G4double dPMTVacuumHeight3 = 5.550 * cm;
+    G4double dPMTVacuumHeight4 = dPMTVacuumHeight3;
+    G4double dPMTVacuumHeight5 = dPMTHeight9;
+    G4double dPMTVacuumHeight6 = dPMTHeight10;
+    G4double dPMTVacuumHeight7 = dPMTHeight20;
+    G4double dPMTVacuumHeight8 = dPMTHeight20;
+
+    G4double dPMTVacuumRadiusArray1[] = {dPMTVacuumRadius1, 
+    									 dPMTVacuumRadius2, 
+    									 dPMTVacuumRadius3, 
+    									 dPMTVacuumRadius4, 
+    									 dPMTVacuumRadius5, 
+    									 dPMTVacuumRadius6, 
+    									 dPMTVacuumRadius7,
+    									 dPMTVacuumRadius8};
+    									 
+    G4double dPMTVacuumHeightArray1[] = {dPMTVacuumHeight1, 
+    									 dPMTVacuumHeight2, 
+    									 dPMTVacuumHeight3, 
+    									 dPMTVacuumHeight4, 
+    									 dPMTVacuumHeight5, 
+    									 dPMTVacuumHeight6, 
+    									 dPMTVacuumHeight7,
+    									 dPMTVacuumHeight8};
+
+    // Create PMT Vacuum
+    G4GenericPolycone* pPMTVacuum = new G4GenericPolycone("PMTVacuum", 0, 2 * M_PI, 8, dPMTVacuumRadiusArray1, dPMTVacuumHeightArray1);
+    G4LogicalVolume* pPMTVacuumLV = new G4LogicalVolume(pPMTVacuum, G4Material::GetMaterial("Vacuum"), "PMTVacuumLV");
+    G4PVPlacement* pPMTVacuumPV = new G4PVPlacement(0, G4ThreeVector(), pPMTVacuumLV, "PMTVacuum", pPMTLV, false, detectOverlap);
+    
+  	G4VisAttributes* pPMTVacuumVisAtt = new G4VisAttributes(G4Color(1.0, 1.0, 1.0, 0.5));
+  	pPMTVacuumVisAtt->SetForceSolid(true);
+  	pPMTVacuumLV->SetVisAttributes(pPMTVacuumVisAtt);
+
+  	//////////////////////////
+    // Construct PMT Window //
+    //////////////////////////
+
+    // Set PMT Window Variables
+    G4double dPMTWindowRadius1 = dPMTRadius2;
+    
+    G4double dPMTWindowHeight1 = 0.500 * cm;
+
+    G4double dPMTWindowPlacementX = 0.0 * cm;
+    G4double dPMTWindowPlacementY = 0.0 * cm;
+    G4double dPMTWindowPlacementZ = -0.5 * dPMTWindowHeight1 + dPMTHeight2;
+
+    G4ThreeVector dPMTWindowXYZ(dPMTWindowPlacementX, dPMTWindowPlacementY, dPMTWindowPlacementZ);
+
+    // Create PMT Window
+    G4Tubs* pPMTWindow = new G4Tubs("PMTWindow", 0, dPMTWindowRadius1, 0.5 * dPMTWindowHeight1, 0, 2 * M_PI);
+    G4LogicalVolume* pPMTWindowLV = new G4LogicalVolume(pPMTWindow, G4Material::GetMaterial("Quartz"), "PMTWindowLV");
+    G4PVPlacement* pPMTWindowPV = new G4PVPlacement(0, dPMTWindowXYZ, pPMTWindowLV, "PMTWindow", pPMTVacuumLV, false, detectOverlap);
+
+  	G4VisAttributes* pPMTWindowVisAtt = new G4VisAttributes(G4Color(0.0, 1.0, 1.0, 1.0));
+  	pPMTWindowVisAtt->SetForceSolid(true);
+  	pPMTWindowLV->SetVisAttributes(pPMTWindowVisAtt);
+
+  	////////////////////////////////
+    // Construct PMT Photocathode //
+    ////////////////////////////////
+
+    // Set PMT Photocathode Variables
+    G4double dPMTPhotocathodeRadius1 = 3.200 * cm;
+    
+    G4double dPMTPhotocathodeHeight1 = 0.100 * cm;
+
+    G4double dPMTPhotocathodePlacementX = 0.0 * cm;
+    G4double dPMTPhotocathodePlacementY = 0.0 * cm;
+    G4double dPMTPhotocathodePlacementZ = 4.950 * cm;
+
+    G4ThreeVector dPMTPhotocathodeXYZ(dPMTPhotocathodePlacementX, dPMTPhotocathodePlacementY, dPMTPhotocathodePlacementZ);
+
+    // Create PMT Photocathode
+    G4Tubs* pPMTPhotocathode = new G4Tubs("PMTPhotocathode", 0, dPMTPhotocathodeRadius1, 0.5 * dPMTPhotocathodeHeight1, 0, 2 * M_PI);
+    G4LogicalVolume* pPMTPhotocathodeLV = new G4LogicalVolume(pPMTPhotocathode, G4Material::GetMaterial("Photocathode"), "PMTPhotocathodeLV");
+    G4PVPlacement* pPMTPhotocathodePV = new G4PVPlacement(0, dPMTPhotocathodeXYZ, pPMTPhotocathodeLV, "PMTPhotocathode", pPMTVacuumLV, false, detectOverlap);
+    
+    G4VisAttributes* pPMTPhotocathodeVisAtt = new G4VisAttributes(G4Color(0.0, 1.0, 1.0, 1.0));
+  	pPMTPhotocathodeVisAtt->SetForceSolid(true);
+  	pPMTPhotocathodeLV->SetVisAttributes(pPMTPhotocathodeVisAtt);
+
+    ///////////////////////////
+    // Construct PMT Ceramic //
+    ///////////////////////////
+
+    // Set PMT Ceramic Variables
+    G4double dPMTCeramicRadius1 = dPMTVacuumRadius6;
+    
+    G4double dPMTCeramicHeight1 = 0.400 * cm;
+
+    G4double dPMTCeramicPlacementX = 0.0 * cm;
+    G4double dPMTCeramicPlacementY = 0.0 * cm;
+    G4double dPMTCeramicPlacementZ = 0.5 * dPMTCeramicHeight1 + dPMTHeight19;
+
+    G4ThreeVector dPMTCeramicXYZ(dPMTCeramicPlacementX, dPMTCeramicPlacementY, dPMTCeramicPlacementZ);
+
+    // Create PMT Ceramic
+    G4Tubs* pPMTCeramic = new G4Tubs("PMTCeramic", 0, dPMTCeramicRadius1, 0.5 * dPMTCeramicHeight1, 0, 2 * M_PI);
+    G4LogicalVolume* pPMTCeramicLV = new G4LogicalVolume(pPMTCeramic, G4Material::GetMaterial("Ceramic"), "PMTCeramicLV");
+    G4PVPlacement* pPMTCeramicPV = new G4PVPlacement(0, dPMTCeramicXYZ, pPMTCeramicLV, "PMTCeramic", pPMTVacuumLV, false, detectOverlap);
+
+    G4VisAttributes* pPMTCeramicVisAtt = new G4VisAttributes(G4Color(1.0, 1.0, 1.0, 1.0));
+  	pPMTCeramicVisAtt->SetForceSolid(true);
+  	pPMTCeramicLV->SetVisAttributes(pPMTCeramicVisAtt);
+
+  	///////////////////////
+  	// Construct RegionX //
+  	///////////////////////
+
+  	// Set Region X variables
+  	G4double dRegionXRadius1 = dPTFE01StockRadius1;
+
+  	G4double dRegionXHeight1 = dPTFE01StockHeight3 - dPTFE01StockHeight9 + dPMTRingHeight + dPMTHeight1 - dPMTHeight3;
+  	G4double dRegionXPlacementX = 0.0 * cm;
+  	G4double dRegionXPlacementY = 0.0 * cm;
+  	G4double dRegionXPlacementZ = dPTFE01StockPlacementZ + dPTFE01StockHeight9 - dPMTRingHeight - dPMTHeight1 + dPMTHeight3 + 0.5 * dRegionXHeight1;
+
+  	G4ThreeVector dRegionXXYZ(dRegionXPlacementX, dRegionXPlacementY, dRegionXPlacementZ);
+
+  	// Create Region X
+  	G4Tubs* pRegionX = new G4Tubs("RegionX", 0, dRegionXRadius1, 0.5 * dRegionXHeight1, 0, 2 * M_PI);
+  	G4LogicalVolume* pRegionXLV = new G4LogicalVolume(pRegionX, G4Material::GetMaterial("LXe"), "RegionXLV");
+  	G4PVPlacement* pRegionXPV = new G4PVPlacement(0, dRegionXXYZ, pRegionXLV, "RegionX", pMotherLV, false, detectOverlap);
+
+  	G4VisAttributes* pRegionXVisAtt = new G4VisAttributes(G4Color(0.0, 0.0, 0.0, 1.0));
+  	pRegionXVisAtt->SetForceSolid(true);
+  	pRegionXLV->SetVisAttributes(pRegionXVisAtt);
+
+    //////////////////////////
+    // Construct Grid Rings //
+    //////////////////////////
 
     // Set Ring Variables
     G4double dGridRadius1 = 35.915 * mm;
@@ -2478,17 +2622,22 @@ void RELAXDetectorConstruction::ConstructCryostat()
     pScreeningMeshPV->CheckOverlaps();
     pGatePV->CheckOverlaps();
     pPMTPV->CheckOverlaps();
+    pPMTVacuumPV->CheckOverlaps();
+    pPMTWindowPV->CheckOverlaps();
+    pPMTPhotocathodePV->CheckOverlaps();
+    pPMTCeramicPV->CheckOverlaps();
+    pRegionXPV->CheckOverlaps();
 
     // Give the pieces color and shape
     G4VisAttributes * pPTFE00VisAtt = new G4VisAttributes(G4Colour(1.0, 1.0, 1.0, 0.5));
     pPTFE00VisAtt->SetForceSolid(true);
     pPTFE00LV->SetVisAttributes(pPTFE00VisAtt);
 
-    G4VisAttributes * pPTFE01VisAtt = new G4VisAttributes(G4Colour(1.0, 1.0, 1.0, 0.5));
+    G4VisAttributes * pPTFE01VisAtt = new G4VisAttributes(G4Colour(1.0, 1.0, 1.0, 0.25));
     pPTFE01VisAtt->SetForceSolid(true);
     pPTFE01LV->SetVisAttributes(pPTFE01VisAtt);
 
-    G4VisAttributes * pPTFE02VisAtt = new G4VisAttributes(G4Colour(1.0, 1.0, 1.0, 0.5));
+    G4VisAttributes * pPTFE02VisAtt = new G4VisAttributes(G4Colour(1.0, 1.0, 1.0, 0.0));
     pPTFE02VisAtt->SetForceSolid(true);
     pPTFE02LV->SetVisAttributes(pPTFE02VisAtt);
 
