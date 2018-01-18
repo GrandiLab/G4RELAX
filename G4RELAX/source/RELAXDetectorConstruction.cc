@@ -57,6 +57,12 @@ RELAXDetectorConstruction::RELAXDetectorConstruction() : G4VUserDetectorConstruc
     
     dLXeDensity = 2.9223*g/cm3;
     dGXeDensity = 0.011655*g/cm3;
+
+    #ifdef DEBUG
+        bDetectOverlap = true;
+    #else
+        bDetectOverlap = false;
+    #endif
 }
 
 RELAXDetectorConstruction::~RELAXDetectorConstruction()
@@ -588,7 +594,7 @@ void RELAXDetectorConstruction::DefineMaterials()
     ////////////////////////////
     // Create Stainless Steel //
     ////////////////////////////
-    G4Material* pStainlessSteelMaterial = new G4Material("Stainless Steel", 8.0000*g/cm3, 10, kStateSolid);
+    G4Material* pStainlessSteelMaterial = new G4Material("StainlessSteel", 8.0000*g/cm3, 10, kStateSolid);
     pStainlessSteelMaterial->AddElement(pFeElement, 65.4950*perCent);
     pStainlessSteelMaterial->AddElement(pCrElement, 17.0000*perCent);
     pStainlessSteelMaterial->AddElement(pNiElement, 12.0000*perCent);
@@ -666,43 +672,52 @@ void RELAXDetectorConstruction::ConstructLaboratory()
     // Construct Laboratory //
     //////////////////////////
 
-    // Set Laboratory Variables
-    G4double dLaboratoryLength = 160.000 * cm;
-    G4double dLaboratoryWidth  = 160.000 * cm;
-    dLaboratoryHeight = 100.000 * cm;
+    //////////////////////////////
+    // Set Laboratory Variables //
+    //////////////////////////////
+    G4double dLaboratoryLength = 160.0 * cm;
+    G4double dLaboratoryWidth  = 160.0 * cm;
+    G4double dLaboratoryHeight = 100.0 * cm; // Find better solution to this!
 
-    // Create Laboratory
-    G4Box* pLaboratoryBox = new G4Box("LaboratoryBox", 0.5 * dLaboratoryLength, 0.5 * dLaboratoryWidth, 0.5 * dLaboratoryHeight);
-    pLaboratoryLV         = new G4LogicalVolume(pLaboratoryBox, G4Material::GetMaterial("Air"), "LaboratoryLV");
-    pLaboratoryPV         = new G4PVPlacement(0, G4ThreeVector(), pLaboratoryLV, "Laboratory", 0, false, 0);
+    ///////////////////////
+    // Create Laboratory //
+    ///////////////////////
+    G4Box*             pLaboratoryBox = new G4Box("LaboratoryBox", 0.5 * dLaboratoryLength, 0.5 * dLaboratoryWidth, 0.5 * dLaboratoryHeight);
+    G4LogicalVolume*   pLaboratoryLV  = new G4LogicalVolume(pLaboratoryBox, G4Material::GetMaterial("Air"), "LaboratoryLV");
+    G4VPhysicalVolume* pLaboratoryPV  = new G4PVPlacement(0, G4ThreeVector(), pLaboratoryLV, "Laboratory", 0, false, bDetectOverlap);
 
     G4VisAttributes* pLaboratoryVisAtt = new G4VisAttributes(G4Colour(1.0, 1.0, 1.0, 0.0));
     pLaboratoryVisAtt->SetForceSolid(true);
     pLaboratoryLV->SetVisAttributes(pLaboratoryVisAtt);
-    //pLaboratoryLV->SetVisAttributes(G4VisAttributes::Invisible);
 
-    // Set Mother Logical Volume
+    ///////////////////////////////
+    // Set Mother Logical Volume //
+    ///////////////////////////////
     pMotherLV = pLaboratoryLV;
 
     /////////////////////
     // Construct Floor //
     /////////////////////
 
-    // Set Floor variables
+    /////////////////////////
+    // Set Floor variables //
+    /////////////////////////
     G4double dFloorLength = dLaboratoryLength;
     G4double dFloorWidth  = dLaboratoryWidth; 
-    dFloorHeight = 15.00 * cm;
+    G4double dFloorHeight = 15.0 * cm;
 
-    G4double dFloorPlacementX = 0.00 * cm;
-    G4double dFloorPlacementY = 0.00 * cm;
+    G4double dFloorPlacementX = 0.0;
+    G4double dFloorPlacementY = 0.0;
     G4double dFloorPlacementZ = 0.5 * (dFloorHeight - dLaboratoryHeight);
 
     G4ThreeVector dFloorXYZ(dFloorPlacementX, dFloorPlacementY, dFloorPlacementZ);
-    
-    // Create Laboratory
-    G4Box* pFloorBox = new G4Box("FloorBox", 0.5 * dFloorLength, 0.5 * dFloorWidth, 0.5 * dFloorHeight);
-    G4LogicalVolume* pFloorLV = new G4LogicalVolume(pFloorBox, G4Material::GetMaterial("Concrete"), "FloorLV");
-    G4VPhysicalVolume* pFloorPV = new G4PVPlacement(0, dFloorXYZ, pFloorLV, "Floor", pMotherLV, false, 0);
+
+    ///////////////////////
+    // Create Laboratory //
+    ///////////////////////
+    G4Box*             pFloorBox = new G4Box("FloorBox", 0.5 * dFloorLength, 0.5 * dFloorWidth, 0.5 * dFloorHeight);
+    G4LogicalVolume*   pFloorLV  = new G4LogicalVolume(pFloorBox, G4Material::GetMaterial("Concrete"), "FloorLV");
+    G4VPhysicalVolume* pFloorPV  = new G4PVPlacement(0, dFloorXYZ, pFloorLV, "Floor", pMotherLV, false, bDetectOverlap);
 
     G4VisAttributes* pFloorVisAtt = new G4VisAttributes(G4Colour::Gray());
     pFloorVisAtt->SetForceSolid(true);
@@ -711,85 +726,95 @@ void RELAXDetectorConstruction::ConstructLaboratory()
 
 void RELAXDetectorConstruction::ConstructCryostat()
 {
-	detectOverlap = true;
+    //////////////////////////////////
+    // Get the G4LogicalVolumeStore //
+    //////////////////////////////////
+    G4LogicalVolumeStore* pLVStore = G4LogicalVolumeStore::GetInstance();
 
-    ////////////////////////
-    // Construct Cryostat //
-    ////////////////////////
+    //////////////////////////////////
+    // Retrieve Necessary Variables //
+    //////////////////////////////////
+    G4double dLaboratoryHeight = 2 * pLVStore->GetVolume("LaboratoryLV")->GetSolid()->GetZHalfLength();
+    G4double dFloorHeight      = 2 * pLVStore->GetVolume("FloorLV")->GetSolid()->GetZHalfLength();
 
-    // Set Cryostat variables
-    G4double dOuterCryostatRadius1 = 0.0000*cm;
+    //////////////////////////////
+    // Construct Outer Cryostat //
+    //////////////////////////////
+
+    ////////////////////////////
+    // Set Cryostat variables //
+    ////////////////////////////
+    G4double dOuterCryostatRadius1 =  0.0000*cm;
     G4double dOuterCryostatRadius2 = 10.4775*cm;
     G4double dOuterCryostatRadius3 = dOuterCryostatRadius2;
-    G4double dOuterCryostatRadius4 = 6.4389*cm;
+    G4double dOuterCryostatRadius4 =  6.4389*cm;
     G4double dOuterCryostatRadius5 = dOuterCryostatRadius4;
-    G4double dOuterCryostatRadius6 = 6.1214*cm;
+    G4double dOuterCryostatRadius6 =  6.1214*cm;
     G4double dOuterCryostatRadius7 = dOuterCryostatRadius6;
     G4double dOuterCryostatRadius8 = dOuterCryostatRadius1;
     G4double dOuterCryostatRadius9 = dOuterCryostatRadius1;
-
-    G4double dOuterCryostatRadius10 = 11.4300*cm;
-
     
-    G4double dOuterCryostatHeight1 = 42.2275*cm;
-    G4double dOuterCryostatHeight2 = dOuterCryostatHeight1;
-    G4double dOuterCryostatHeight3 = 37.7825*cm;
-    G4double dOuterCryostatHeight4 = dOuterCryostatHeight3;
+    G4double dOuterCryostatHeight1 =  42.2275*cm;
+    G4double dOuterCryostatHeight2 =  dOuterCryostatHeight1;
+    G4double dOuterCryostatHeight3 =  37.7825*cm;
+    G4double dOuterCryostatHeight4 =  dOuterCryostatHeight3;
     G4double dOuterCryostatHeight5 = -dOuterCryostatHeight1;
     G4double dOuterCryostatHeight6 = -dOuterCryostatHeight1;
     G4double dOuterCryostatHeight7 = -41.9100*cm;
-    G4double dOuterCryostatHeight8 = dOuterCryostatHeight7;
-    G4double dOuterCryostatHeight9 = dOuterCryostatHeight1;
+    G4double dOuterCryostatHeight8 =  dOuterCryostatHeight7;
+    G4double dOuterCryostatHeight9 =  dOuterCryostatHeight1;
 
-    G4double dOuterCryostatRadiusArray[] = { dOuterCryostatRadius1,
-                                             dOuterCryostatRadius2,
-                                             dOuterCryostatRadius3,
-                                             dOuterCryostatRadius4,
-                                             dOuterCryostatRadius5,
-                                             dOuterCryostatRadius6,
-                                             dOuterCryostatRadius7,
-                                             dOuterCryostatRadius8,
-                                             dOuterCryostatRadius9};
+    G4double dOuterCryostatRadiusArray[] = {dOuterCryostatRadius1,
+                                            dOuterCryostatRadius2,
+                                            dOuterCryostatRadius3,
+                                            dOuterCryostatRadius4,
+                                            dOuterCryostatRadius5,
+                                            dOuterCryostatRadius6,
+                                            dOuterCryostatRadius7,
+                                            dOuterCryostatRadius8,
+                                            dOuterCryostatRadius9};
 
-    G4double dOuterCryostatHeightArray[] = { dOuterCryostatHeight1,
-                                             dOuterCryostatHeight2,
-                                             dOuterCryostatHeight3,
-                                             dOuterCryostatHeight4,
-                                             dOuterCryostatHeight5,
-                                             dOuterCryostatHeight6,
-                                             dOuterCryostatHeight7,
-                                             dOuterCryostatHeight8,
-                                             dOuterCryostatHeight9};
+    G4double dOuterCryostatHeightArray[] = {dOuterCryostatHeight1,
+                                            dOuterCryostatHeight2,
+                                            dOuterCryostatHeight3,
+                                            dOuterCryostatHeight4,
+                                            dOuterCryostatHeight5,
+                                            dOuterCryostatHeight6,
+                                            dOuterCryostatHeight7,
+                                            dOuterCryostatHeight8,
+                                            dOuterCryostatHeight9};
 
-    G4double dOuterCryostatSS1PlacementX = 0.0000*cm;
-    G4double dOuterCryostatSS1PlacementY = 0.0000*cm;
+    G4double dOuterCryostatRadius10 = 11.4300*cm;
+
+    G4double dOuterCryostatSS1PlacementX = 0.0;
+    G4double dOuterCryostatSS1PlacementY = 0.0;
     G4double dOuterCryostatSS1PlacementZ = dOuterCryostatHeight7 - cos(asin(dOuterCryostatRadius6 / dOuterCryostatRadius10)) * dOuterCryostatRadius10;
 
-    G4double dOuterCryostatPlacementX = 0.0000*cm;
-    G4double dOuterCryostatPlacementY = 0.0000*cm;
-    G4double dOuterCryostatPlacementZ = 0.5 * ((2 * (dOuterCryostatHeight1 + dFloorHeight)) - dLaboratoryHeight);
-
-    G4RotationMatrix dOuterCryostatRot;
-    dOuterCryostatRot.rotateZ(0.00);
-
     G4ThreeVector dOuterCryostatSS1XYZ(dOuterCryostatSS1PlacementX, dOuterCryostatSS1PlacementY, dOuterCryostatSS1PlacementZ);
-    G4Transform3D dOuterCryostatSS1Transform(dOuterCryostatRot, dOuterCryostatSS1XYZ);
+
+    G4double dOuterCryostatPlacementX = 0.0;
+    G4double dOuterCryostatPlacementY = 0.0;
+    G4double dOuterCryostatPlacementZ = (dOuterCryostatHeight1 + dFloorHeight) - 0.5 * dLaboratoryHeight);
 
     G4ThreeVector dOuterCryostatXYZ(dOuterCryostatPlacementX, dOuterCryostatPlacementY, dOuterCryostatPlacementZ);
 
-    // Create Cryostat
-    G4GenericPolycone* pOuterCryostatPolycone1 = new G4GenericPolycone("OuterCryostatPolycone1", 0.0, 2 * M_PI, 9, dOuterCryostatRadiusArray, dOuterCryostatHeightArray);
-    G4Sphere* pOuterCryostatSphere2 = new G4Sphere("OuterCryostatSphere2", 0.0 * cm, dOuterCryostatRadius10, 0.0, 2 * M_PI, 0.0, asin(dOuterCryostatRadius6 / dOuterCryostatRadius10));
-    G4SubtractionSolid* pOuterCryostat = new G4SubtractionSolid("OuterCryostat", pOuterCryostatPolycone1, pOuterCryostatSphere2, dOuterCryostatSS1Transform);
+    /////////////////////
+    // Create Cryostat //
+    /////////////////////
+    G4GenericPolycone*  pOuterCryostatPolycone1 = new G4GenericPolycone("OuterCryostatPolycone1", 0.0, 2 * M_PI, 9, dOuterCryostatRadiusArray, dOuterCryostatHeightArray);
+    G4Sphere*           pOuterCryostatSphere2   = new G4Sphere("OuterCryostatSphere2", 0.0, dOuterCryostatRadius10, 0.0, 2 * M_PI, 0.0, asin(dOuterCryostatRadius6 / dOuterCryostatRadius10));
+    G4SubtractionSolid* pOuterCryostat          = new G4SubtractionSolid("OuterCryostat", pOuterCryostatPolycone1, pOuterCryostatSphere2, 0, dOuterCryostatSS1XYZ);
 
-    G4LogicalVolume* pOuterCryostatLV = new G4LogicalVolume(pOuterCryostat, G4Material::GetMaterial("Stainless Steel"), "OuterCryostat");
-    G4PVPlacement* pOuterCryostatPV = new G4PVPlacement(0, dOuterCryostatXYZ, pOuterCryostatLV, "OuterCryostat", pMotherLV, false, detectOverlap);
+    G4LogicalVolume* pOuterCryostatLV = new G4LogicalVolume(pOuterCryostat, G4Material::GetMaterial("StainlessSteel"), "OuterCryostat");
+    G4PVPlacement*   pOuterCryostatPV = new G4PVPlacement(0, dOuterCryostatXYZ, pOuterCryostatLV, "OuterCryostat", pMotherLV, false, detectOverlap);
 
-    G4VisAttributes* pOuterCryostatVisAtt = new G4VisAttributes(G4Colour(1.0, 0.0, 0.0, 0.15));
+    G4VisAttributes* pOuterCryostatVisAtt = new G4VisAttributes(G4Colour(1.0, 0.0, 0.0, 0.1));
     pOuterCryostatVisAtt->SetForceSolid(true);
     pOuterCryostatLV->SetVisAttributes(pOuterCryostatVisAtt);
 
-    // Set it as mother volume
+    //////////////////////////
+    // Update Mother Volume //
+    //////////////////////////
     pMotherLV = pOuterCryostatLV;
 
     ///////////////////////////////
@@ -797,47 +822,50 @@ void RELAXDetectorConstruction::ConstructCryostat()
     ///////////////////////////////
 
     G4double dCryostatVacuumRadius1 = 6.2865*cm;
-    G4double dCryostatVacuumRadius2 = dOuterCryostatRadius10;
 
     G4double dCryostatVacuumHeight1 = dOuterCryostatHeight3 - dOuterCryostatHeight7 + 2.2225*cm - ((cos(asin(dCryostatVacuumRadius1 / dOuterCryostatRadius10)) - cos(asin(dOuterCryostatRadius6 / dOuterCryostatRadius10))) * dOuterCryostatRadius10 + 0.1524*cm);
 
-    G4double dCryostatVacuumSS1PlacementX = 0.0000*cm;
-    G4double dCryostatVacuumSS1PlacementY = 0.0000*cm;
+    G4double dCryostatVacuumRadius2 = dOuterCryostatRadius10;
+
+    G4double dCryostatVacuumSS1PlacementX =  0.0;
+    G4double dCryostatVacuumSS1PlacementY =  0.0;
     G4double dCryostatVacuumSS1PlacementZ = -0.5 * (dCryostatVacuumHeight1 + 2 * cos(asin(dCryostatVacuumRadius1 / dCryostatVacuumRadius2)) * dCryostatVacuumRadius2);
 
-    G4double dCryostatVacuumPlacementX = 0.0000*cm;
-    G4double dCryostatVacuumPlacementY = 0.0000*cm;
+    G4ThreeVector dCryostatVacuumSS1XYZ(dCryostatVacuumSS1PlacementX, dCryostatVaccumeSS1PlacementY, dCryostatVacuumSS1PlacementZ);
+
+    G4double dCryostatVacuumPlacementX = 0.0;
+    G4double dCryostatVacuumPlacementY = 0.0;
     G4double dCryostatVacuumPlacementZ = 0.5 * (2 * dOuterCryostatHeight3 + 4.4450*cm - dCryostatVacuumHeight1);
-
-    G4RotationMatrix dCryostatVacuumRot;
-    dCryostatVacuumRot.rotateZ(0.0);
-
-    G4ThreeVector dCryostatVacuumSS1XYZ(dCryostatVacuumSS1PlacementX, dCryostatVacuumSS1PlacementY, dCryostatVacuumSS1PlacementZ);
-    G4Transform3D dCryostatVacuumSS1Transform(dCryostatVacuumRot, dCryostatVacuumSS1XYZ);
 
     G4ThreeVector dCryostatVacuumXYZ(dCryostatVacuumPlacementX, dCryostatVacuumPlacementY, dCryostatVacuumPlacementZ);
 
-    // Create Cryostat
-    G4Tubs* pCryostatVacuumCylinder1 = new G4Tubs("CryostatVacuumCylinder1", 0.0 * cm, dCryostatVacuumRadius1, 0.5 * dCryostatVacuumHeight1, 0.0, 2 * M_PI);
-    G4Sphere* pCryostatVacuumSphere2 = new G4Sphere("CryostatVacuumSphere1", 0.0 * cm, dCryostatVacuumRadius2, 0.0, 2 * M_PI, 0.0, asin(dCryostatVacuumRadius1 / dCryostatVacuumRadius2));
-    G4SubtractionSolid* pCryostatVacuum = new G4SubtractionSolid("CryostatVacuum", pCryostatVacuumCylinder1, pCryostatVacuumSphere2, dCryostatVacuumSS1Transform);
+    /////////////////////
+    // Create Cryostat //
+    /////////////////////
+    G4Tubs*             pCryostatVacuumCylinder1 = new G4Tubs("CryostatVacuumCylinder1", 0.0, dCryostatVacuumRadius1, 0.5 * dCryostatVacuumHeight1, 0.0, 2 * M_PI);
+    G4Sphere*           pCryostatVacuumSphere2   = new G4Sphere("CryostatVacuumSphere1", 0.0, dCryostatVacuumRadius2, 0.0, 2 * M_PI, 0.0, asin(dCryostatVacuumRadius1 / dCryostatVacuumRadius2));
+    G4SubtractionSolid* pCryostatVacuum          = new G4SubtractionSolid("CryostatVacuum", pCryostatVacuumCylinder1, pCryostatVacuumSphere2, 0, dCryostatVacuumSS1XYZ);
 
     G4LogicalVolume* pCryostatVacuumLV = new G4LogicalVolume(pCryostatVacuum, G4Material::GetMaterial("Vacuum"), "CryostatVacuumLV");
-    G4PVPlacement* pCryostatVacuumPV = new G4PVPlacement(0, dCryostatVacuumXYZ, pCryostatVacuumLV, "CryostatVacuum", pMotherLV, false, detectOverlap);
+    G4PVPlacement*   pCryostatVacuumPV = new G4PVPlacement(0, dCryostatVacuumXYZ, pCryostatVacuumLV, "CryostatVacuum", pMotherLV, false, detectOverlap);
 
     G4VisAttributes* pCryostatVacuumVisAtt = new G4VisAttributes(G4Colour(0.0, 0.0, 0.1, 0.20));
     pCryostatVacuumVisAtt->SetForceSolid(true);
     pCryostatVacuumLV->SetVisAttributes(pCryostatVacuumVisAtt);
 
-    // Set new MotherLV
+    //////////////////////////
+    // Update Mother Volume //
+    //////////////////////////
     pMotherLV = pCryostatVacuumLV;
 
     //////////////////////////////
     // Construct Inner Cryostat //
     //////////////////////////////
 
-    // Set Inner Cryostat variables
-    G4double dInnerCryostatRadius1 = 0.0000 * cm;
+    //////////////////////////////////
+    // Set Inner Cryostat variables //
+    //////////////////////////////////
+    G4double dInnerCryostatRadius1 = 0.00000 * cm;
     G4double dInnerCryostatRadius2 = dCryostatVacuumRadius1;
     G4double dInnerCryostatRadius3 = dCryostatVacuumRadius1;
     G4double dInnerCryostatRadius4 = 5.72516 * cm;
@@ -846,13 +874,12 @@ void RELAXDetectorConstruction::ConstructCryostat()
     G4double dInnerCryostatRadius7 = dInnerCryostatRadius1;
 
     G4double dInnerCryostatHeight1 = 38.4175 * cm;
-    G4double dInnerCryostatHeight2 = dInnerCryostatHeight1;
+    G4double dInnerCryostatHeight2 =  dInnerCryostatHeight1;
     G4double dInnerCryostatHeight3 = 36.1950 * cm;
-    G4double dInnerCryostatHeight4 = dInnerCryostatHeight3;
+    G4double dInnerCryostatHeight4 =  dInnerCryostatHeight3;
     G4double dInnerCryostatHeight5 = -dInnerCryostatHeight1;
     G4double dInnerCryostatHeight6 = -dInnerCryostatHeight1;
-    G4double dInnerCryostatHeight7 = dInnerCryostatHeight1;
-
+    G4double dInnerCryostatHeight7 =  dInnerCryostatHeight1;
     
     G4double dInnerCryostatRadiusArray[] = {dInnerCryostatRadius1, 
                                             dInnerCryostatRadius2, 
@@ -872,95 +899,95 @@ void RELAXDetectorConstruction::ConstructCryostat()
     
     G4double dInnerCryostatRadius8 = dOuterCryostatRadius10;
     
-    G4double dInnerCryostatUS1PlacementX = 0.0000 * cm;
-    G4double dInnerCryostatUS1PlacementY = 0.0000 * cm;
-    G4double dInnerCryostatUS1PlacementZ = -dInnerCryostatHeight1 + cos(asin(dInnerCryostatRadius4 / dInnerCryostatRadius8)) * dInnerCryostatRadius8 + 1.0*um; // 1.0 here, look into this
-    
-    G4double dInnerCryostatPlacementX = 0.0000 * cm;
-    G4double dInnerCryostatPlacementY = 0.0000 * cm;
+    G4double dInnerCryostatUS1PlacementX = 0.0;
+    G4double dInnerCryostatUS1PlacementY = 0.0;
+    G4double dInnerCryostatUS1PlacementZ = -dInnerCryostatHeight1 + cos(asin(dInnerCryostatRadius4 / dInnerCryostatRadius8)) * dInnerCryostatRadius8;
+
+    G4ThreeVector dInnerCryostatUS1XYZ(dInnerCryostatUS1PlacementX, dInnerCryostatUS1PlacementY, dInnerCryostatUS1PlacementZ);
+
+    G4double dInnerCryostatPlacementX = 0.0;
+    G4double dInnerCryostatPlacementY = 0.0;
     G4double dInnerCryostatPlacementZ = 0.5 * dCryostatVacuumHeight1 - dInnerCryostatHeight1;
 
     G4ThreeVector dInnerCryostatXYZ(dInnerCryostatPlacementX, dInnerCryostatPlacementY, dInnerCryostatPlacementZ);
 
-    G4RotationMatrix dInnerCryostatUS1Rot;
-    dInnerCryostatUS1Rot.rotateZ(0.00);
+    ///////////////////////////
+    // Create Inner Cryostat //
+    ///////////////////////////    
+    G4GenericPolycone* pInnerCryostatPolycone1 = new G4GenericPolycone("InnerCryostatPolycone1", 0.0, 2 * M_PI, 7, dInnerCryostatRadiusArray, dInnerCryostatHeightArray);
+    G4Sphere*          pInnerCryostatSphere2   = new G4Sphere("InnerCryostatSphere1", 0.0, dInnerCryostatRadius8, 0.0, 2 * M_PI, M_PI - asin(dInnerCryostatRadius4 / dInnerCryostatRadius8), asin(dInnerCryostatRadius4 / dInnerCryostatRadius8));
+    G4UnionSolid*      pInnerCryostat          = new G4UnionSolid("InnerCryostat", pInnerCryostatPolycone1, pInnerCryostatSphere2, 0, dInnerCryostatUS1XYZ);
+    
+    G4LogicalVolume* pInnerCryostatLV = new G4LogicalVolume(pInnerCryostat, G4Material::GetMaterial("StainlessSteel"), "InnerCryostatLV");
+    G4PVPlacement*   pInnerCryostatPV = new G4PVPlacement(0, dInnerCryostatXYZ, pInnerCryostatLV, "InnerCryostat", pMotherLV, false, detectOverlap);
 
-    G4ThreeVector dInnerCryostatUS1XYZ(dInnerCryostatUS1PlacementX, dInnerCryostatUS1PlacementY, dInnerCryostatUS1PlacementZ);
-    G4Transform3D dInnerCryostatUS1Transform(dInnerCryostatUS1Rot, dInnerCryostatUS1XYZ);
-    
-    // Create subtraction solids    
-    G4GenericPolycone* pInnerCryostatPolycone1 = new G4GenericPolycone("InnerCryostatPolycone1", 0.00, 2 * M_PI, 7, dInnerCryostatRadiusArray, dInnerCryostatHeightArray);
-    G4Sphere* pInnerCryostatSphere2 = new G4Sphere("InnerCryostatSphere1", 0.0 * cm, dInnerCryostatRadius8, 0, 2 * M_PI, M_PI - asin(dInnerCryostatRadius4 / dInnerCryostatRadius8), asin(dInnerCryostatRadius4 / dInnerCryostatRadius8));
-    
-    G4UnionSolid* pInnerCryostat = new G4UnionSolid("InnerCryostat", pInnerCryostatPolycone1, pInnerCryostatSphere2, dInnerCryostatUS1Transform);
-    
-    // Create Inner Cryostat
-    G4LogicalVolume* pInnerCryostatLV = new G4LogicalVolume(pInnerCryostat, G4Material::GetMaterial("Stainless Steel"), "InnerCryostatLV");
-    G4PVPlacement* pInnerCryostatPV = new G4PVPlacement(0, dInnerCryostatXYZ, pInnerCryostatLV, "InnerCryostat", pMotherLV, false, detectOverlap);
-    
-    // Set Mother volume
-    pMotherLV = pInnerCryostatLV;
-
-    G4VisAttributes* pInnerCryostatVisAtt = new G4VisAttributes(G4Colour(0.0, 1.0, 0.0, 0.25));
+    G4VisAttributes* pInnerCryostatVisAtt = new G4VisAttributes(G4Colour(0.0, 0.0, 0.0, 0.0));
     pInnerCryostatVisAtt->SetForceSolid(true);
     pInnerCryostatLV->SetVisAttributes(pInnerCryostatVisAtt);
+
+    //////////////////////////
+    // Update Mother Volume //
+    //////////////////////////
+    pMotherLV = pInnerCryostatLV;
 
     //////////////////////
     // Construct PTFE03 //
     //////////////////////
 
-    // Set PTFE03 Variables
-    G4double dPTFE03StockRadius1  = 32.00 * mm;
-    G4double dPTFE03StockRadius2  = 35.00 * mm;
-    G4double dPTFE03StockRadius3  = dPTFE03StockRadius2;
-    G4double dPTFE03StockRadius4  = 43.00 * mm;
-    G4double dPTFE03StockRadius5  = dPTFE03StockRadius4;
-    G4double dPTFE03StockRadius6  = 54.00 * mm;
-    G4double dPTFE03StockRadius7  = dPTFE03StockRadius6;
-    G4double dPTFE03StockRadius8  = dPTFE03StockRadius4;
-    G4double dPTFE03StockRadius9  = dPTFE03StockRadius4;
-    G4double dPTFE03StockRadius10 = dPTFE03StockRadius2;
-    G4double dPTFE03StockRadius11 = dPTFE03StockRadius2;
-    G4double dPTFE03StockRadius12 = dPTFE03StockRadius1;
+    //////////////////////////
+    // Set PTFE03 Variables //
+    //////////////////////////
+    G4double dPTFE03Radius1  = 32.0 * mm;
+    G4double dPTFE03Radius2  = 35.0 * mm;
+    G4double dPTFE03Radius3  = dPTFE03Radius2;
+    G4double dPTFE03Radius4  = 43.0 * mm;
+    G4double dPTFE03Radius5  = dPTFE03Radius4;
+    G4double dPTFE03Radius6  = 54.0 * mm;
+    G4double dPTFE03Radius7  = dPTFE03Radius6;
+    G4double dPTFE03Radius8  = dPTFE03Radius4;
+    G4double dPTFE03Radius9  = dPTFE03Radius4;
+    G4double dPTFE03Radius10 = dPTFE03Radius2;
+    G4double dPTFE03Radius11 = dPTFE03Radius2;
+    G4double dPTFE03Radius12 = dPTFE03Radius1;
 
-    G4double dPTFE03StockRadiusArray[] = { dPTFE03StockRadius1,
-                                      dPTFE03StockRadius2,
-                                      dPTFE03StockRadius3,
-                                      dPTFE03StockRadius4,
-                                      dPTFE03StockRadius5,
-                                      dPTFE03StockRadius6,
-                                      dPTFE03StockRadius7,
-                                      dPTFE03StockRadius8,
-                                      dPTFE03StockRadius9,
-                                      dPTFE03StockRadius10,
-                                      dPTFE03StockRadius11,
-                                      dPTFE03StockRadius12};
+    G4double dPTFE03RadiusArray[] = {dPTFE03StockRadius1,
+                                     dPTFE03StockRadius2,
+                                     dPTFE03StockRadius3,
+                                     dPTFE03StockRadius4,
+                                     dPTFE03StockRadius5,
+                                     dPTFE03StockRadius6,
+                                     dPTFE03StockRadius7,
+                                     dPTFE03StockRadius8,
+                                     dPTFE03StockRadius9,
+                                     dPTFE03StockRadius10,
+                                     dPTFE03StockRadius11,
+                                     dPTFE03StockRadius12};
 
-    G4double dPTFE03StockHeight1  = 2.4 * mm;
-    G4double dPTFE03StockHeight2  = dPTFE03StockHeight1;
-    G4double dPTFE03StockHeight3  = 1.0 * mm;
-    G4double dPTFE03StockHeight4  = dPTFE03StockHeight3;
-    dPTFE03StockHeight5  = 2.5 * mm;
-    G4double dPTFE03StockHeight6  = dPTFE03StockHeight5;
-    G4double dPTFE03StockHeight7  = -dPTFE03StockHeight5;
-    G4double dPTFE03StockHeight8  = -dPTFE03StockHeight5;
-    G4double dPTFE03StockHeight9  = -dPTFE03StockHeight3;
-    G4double dPTFE03StockHeight10 = -dPTFE03StockHeight3;
-    G4double dPTFE03StockHeight11 = -dPTFE03StockHeight1;
-    G4double dPTFE03StockHeight12 = -dPTFE03StockHeight1;
+    G4double dPTFE03Height1  = 2.4 * mm;
+    G4double dPTFE03Height2  =  dPTFE03Height1;
+    G4double dPTFE03Height3  = 1.0 * mm;
+    G4double dPTFE03Height4  =  dPTFE03Height3;
+    G4double dPTFE03Height5  = 2.5 * mm;
+    G4double dPTFE03Height6  =  dPTFE03Height5;
+    G4double dPTFE03Height7  = -dPTFE03Height5;
+    G4double dPTFE03Height8  = -dPTFE03Height5;
+    G4double dPTFE03Height9  = -dPTFE03Height3;
+    G4double dPTFE03Height10 = -dPTFE03Height3;
+    G4double dPTFE03Height11 = -dPTFE03Height1;
+    G4double dPTFE03Height12 = -dPTFE03Height1;
 
-    G4double dPTFE03StockHeightArray[] = { dPTFE03StockHeight1,
-                                      dPTFE03StockHeight2,
-                                      dPTFE03StockHeight3,
-                                      dPTFE03StockHeight4,
-                                      dPTFE03StockHeight5,
-                                      dPTFE03StockHeight6,
-                                      dPTFE03StockHeight7,
-                                      dPTFE03StockHeight8,
-                                      dPTFE03StockHeight9,
-                                      dPTFE03StockHeight10,
-                                      dPTFE03StockHeight11,
-                                      dPTFE03StockHeight12};
+    G4double dPTFE03HeightArray[] = {dPTFE03StockHeight1,
+                                     dPTFE03StockHeight2,
+                                     dPTFE03StockHeight3,
+                                     dPTFE03StockHeight4,
+                                     dPTFE03StockHeight5,
+                                     dPTFE03StockHeight6,
+                                     dPTFE03StockHeight7,
+                                     dPTFE03StockHeight8,
+                                     dPTFE03StockHeight9,
+                                     dPTFE03StockHeight10,
+                                     dPTFE03StockHeight11,
+                                     dPTFE03StockHeight12};
 
     // Set Subtraction Solid variables
     G4double dPTFE03StockCylinder1InnerRadius = 0.0 * mm;

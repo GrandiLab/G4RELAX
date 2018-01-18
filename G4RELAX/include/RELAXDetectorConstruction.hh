@@ -126,48 +126,19 @@ public:
     void SetXePressure(G4double mXePressure);
 
 private:
-    // List of Functions
+    ///////////////////////
+    // List of Functions //
+    ///////////////////////
     void DefineMaterials();
     void ConstructLaboratory();
     void ConstructCryostat();
-    std::map<G4String, G4Material*>* GetMaterialTable();
 
-    // List of Volumes
+    /////////////////////
+    // List of Volumes //
+    /////////////////////
     G4LogicalVolume* pMotherLV;
 
-    G4LogicalVolume* pLaboratoryLV;
-    G4VPhysicalVolume* pLaboratoryPV;
-
-    G4LogicalVolume* pPTFE00LV;
-    G4VPhysicalVolume* pPTFE00PV;
-    G4LogicalVolume* pPTFE01LV;
-    G4VPhysicalVolume* pPTFE01PV;
-    G4LogicalVolume* pPTFE02LV;
-    G4VPhysicalVolume* pPTFE02PV;
-    G4LogicalVolume* pPTFE03LV;
-    G4VPhysicalVolume* pPTFE03PV;
-    G4LogicalVolume* pPTFE04LV;
-    G4VPhysicalVolume* pPTFE04PV;
-    G4LogicalVolume* pPTFE05LV;
-    G4VPhysicalVolume* pPTFE05PV;
-    G4LogicalVolume* pPTFE06LV;
-    G4VPhysicalVolume* pPTFE06PV;
-    G4LogicalVolume* pPMTRingLV;
-    G4VPhysicalVolume* pPMTRingPV;
-    G4LogicalVolume* pGridLV;
-    G4VPhysicalVolume* pCathodePV;
-    G4VPhysicalVolume* pGatePV;
-    G4VPhysicalVolume* pAnodePV;
-    G4VPhysicalVolume* pScreeningMeshPV;
-
-    G4double dLaboratoryHeight;
-    G4double dFloorHeight;
-
-    G4bool detectOverlap;
-    G4double dPTFE00StockHeight1;
-    G4double dPTFE01StockHeight5;
-    G4double dPTFE02StockHeight5;
-    G4double dPTFE03StockHeight5;
+    G4bool bDetectOverlap;
 };
 
 #endif
