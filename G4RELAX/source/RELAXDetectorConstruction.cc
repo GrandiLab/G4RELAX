@@ -950,145 +950,158 @@ void RELAXDetectorConstruction::ConstructCryostat()
     G4double dPTFE03Radius11 = dPTFE03Radius2;
     G4double dPTFE03Radius12 = dPTFE03Radius1;
 
-    G4double dPTFE03RadiusArray[] = {dPTFE03StockRadius1,
-                                     dPTFE03StockRadius2,
-                                     dPTFE03StockRadius3,
-                                     dPTFE03StockRadius4,
-                                     dPTFE03StockRadius5,
-                                     dPTFE03StockRadius6,
-                                     dPTFE03StockRadius7,
-                                     dPTFE03StockRadius8,
-                                     dPTFE03StockRadius9,
-                                     dPTFE03StockRadius10,
-                                     dPTFE03StockRadius11,
-                                     dPTFE03StockRadius12};
+    G4double dPTFE03RadiusArray[] = {dPTFE03Radius1,
+                                     dPTFE03Radius2,
+                                     dPTFE03Radius3,
+                                     dPTFE03Radius4,
+                                     dPTFE03Radius5,
+                                     dPTFE03Radius6,
+                                     dPTFE03Radius7,
+                                     dPTFE03Radius8,
+                                     dPTFE03Radius9,
+                                     dPTFE03Radius10,
+                                     dPTFE03Radius11,
+                                     dPTFE03Radius12};
 
-    G4double dPTFE03Height1  = 2.4 * mm;
+    G4double dPTFE03Height1  =  2.23 * mm;
     G4double dPTFE03Height2  =  dPTFE03Height1;
-    G4double dPTFE03Height3  = 1.0 * mm;
+    G4double dPTFE03Height3  =  0.93 * mm;
     G4double dPTFE03Height4  =  dPTFE03Height3;
-    G4double dPTFE03Height5  = 2.5 * mm;
+    G4double dPTFE03Height5  =  2.50 * mm;
     G4double dPTFE03Height6  =  dPTFE03Height5;
     G4double dPTFE03Height7  = -dPTFE03Height5;
     G4double dPTFE03Height8  = -dPTFE03Height5;
-    G4double dPTFE03Height9  = -dPTFE03Height3;
-    G4double dPTFE03Height10 = -dPTFE03Height3;
+    G4double dPTFE03Height9  = -1.20
+    G4double dPTFE03Height10 =  dPTFE03Height9;
     G4double dPTFE03Height11 = -dPTFE03Height1;
     G4double dPTFE03Height12 = -dPTFE03Height1;
 
-    G4double dPTFE03HeightArray[] = {dPTFE03StockHeight1,
-                                     dPTFE03StockHeight2,
-                                     dPTFE03StockHeight3,
-                                     dPTFE03StockHeight4,
-                                     dPTFE03StockHeight5,
-                                     dPTFE03StockHeight6,
-                                     dPTFE03StockHeight7,
-                                     dPTFE03StockHeight8,
-                                     dPTFE03StockHeight9,
-                                     dPTFE03StockHeight10,
-                                     dPTFE03StockHeight11,
-                                     dPTFE03StockHeight12};
+    G4double dPTFE03HeightArray[] = {dPTFE03Height1,
+                                     dPTFE03Height2,
+                                     dPTFE03Height3,
+                                     dPTFE03Height4,
+                                     dPTFE03Height5,
+                                     dPTFE03Height6,
+                                     dPTFE03Height7,
+                                     dPTFE03Height8,
+                                     dPTFE03Height9,
+                                     dPTFE03Height10,
+                                     dPTFE03Height11,
+                                     dPTFE03Height12};
 
-    // Set Subtraction Solid variables
-    G4double dPTFE03StockCylinder1InnerRadius = 0.0 * mm;
-    G4double dPTFE03StockCylinder1OuterRadius = 4.0 * mm;
-    G4double dPTFE03StockCylinder1Height      = 12.0 * mm; // Has to go through
+    G4double dPTFE03InnerRadius13 = 46.0 * mm;
+    G4double dPTFE03OuterRadius13 = 2 * dPTFE03Radius6 - dPTFE03InnerRadius13;
+    G4double dPTFE03Height13      = 4 * dPTFE03Height5;
+    G4double dPTFE03Shelf13       = 30.0 * mm;
+    G4double dPTFE03Angle13       = (2 * M_PI - 6 * asin(dPTFE03Shelf13 / (2 * dPTFE03InnerRadius13))) / 3;
 
-    G4double dPTFE03StockWingInnerRadius = 46.0 * mm;
-    G4double dPTFE03StockWingOuterRadius = dPTFE03StockWingInnerRadius + 20.0 * mm;
-    G4double dPTFE03StockWingHeight      = 2 * dPTFE03StockHeight5;
-    G4double dPTFE03StockWingStartAngle  = 32.255 * deg;
+    G4double dPTFE03Length14 = 2 * (dPTFE03Radius6 - dPTFE03InnerRadius13);
+    G4double dPTFE03Width14  = dPTFE03Length;
+    G4double dPTFE03Height14 = dPTFE03Height13;
 
-    G4double dPTFE03StockCylinder1R = 47.75 * mm;
-    G4double dPTFE03StockCylinder1X = dPTFE03StockCylinder1R * (cos(10.5 * deg) * mm);
-    G4double dPTFE03StockCylinder1Y = dPTFE03StockCylinder1R * (sin(10.5 * deg) * mm);
-    G4double dPTFE03StockCylinder1Z = dPTFE03StockHeight5;
+    G4double dPTFE03Radius15 = 4.0 * mm;
+    G4double dPTFE03Height15 = dPTFE03Height13;
 
-    G4double dPTFE03StockWingX = 0.00 * mm;
-    G4double dPTFE03StockWingY = 0.00 * mm;
-    G4double dPTFE03StockWingZ = 0.00 * mm;
+    G4RotationMatrix dPTFE03SS3Rotation;
+    dPTFE03SS3Rotation.rotateZ(M_PI / 3);
 
-    G4RotationMatrix dPTFE03StockCylinderRot;
-    dPTFE03StockCylinderRot.rotateZ(0.00);
+    G4RotationMatrix dPTFE03SS4Rotation;
+    dPTFE03SS4Rotation.rotateZ(M_PI);
 
-    G4ThreeVector dPTFE03StockWingXYZ(dPTFE03StockWingX, dPTFE03StockWingY, dPTFE03StockWingZ);
+    G4RotationMatrix dPTFE03SS5Rotation;
+    dPTFE03SS5Rotation.rotateZ(5 * M_PI / 3);
 
-    G4ThreeVector dPTFE03StockCylinder1XYZ(dPTFE03StockCylinder1X, dPTFE03StockCylinder1Y, dPTFE03StockCylinder1Z);
-    G4Transform3D dPTFE03StockCylinder1Transform(dPTFE03StockCylinderRot, dPTFE03StockCylinder1XYZ);
+    G4double dPTFE03SS67891011PlacementX = dPTFE03InnerRadius13 + 0.5 * dPTFE03Length14;                                      
+    G4double dPTFE03SS6810PlacementY     = 0.5 * (dPTFE03Shelf13 + dPTFE03Width14);
+    G4double dPTFE03SS7911PlacementY     = -dPTFE03SS6810PlacementY;
+    G4double dPTFE03SS67891011PlacementZ = 0.0;
 
-    G4RotationMatrix dPTFE03StockWingRot1;
-    dPTFE03StockWingRot1.rotateZ(0.00 * mm);
-    G4Transform3D dPTFE03StockWingTransform1(dPTFE03StockWingRot1, dPTFE03StockWingXYZ);
+    G4ThreeVector dPTFE03SS6810XYZ(dPTFE03SS67891011PlacementX, dPTFE03SS6810PlacementY, dPTFE03SS67891011PlacementZ);
+    G4ThreeVector dPTFE03SS7911XYZ(dPTFE03SS67891011PlacementX, dPTFE03SS7911PlacementY, dPTFE03SS67891011PlacementZ);
+    G4RotationMatrix dPTFE03SS67Rotation;
+    dPTFE03SS67Rotation.rotateZ(0);
 
-    G4RotationMatrix dPTFE03StockWingRot2;
-    dPTFE03StockWingRot2.rotateZ(120 * deg);
-    G4Transform3D dPTFE03StockWingTransform2(dPTFE03StockWingRot2, dPTFE03StockWingXYZ);
+    G4RotationMatrix dPTFE03SS89Rotation;
+    dPTFE03SS89Rotation.rotateZ(2 * M_PI / 3);
 
-    G4RotationMatrix dPTFE03StockWingRot3;
-    dPTFE03StockWingRot3.rotateZ(240 * deg);
-    G4Transform3D dPTFE03StockWingTransform3(dPTFE03StockWingRot3, dPTFE03StockWingXYZ);
+    G4RotationMatrix dPTFE03SS1011Rotation;
+    dPTFE03SS1011Rotation.rotateZ(4 * M_PI / 3);
 
-    // Set PTFE03 Placement Values
-    G4double dPTFE03StockPlacementX = 0.000 * mm;
-    G4double dPTFE03StockPlacementY = 0.000 * mm;
-    G4double dPTFE03StockPlacementZ = dInnerCryostatHeight1 - 47.0 * cm; // 02 Stock Placement Z + dPTFE03StockHeight5 + dPTFE02StockHeight5
-    G4ThreeVector dPTFE03StockPlacement(dPTFE03StockPlacementX, dPTFE03StockPlacementY, dPTFE03StockPlacementZ);
+    G4double dPTFE03SS12PlacementX = 47.75 * mm;
+    G4double dPTFE03SS12PlacementY = 0.0;
+    G4double dPTFE03SS12PlacementZ = 0.0;
 
-    // Create Subtraction Solids
-    G4Tubs* pPTFE03StockCylinder1S = new G4Tubs("pPTFE03StockCylinder1S", dPTFE03StockCylinder1InnerRadius, dPTFE03StockCylinder1OuterRadius, 0.5 * dPTFE03StockCylinder1Height, 0, 2 * M_PI);
-    G4Tubs* pPTFE03StockWingS      = new G4Tubs("pPTFE03StockWingS", dPTFE03StockWingInnerRadius, dPTFE03StockWingOuterRadius, dPTFE03StockWingHeight, 0.5 * dPTFE03StockWingStartAngle, -dPTFE03StockWingStartAngle + 120 * deg);
+    G4ThreeVector dPTFE03SS12XYZ(dPTFE03SS12PlacementX, dPTFE03SS12PlacementY, dPTFE03SS12PlacementZ);
+    G4RotationMatrix dPTFE03SS12Rotation;
+    dPTFE03SS12Rotation.rotateZ(-10.5 * degree);
 
-    G4GenericPolycone* pPTFE03Stock = new G4GenericPolycone("pPTFE03Stock", 0, 2 * M_PI, 12, dPTFE03StockRadiusArray, dPTFE03StockHeightArray);
-    
-    G4SubtractionSolid* pPTFE03StockCylinder1 = new G4SubtractionSolid("pPTFE03StockCylinder1", pPTFE03Stock, pPTFE03StockCylinder1S, dPTFE03StockCylinder1Transform);
+    G4double dPTFE03PlacementX = 0;
+    G4double dPTFE03PlacementY = 0;
+    G4double dPTFE03PlacementZ = dInnerCryostatHeight1 - 47.0 * cm;
 
-    G4SubtractionSolid* pPTFE03StockWingSub1 = new G4SubtractionSolid("pPTFE03StockWingSub1", pPTFE03StockCylinder1, pPTFE03StockWingS, dPTFE03StockWingTransform1);
-    G4SubtractionSolid* pPTFE03StockWingSub2 = new G4SubtractionSolid("pPTFE03StockWingSub2", pPTFE03StockWingSub1, pPTFE03StockWingS, dPTFE03StockWingTransform2);
-    G4SubtractionSolid* pPTFE03              = new G4SubtractionSolid("pPTFE03StockWing", pPTFE03StockWingSub2, pPTFE03StockWingS, dPTFE03StockWingTransform3);
+    G4ThreeVector dPTFE03XYZ(dPTFE03PlacementX, dPTFE03PlacementY, dPTFE03PlacementZ);
 
-    // Create PTFE03
-    pPTFE03LV = new G4LogicalVolume(pPTFE03, G4Material::GetMaterial("PTFE"), "PTFE03");
-    pPTFE03PV = new G4PVPlacement(0, dPTFE03StockPlacement, pPTFE03LV, "PTFE03", pMotherLV, false, detectOverlap);
+    ///////////////////
+    // Create PTFE03 //
+    ///////////////////
+    G4GenericPolycone*  pPTFE03Polycone1 = new G4GenericPolycone("PTFE03Polycone1", 0.0, 2 * M_PI, 12, dPTFE03RadiusArray, dPTFE03HeightArray);
+    G4Tubs*             pPTFE03Cylinder2 = new G4Tubs("PTFE03Cylinder1", dPTFE03InnerRadius13, dPTFE03OuterRadius13, 0.5 * dPTFE03Height13, -0.5 * dPTFE03Angle13, dPTFE03Angle13);
+    G4SubtractionSolid* pPTFE03SS3       = new G4SubtractionSolid( "PTFE03SS3", pPTFE03Polycone1, pPTFE03Cylinder3, dPTFE03SS3Rotation, 0);
+    G4SubtractionSolid* pPTFE03SS4       = new G4SubtractionSolid( "PTFE03SS4",  pPTFE03SS3, pPTFE03Cylinder3, dPTFE03SS4Rotation, 0);
+    G4SubtractionSolid* pPTFE03SS5       = new G4SubtractionSolid( "PTFE03SS5",  pPTFE03SS4, pPTFE03Cylinder3, dPTFE03SS5Rotation, 0);
+    G4Box*              pPTFE03Box       = new G4Box("PTFE03Box", 0.5 * dPTFE03Length, 0.5 * dPTFE03Width, 0.5 * dPTFE03Height);
+    G4SubtractionSolid* pPTFE03SS6       = new G4SubtractionSolid( "PTFE03SS6",  pPTFE03SS5, pPTFE03Box,   dPTFE03SS67Rotation, dPTFE03SS6810XYZ);
+    G4SubtractionSolid* pPTFE03SS7       = new G4SubtractionSolid( "PTFE03SS7",  pPTFE03SS6, pPTFE03Box,   dPTFE03SS67Rotation, dPTFE03SS7911XYZ);
+    G4SubtractionSolid* pPTFE03SS8       = new G4SubtractionSolid( "PTFE03SS8",  pPTFE03SS7, pPTFE03Box,   dPTFE03SS89Rotation, dPTFE03SS6810XYZ);
+    G4SubtractionSolid* pPTFE03SS9       = new G4SubtractionSolid( "PTFE03SS9",  pPTFE03SS8, pPTFE03Box,   dPTFE03SS89Rotation, dPTFE03SS7911XYZ);
+    G4SubtractionSolid* pPTFE03SS10      = new G4SubtractionSolid("PTFE03SS10",  pPTFE03SS9, pPTFE03Box, dPTFE03SS1011Rotation, dPTFE03SS6810XYZ);
+    G4SubtractionSolid* pPTFE03SS11      = new G4SubtractionSolid("PTFE03SS11", pPTFE03SS10, pPTFE03Box, dPTFE03SS1011Rotation, dPTFE03SS7911XYZ);
+    G4Tubs*             pPTFE03Cylinder  = new G4Tubs("PTFE03Cylinder", 0, dPTFE03Radius15, 0.5 * dPTFE03Height15, 0, 2 * M_PI);
+    G4SubtractionSolid* pPTFE03          = new G4SubtractionSolid("PTFE03", pPTFE03SS11, pPTFE03Cylinder, dPTFE03SS12Rotation, dPTFE03SS12XYZ);
+
+    G4LogicalVolume* pPTFE03LV = new G4LogicalVolume(pPTFE03, G4Material::GetMaterial("PTFE"), "PTFE03");
+    G4PVPlacement*   pPTFE03PV = new G4PVPlacement(0, dPTFE03XYZ, pPTFE03LV, "PTFE03", pMotherLV, false, detectOverlap);
 
     ///////////////////////////
     // Construct GXe and LXe //
     ///////////////////////////
 
-    // Set GXe and LXe variables
-    G4double dGXeAndLXeRadius = 5.66420 * cm;
+    ///////////////////////////////
+    // Set GXe and LXe variables //
+    ///////////////////////////////
+    G4double dGXeAndLXeRadius = 56.6420 * cm;
     G4double dGXeAndLXeHeight = 2 * dInnerCryostatHeight1 + dInnerCryostatRadius8 * (cos(asin(dGXeAndLXeRadius / dInnerCryostatRadius8)) - cos(asin(dInnerCryostatRadius4 / dInnerCryostatRadius8))) - 0.06096 * cm;
 
     ///////////////////
     // Construct GXe //
     ///////////////////
 
-    // Set GXe variables
+    ///////////////////////
+    // Set GXe variables //
+    ///////////////////////
     G4double dGXeRadius = dGXeAndLXeRadius;
     G4double dGXeHeight = 47.00000*cm;
-    
-    G4double dGXePlacementX = 0.00000 * cm;
-    G4double dGXePlacementY = 0.00000 * cm;
-    G4double dGXePlacementZ = dInnerCryostatHeight1 - 0.5 * dGXeHeight;
 
-    G4double dGXePTFE03PlacementX = 0.00 * cm;
-    G4double dGXePTFE03PlacementY = 0.00 * cm;
-    G4double dGXePTFE03PlacementZ = -0.5 * dGXeHeight;
+    G4double dGXeSS1PlacementX = 0;
+    G4double dGXeSS1PlacementY = 0;
+    G4double dGXeSS1PlacementZ = -0.5 * dGXeHeight;
+
+    G4ThreeVector dGXeSS1XYZ(dGXeSS1PlacementX, dGXeSS1PlacementY, dGXeSS1PlacementZ);
+
+    G4double dGXePlacementX = 0;
+    G4double dGXePlacementY = 0;
+    G4double dGXePlacementZ = dInnerCryostatHeight1 - 0.5 * dGXeHeight;
 
     G4ThreeVector dGXeXYZ(dGXePlacementX, dGXePlacementY, dGXePlacementZ);
 
-    G4RotationMatrix dGXePTFE03Rot;
-    dGXePTFE03Rot.rotateZ(0.00);
-    G4ThreeVector dGXePTFE03XYZ(dGXePTFE03PlacementX, dGXePTFE03PlacementY, dGXePTFE03PlacementZ);
-    G4Transform3D dGXePTFE03Transform(dGXePTFE03Rot, dGXePTFE03XYZ);
+    ////////////////
+    // Create GXe //
+    ////////////////
+    G4Tubs* pGxeCylinder = new G4Tubs("GXeCylinder", 0, dGXeRadius, 0.5 * dGXeHeight, 0, 2 * M_PI);
+    G4SubtractionSolid* pGXe = new G4SubtractionSolid("GXe", pGXeCylinder, pPTFE03, 0, dGXeSS1XYZ);
 
-    // Create Subtraction solids    
-    G4Tubs* pGXeCylinder = new G4Tubs("GXeCylinder", 0.0*cm, dGXeRadius, 0.5 * dGXeHeight, 0.0, 2 * M_PI);
-
-    G4SubtractionSolid* pGXe = new G4SubtractionSolid("GXe", pGXeCylinder, pPTFE03, dGXePTFE03Transform);
-
-    // Create GXe
-    G4LogicalVolume* pGXeLV = new G4LogicalVolume(pGXe, G4Material::GetMaterial("GXe"), "GXeLV");
-    G4PVPlacement* pGXePV = new G4PVPlacement(0, dGXeXYZ, pGXeLV, "GXe", pMotherLV, false, detectOverlap);
+    G4LogicalVolume* pGXeLV = new G4LogicalVolume(pGXe, G4Material::GetMaterial("GXe"), "GXe");
+    G4PVPlacement*   pGXePV = new G4PVPlacement(0, dGXeXYZ, pGXeLV, "GXe", pMotherLV, false, detectOverlap);
 
     G4VisAttributes* pGXeVisAtt = new G4VisAttributes(G4Colour(0.0, 0.0, 1.0, 0.30));
     pGXeVisAtt->SetForceSolid(true);
@@ -1098,45 +1111,41 @@ void RELAXDetectorConstruction::ConstructCryostat()
     // Construct LXe //
     ///////////////////
 
-    // Set LXe variables
+    ///////////////////////
+    // Set LXe variables //
+    ///////////////////////
     G4double dLXeRadius1 = dGXeAndLXeRadius;
     G4double dLXeHeight1 = dGXeAndLXeHeight - dGXeHeight; //2 * dPTFE00StockHeight1 + 2 * dPTFE01StockHeight5 + 2 * dPTFE02StockHeight5 + dPTFE03StockHeight5 + 170 * mm;
     G4double dLXeRadius2 = dInnerCryostatRadius8;
 
-    G4double dLXeUS1PlacementX = 0.00000 * cm;
-    G4double dLXeUS1PlacementY = 0.00000 * cm;
+    G4double dLXeUS1PlacementX = 0;
+    G4double dLXeUS1PlacementY = 0;
     G4double dLXeUS1PlacementZ = -0.5 * dLXeHeight1 + cos(asin(dLXeRadius1 / dLXeRadius2)) * dLXeRadius2;
 
-    G4double dLXePlacementX = 0.00000*cm;
-    G4double dLXePlacementY = 0.00000*cm;
+    G4ThreeVector dLXeUS1XYZ(dLXeUS1PlacementX, dLXeUS1PlacementY, dLXeUS1PlacementZ);
+
+    G4double dLXeSS2PlacementX = 0;
+    G4double dLXeSS2PlacementY = 0;
+    G4double dLXeSS2PlacementZ = 0.5 * dLXeHeight1
+
+    G4ThreeVector dLXeSS2XYZ(dLXeSS2PlacementX, dLXeSS2PlacementY, dLXeSS2PlacementZ);
+
+    G4double dLXePlacementX = 0;
+    G4double dLXePlacementY = 0;
     G4double dLXePlacementZ = dInnerCryostatHeight1 - dGXeHeight - 0.5 * dLXeHeight1;
 
-    G4double dLXePTFE03PlacementX = 0.00 * cm;
-    G4double dLXePTFE03PlacementY = 0.00 * cm;
-    G4double dLXePTFE03PlacementZ = 0.5 * dLXeHeight1;
+    G4ThreeVector dLXeXYZ(dLXePlacementX, dLXePlacementY, dLXePlacementZ);
 
-    G4ThreeVector dLXePlacementXYZ(dLXePlacementX, dLXePlacementY, dLXePlacementZ);
+    ////////////////
+    // Create LXe //
+    ////////////////
+    G4Tubs* pLXeCylinder1 = new G4Tubs("LXeCylinder1", 0, dLXeRadius1, 0.5 * dLXeHeight1, 0, 2 * M_PI);
+    G4Sphere* pLXeSphere2 = new G4Sphere("LXeSphere2", 0, dLXeRadius2, 0, 2 * M_PI, M_PI - asin(dLXeRadius1 / dLXeRadius2), asin(dLXeRadius1 / dLXeRadius2));
+    G4UnionSolid* pLXeUS1 = new G4UnionSolid("LXeUS1", pLXeCylinder1, pLXeSphere2, 0, dLXeUS1XYZ);
+    G4SubtractionSolid* pLXe = new G4SubtractionSolid("LXe", pLXeUS1, pPTFE03, 0, dLXeSS2XYZ);
 
-    G4RotationMatrix dLXeUS1Rot;
-    dLXeUS1Rot.rotateZ(0.00);
-    G4ThreeVector dLXeUS1XYZ(dLXeUS1PlacementX, dLXeUS1PlacementY, dLXeUS1PlacementZ);
-    G4Transform3D dLXeUS1Transform(dLXeUS1Rot, dLXeUS1XYZ);
-
-    G4RotationMatrix dLXePTFE03Rot;
-    dLXePTFE03Rot.rotateZ(0.00);
-    G4ThreeVector dLXePTFE03XYZ(dLXePTFE03PlacementX, dLXePTFE03PlacementY, dLXePTFE03PlacementZ);
-    G4Transform3D dLXePTFE03Transform(dLXePTFE03Rot, dLXePTFE03XYZ);
-
-    // Create subtraction solids
-    G4Tubs* pLXeCylinder1 = new G4Tubs("LXeCylinder1", 0.0 * cm, dLXeRadius1, 0.5 * dLXeHeight1, 0.0, 2 * M_PI);
-    G4Sphere* pLXeSphere2 = new G4Sphere("LXeSphere2", 0.0 * cm, dLXeRadius2, 0.0, 2 * M_PI, M_PI - asin(dLXeRadius1 / dLXeRadius2), asin(dLXeRadius1 / dLXeRadius2));
-    
-    G4SubtractionSolid* pLXePTFE03 = new G4SubtractionSolid("LXePTFE03", pLXeCylinder1, pPTFE03, dLXePTFE03Transform);
-    G4UnionSolid* pLXe = new G4UnionSolid("LXe", pLXePTFE03, pLXeSphere2, dLXeUS1Transform);
-
-    // Create LXe
-    G4LogicalVolume* pLXeLV = new G4LogicalVolume(pLXePTFE03, G4Material::GetMaterial("LXe"), "LXeLV");
-    G4PVPlacement* pLXePV = new G4PVPlacement(0, dLXePlacementXYZ, pLXeLV, "LXe", pMotherLV, false, detectOverlap);
+    G4LogicalVolume* pLXeLV = new G4LogicalVolume(pLXe, G4Material::GetMaterial("LXe"), "LXe");
+    G4PVPlacement*   pLXePV = new G4PVPlacement(0, dLXePlacementXYZ, pLXeLV, "LXe", pMotherLV, false, detectOverlap);
 
     G4VisAttributes* pLXeVisAtt = new G4VisAttributes(G4Colour(1.0, 1.0, 1.0, 0.30));
     pLXeVisAtt->SetForceSolid(true);
@@ -1144,95 +1153,105 @@ void RELAXDetectorConstruction::ConstructCryostat()
 
     pMotherLV = pLXeLV;
 
-
     //////////////////////
     // Construct PTFE02 //
     //////////////////////
 
-    // Set PTFE02Stock Variables
-    G4double dPTFE02StockRadius1  = dPTFE03StockRadius1;
-    G4double dPTFE02StockRadius2  = dPTFE03StockRadius2;
-    G4double dPTFE02StockRadius3  = dPTFE03StockRadius2;
-    G4double dPTFE02StockRadius4  = dPTFE03StockRadius4;
-    G4double dPTFE02StockRadius5  = dPTFE03StockRadius4;
-    G4double dPTFE02StockRadius6  = dPTFE03StockRadius6;
-    G4double dPTFE02StockRadius7  = dPTFE03StockRadius6;
-    G4double dPTFE02StockRadius8  = 36.000 * mm;
-    G4double dPTFE02StockRadius9  = dPTFE02StockRadius8;
-    G4double dPTFE02StockRadius10 = dPTFE03StockRadius2;
-    G4double dPTFE02StockRadius11 = dPTFE03StockRadius2;
-    G4double dPTFE02StockRadius12 = dPTFE02StockRadius8;
-    G4double dPTFE02StockRadius13 = dPTFE02StockRadius8;
-    G4double dPTFE02StockRadius14 = dPTFE03StockRadius6;
-    G4double dPTFE02StockRadius15 = dPTFE03StockRadius6;
-    G4double dPTFE02StockRadius16 = dPTFE03StockRadius4;
-    G4double dPTFE02StockRadius17 = dPTFE03StockRadius4;
-    G4double dPTFE02StockRadius18 = dPTFE03StockRadius2;
-    G4double dPTFE02StockRadius19 = dPTFE03StockRadius2;
-    G4double dPTFE02StockRadius20 = dPTFE03StockRadius1;
+    //////////////////////////
+    // Set PTFE02 Variables //
+    //////////////////////////
+    G4double dPTFE02Radius1  = dPTFE03Radius1;
+    G4double dPTFE02Radius2  = dPTFE03Radius2;
+    G4double dPTFE02Radius3  = dPTFE03Radius2;
+    G4double dPTFE02Radius4  = dPTFE03Radius4;
+    G4double dPTFE02Radius5  = dPTFE03Radius4;
+    G4double dPTFE02Radius6  = dPTFE03Radius6;
+    G4double dPTFE02Radius7  = dPTFE03Radius6;
+    G4double dPTFE02Radius8  = 36.00 * mm;
+    G4double dPTFE02Radius9  = dPTFE02Radius8;
+    G4double dPTFE02Radius10 = dPTFE03Radius2;
+    G4double dPTFE02Radius11 = dPTFE03Radius2;
+    G4double dPTFE02Radius12 = dPTFE02Radius8;
+    G4double dPTFE02Radius13 = dPTFE02Radius8;
+    G4double dPTFE02Radius14 = dPTFE03Radius6;
+    G4double dPTFE02Radius15 = dPTFE03Radius6;
+    G4double dPTFE02Radius16 = dPTFE03Radius4;
+    G4double dPTFE02Radius17 = dPTFE03Radius4;
+    G4double dPTFE02Radius18 = dPTFE03Radius2;
+    G4double dPTFE02Radius19 = dPTFE03Radius2;
+    G4double dPTFE02Radius20 = dPTFE03Radius1;
 
-    G4double dPTFE02StockRadiusArray[] = { dPTFE02StockRadius1,
-                                      dPTFE02StockRadius2,
-                                      dPTFE02StockRadius3,
-                                      dPTFE02StockRadius4,
-                                      dPTFE02StockRadius5,
-                                      dPTFE02StockRadius6,
-                                      dPTFE02StockRadius7,
-                                      dPTFE02StockRadius8,
-                                      dPTFE02StockRadius9,
-                                      dPTFE02StockRadius10,
-                                      dPTFE02StockRadius11,
-                                      dPTFE02StockRadius12,
-                                      dPTFE02StockRadius13,
-                                      dPTFE02StockRadius14,
-                                      dPTFE02StockRadius15,
-                                      dPTFE02StockRadius16,
-                                      dPTFE02StockRadius17,
-                                      dPTFE02StockRadius18,
-                                      dPTFE02StockRadius19,
-                                      dPTFE02StockRadius20};
+    G4double dPTFE02RadiusArray[] = {dPTFE02Radius1,
+                                     dPTFE02Radius2,
+                                     dPTFE02Radius3,
+                                     dPTFE02Radius4,
+                                     dPTFE02Radius5,
+                                     dPTFE02Radius6,
+                                     dPTFE02Radius7,
+                                     dPTFE02Radius8,
+                                     dPTFE02Radius9,
+                                     dPTFE02Radius10,
+                                     dPTFE02Radius11,
+                                     dPTFE02Radius12,
+                                     dPTFE02Radius13,
+                                     dPTFE02Radius14,
+                                     dPTFE02Radius15,
+                                     dPTFE02Radius16,
+                                     dPTFE02Radius17,
+                                     dPTFE02Radius18,
+                                     dPTFE02Radius19,
+                                     dPTFE02Radius20};
 
-    G4double dPTFE02StockHeight1  = 19.90 * mm;
-    G4double dPTFE02StockHeight2  = dPTFE02StockHeight1;
-    G4double dPTFE02StockHeight3  = 18.50 * mm;
-    G4double dPTFE02StockHeight4  = dPTFE02StockHeight3;
-    dPTFE02StockHeight5  = 20.00 * mm;
-    G4double dPTFE02StockHeight6  = dPTFE02StockHeight5;
-    G4double dPTFE02StockHeight7  = 14.50 * mm;
-    G4double dPTFE02StockHeight8  = dPTFE02StockHeight7;
-    G4double dPTFE02StockHeight9  = 15.50 * mm;
-    G4double dPTFE02StockHeight10 = dPTFE02StockHeight9;
-    G4double dPTFE02StockHeight11 = -15.50 * mm;
-    G4double dPTFE02StockHeight12 = dPTFE02StockHeight11;
-    G4double dPTFE02StockHeight13 = -14.50 * mm;
-    G4double dPTFE02StockHeight14 = dPTFE02StockHeight13;
-    G4double dPTFE02StockHeight15 = -dPTFE02StockHeight5;
-    G4double dPTFE02StockHeight16 = -dPTFE02StockHeight5;
-    G4double dPTFE02StockHeight17 = -dPTFE02StockHeight3;
-    G4double dPTFE02StockHeight18 = -dPTFE02StockHeight3;
-    G4double dPTFE02StockHeight19 = -dPTFE02StockHeight1;
-    G4double dPTFE02StockHeight20 = -dPTFE02StockHeight1;
+    G4double dPTFE02Height1  =  19.73 * mm;
+    G4double dPTFE02Height2  =  dPTFE02Height1;
+    G4double dPTFE02Height3  =  18.43 * mm;
+    G4double dPTFE02Height4  =  dPTFE02Height3;
+    G4double dPTFE02Height5  =  20.00 * mm;
+    G4double dPTFE02Height6  =  dPTFE02Height5;
+    G4double dPTFE02Height7  =  14.50 * mm;
+    G4double dPTFE02Height8  =  dPTFE02Height7;
+    G4double dPTFE02Height9  =  15.50 * mm;
+    G4double dPTFE02Height10 =  dPTFE02Height9;
+    G4double dPTFE02Height11 = -dPTFE02Height9;
+    G4double dPTFE02Height12 = -dPTFE02Height9;
+    G4double dPTFE02Height13 = -dPTFE02Height7;
+    G4double dPTFE02Height14 = -dPTFE02Height7;
+    G4double dPTFE02Height15 = -dPTFE02Height5;
+    G4double dPTFE02Height16 = -dPTFE02Height5;
+    G4double dPTFE02Height17 = -18.70 * mm;
+    G4double dPTFE02Height18 = -dPTFE02Height17;
+    G4double dPTFE02Height19 = -dPTFE02Height1;
+    G4double dPTFE02Height20 = -dPTFE02Height1;
 
-    G4double dPTFE02StockHeightArray[] = { dPTFE02StockHeight1,
-                                      dPTFE02StockHeight2,
-                                      dPTFE02StockHeight3,
-                                      dPTFE02StockHeight4,
-                                      dPTFE02StockHeight5,
-                                      dPTFE02StockHeight6,
-                                      dPTFE02StockHeight7,
-                                      dPTFE02StockHeight8,
-                                      dPTFE02StockHeight9,
-                                     dPTFE02StockHeight10,
-                                     dPTFE02StockHeight11,
-                                     dPTFE02StockHeight12,
-                                     dPTFE02StockHeight13,
-                                     dPTFE02StockHeight14,
-                                     dPTFE02StockHeight15,
-                                     dPTFE02StockHeight16,
-                                     dPTFE02StockHeight17,
-                                     dPTFE02StockHeight18,
-                                     dPTFE02StockHeight19,
-                                     dPTFE02StockHeight20};
+    G4double dPTFE02HeightArray[] = {dPTFE02Height1,
+                                     dPTFE02Height2,
+                                     dPTFE02Height3,
+                                     dPTFE02Height4,
+                                     dPTFE02Height5,
+                                     dPTFE02Height6,
+                                     dPTFE02Height7,
+                                     dPTFE02Height8,
+                                     dPTFE02Height9,
+                                     dPTFE02Height10,
+                                     dPTFE02Height11,
+                                     dPTFE02Height12,
+                                     dPTFE02Height13,
+                                     dPTFE02Height14,
+                                     dPTFE02Height15,
+                                     dPTFE02Height16,
+                                     dPTFE02Height17,
+                                     dPTFE02Height18,
+                                     dPTFE02Height19,
+                                     dPTFE02Height20};
+
+
+
+    ///////////////////
+    // Create PTFE02 //
+    ///////////////////
+    G4GenericPolycone* pPTFE02Polycone1 = new G4GenericPolycone("PTFE02Polycone1", 0, 2 * M_PI, 20, dPTFE02RadiusArray, dPTFE02HeightArray);
+
+
 
     // Set Subtraction Solids Variables
     G4double dPTFE02StockBox1Length = 3.175 * mm;
